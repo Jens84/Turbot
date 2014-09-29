@@ -12,6 +12,6 @@
     }
   ],
   "git": "git@github.com:Jens84/dmup.git", 
-  "description": "",
+  "description": "a random description",
   "modules": ["nltk", "csv", "django", "pandas", "gensim", "sklearn"]
 }
