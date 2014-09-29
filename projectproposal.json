@@ -1,0 +1,17 @@
+{
+  "title": "",
+  "members": [ 
+    { "name": "Jullian Robert Jacques Bellino", 
+      "study_number": "s142278"
+    }, 
+    { "name": "José Esteves",
+      "study_number": "s142415"
+    },
+    { "name": "Jérémy Rombourg",
+      "study_number": "s142279"
+    }
+  ],
+  "git": "git@github.com:Jens84/dmup.git", 
+  "description": "",
+  "modules": ["nltk", "csv", "django", "pandas", "gensim", "sklearn"]
+}
