@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 
 class Question(models.Model):
@@ -6,6 +7,11 @@ class Question(models.Model):
 
     def __str__(self):
         return self.content
+
+
+class QuestionForm(ModelForm):
+    class Meta:
+        model = Question
 
 
 class Answer(models.Model):
