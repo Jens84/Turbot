@@ -11,7 +11,7 @@
       "study_number": "s142279"
     }
   ],
-  "git": "git@github.com:Jens84/dmup.git", 
+  "git": "git@github.com:Jens84/Turbot.git", 
   "description": "This project will use some natural language processing to be able to answer user's questions and sentences. It will include a web-served application using Django framework. It should use NLTK library and some databases/websites to improve its working domain",
   "modules": ["nltk", "django", "gensim", "sklearn"]
 }

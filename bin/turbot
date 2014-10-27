@@ -1,0 +1,21 @@
+#! /usr/bin/env python
+"""Turbot.
+
+Usage: turbot <sentence>
+       turbot --version
+       turbot (-h | --help)
+
+"""
+import sys
+
+from docopt import docopt
+
+import turbot
+
+
+if __name__ == '__main__':
+    args = docopt(__doc__, version=turbot.__version__)
+    try:
+        print(turbot.Turbot(args['<sentence>']))
+    except ValueError as e:
+        sys.exit(e)
