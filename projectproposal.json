@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Turbot",
   "members": [ 
     { "name": "Jullian Robert Jacques Bellino", 
       "study_number": "s142278"
@@ -12,6 +12,6 @@
     }
   ],
   "git": "git@github.com:Jens84/dmup.git", 
-  "description": "",
-  "modules": ["nltk", "csv", "django", "pandas", "gensim", "sklearn"]
+  "description": "This project will use some natural language processing to be able to answer user's questions and sentences. It will include a web-served application using Django framework. It should use NLTK library and some databases/websites to improve its working domain",
+  "modules": ["nltk", "django", "gensim", "sklearn"]
 }
