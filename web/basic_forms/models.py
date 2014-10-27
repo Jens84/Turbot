@@ -12,6 +12,7 @@ class Question(models.Model):
 class QuestionForm(ModelForm):
     class Meta:
         model = Question
+        fields = ['content']
 
 
 class Answer(models.Model):

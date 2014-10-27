@@ -9,7 +9,6 @@ def index(request):
     answer = ""
     if request.method == 'POST':
         q = QuestionForm(request.POST)
-        print q
         if q.is_valid():
             q.save()
 
@@ -18,7 +17,6 @@ def index(request):
 
     try:
         last_question = Question.objects.latest('id')
-        print last_question
 
     except:
         last_question = ""
