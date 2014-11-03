@@ -2,7 +2,8 @@ from django.shortcuts import render
 
 from basic_forms.models import Question
 from basic_forms.models import QuestionForm
-from basic_forms.models import Answer
+
+import turbot
 
 
 def index(request):
@@ -11,9 +12,7 @@ def index(request):
         q = QuestionForm(request.POST)
         if q.is_valid():
             q.save()
-
-        #TODO : find an answer
-        answer = Answer.objects.latest('id')
+        answer = turbot.Turbot(Question.objects.latest('id'))
 
     try:
         last_question = Question.objects.latest('id')
