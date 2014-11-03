@@ -6,7 +6,7 @@ Summary: Answering to some sentences.
 Examples
 --------
 >>> Turbot('How are you?')
-Fine, and you?
+'Fine, and you?'
 
 
 Home-page: http://github.com/Jens84/Turbot
@@ -33,7 +33,7 @@ Description: Turbot implementation
         
             >>> from turbot import Turbot
             >>> Turbot("How are you?")
-            Fine, and you?
+            'Fine, and you?'
         
 Keywords: turbot
 Platform: UNKNOWN
