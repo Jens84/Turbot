@@ -1,0 +1,32 @@
+			Project Notes
+
+Question classification training set:
+http://cogcomp.cs.illinois.edu/Data/QA/QC/
+
+
+
+Thesaurus (word synonyms)
+Use NLTK library:
+from nltk.corpus import wordnet
+wordnet.synsets(‘…….’)
+
+
+
+
+
+
+The following information about NLTK text modules were taken from here: http://www.nltk.org/book/ch02.html#sec-extracting-text-from-corpora
+
+ - NLTK webtext (text from web forums)
+from nltk.corpus import webtext
+for fileid in webtext.fileids():
+	print(fileid, webtext.raw(fileid)   ……. )
+
+ - NLTK webtext (text from chats)
+from nltk.corpus import nps_chat
+
+ - NLTK news topics
+from nltk.corpus import reuters
+
+
+
