@@ -30,3 +30,5 @@ from nltk.corpus import reuters
 
 
 
+Check: http://www.nltk.org/book/ch06.html#chap-data-intensive
+
