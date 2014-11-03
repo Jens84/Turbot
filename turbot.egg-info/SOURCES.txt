@@ -1,0 +1,9 @@
+README.rst
+setup.py
+bin/turbot
+test/test_turbot.py
+turbot.egg-info/PKG-INFO
+turbot.egg-info/SOURCES.txt
+turbot.egg-info/dependency_links.txt
+turbot.egg-info/requires.txt
+turbot.egg-info/top_level.txt

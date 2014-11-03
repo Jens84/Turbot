@@ -1,0 +1,41 @@
+Metadata-Version: 1.1
+Name: turbot
+Version: 0.0.1
+Summary: Answering to some sentences.
+
+Examples
+--------
+>>> Turbot('How are you?')
+Fine, and you?
+
+
+Home-page: http://github.com/Jens84/Turbot
+Author: JBO, JES, JRG
+Author-email: jeremy.rombourg@gmail.com
+License: UNKNOWN
+Description: Turbot implementation
+        =============================
+        
+        
+        Installation
+        ------------
+        
+        .. code::
+        
+            pip install turbot
+        
+        
+        Usage
+        -----
+        
+        
+        .. code:: python
+        
+            >>> from turbot import Turbot
+            >>> Turbot("How are you?")
+            Fine, and you?
+        
+Keywords: turbot
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.4
