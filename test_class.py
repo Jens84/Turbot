@@ -1,7 +1,7 @@
 import nltk.classify.util
 
 
-posts = nltk.corpus.nps_chat.xml_posts()[:40000]
+posts = nltk.corpus.nps_chat.xml_posts()[:10000]
 
 
 def dialogue_act_features(post):
