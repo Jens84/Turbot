@@ -7,7 +7,6 @@ __author__ = 'JBO, JES, JRG'
 __author_email__ = 'jeremy.rombourg@gmail.com'
 
 import nltk
-import random
 
 import learn
 from learn import *
@@ -15,9 +14,11 @@ from learn import *
 
 class Dialog():
     _classifierTypeQ = None
+    _posNegWords = None
 
     def __init__(self):
         self._classifierTypeQ = learn.dialog.trainTypeQuestion()
+        self._posNegWords = learn.dialog.getPosNegWords()
 
     def answer(self, question):
         type = self._classifierTypeQ.classify(
@@ -25,14 +26,48 @@ class Dialog():
 
         if type == "ynQuestion":
             tokens = nltk.word_tokenize(question.lower())
+            # neutral score
+            posNegScore = 0
+            # Get score of question (positive/negative)
+            for token in tokens:
+                if token in self._posNegWords:
+                    posNegScore += float(self._posNegWords[token])
+
+            # Find the sentence's verb
             q = nltk.Text(tokens)
             qTags = nltk.pos_tag(q)
             print qTags
             verbs = [word for word, tag in qTags if tag == 'VB']
-            print verbs
-            yesNo = ['Yes', 'No']
+
+            # Find the sentence's object
+            prevWord = None
+            prevTag = None
+            object = ' '
+            for word, tag in qTags:
+                if(prevTag == 'DT' and tag in ['NN', 'NNS', 'NNP', 'NNPS']):
+                    object += prevWord + ' ' + word
+                    break
+                if tag in ['NN', 'NNS', 'NNP', 'NNPS', 'PRP']:
+                    object += word
+                    break
+                prevWord = word
+                prevTag = tag
+
+            # remove the space if we didn't find an object
+            if object == ' ':
+                object = ''
+
+            # Answer according to previous results
             if len(verbs) == 1:
-                return random.choice(yesNo) + ", I do !"
+                if posNegScore < 0:
+                    return "No, I don't " + verbs[0] + object
+                else:
+                    return "Yes, I " + verbs[0] + object
+            else:
+                if posNegScore < 0:
+                    return "No."
+                else:
+                    return "Yes !"
         else:
             return "I don't know what you mean."
 

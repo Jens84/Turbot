@@ -16,3 +16,16 @@ def trainTypeQuestion():
     size = int(len(featuresets) * 0.1)
     train_set, test_set = featuresets[size:], featuresets[:size]
     return nltk.NaiveBayesClassifier.train(train_set)
+
+
+def getPosNegWords():
+    file = "turbot/learn/SentiWordNet_3.0.0_20130122.txt"
+    words = dict()
+    with open(file, 'r') as f:
+        lines = f.readlines()[1:-1]
+        for line in lines:
+            columns = line.split('\t')
+            word = columns[4].split('#')[0]
+            words[word] = float(columns[2]) - float(columns[3])
+
+    return words
