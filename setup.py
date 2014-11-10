@@ -6,7 +6,6 @@ from setuptools.command.test import test as TestCommand
 
 import turbot
 
-
 class ToxTestCommand(TestCommand):
 
     def finalize_options(self):
@@ -27,7 +26,7 @@ setup(
     license='',
     keywords='turbot',
     url='http://github.com/Jens84/Turbot',
-    # packages=find_packages(),
+    #packages=find_packages(),
     py_modules=['turbot'],
     long_description=open('README.rst').read(),
     install_requires=['docopt>=0.6.0,<0.7.0'],

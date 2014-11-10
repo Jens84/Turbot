@@ -9,7 +9,6 @@ __author_email__ = 'jeremy.rombourg@gmail.com'
 import nltk
 
 import learn
-from learn import *
 
 
 class Dialog():
@@ -47,7 +46,7 @@ class Dialog():
                 if(prevTag == 'DT' and tag in ['NN', 'NNS', 'NNP', 'NNPS']):
                     object += prevWord + ' ' + word
                     break
-                if tag in ['NN', 'NNS', 'NNP', 'NNPS', 'PRP']:
+                if tag in ['NN', 'NNS', 'NNP', 'NNPS']:
                     object += word
                     break
                 prevWord = word
@@ -56,6 +55,8 @@ class Dialog():
             # remove the space if we didn't find an object
             if object == ' ':
                 object = ''
+            else:
+                object += '.'
 
             # Answer according to previous results
             if len(verbs) == 1:

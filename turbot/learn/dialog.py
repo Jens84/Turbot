@@ -19,7 +19,7 @@ def trainTypeQuestion():
 
 
 def getPosNegWords():
-    file = "turbot/learn/SentiWordNet_3.0.0_20130122.txt"
+    file = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/SentiWordNet_3.0.0_20130122.txt"
     words = dict()
     with open(file, 'r') as f:
         lines = f.readlines()[1:-1]
