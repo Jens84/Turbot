@@ -1,1 +1,1 @@
-from turbot.learn import *
+import dialog
