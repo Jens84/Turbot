@@ -5,13 +5,30 @@ def dialogue_act_features(post):
     features = {}
     for word in nltk.word_tokenize(post):
         features['contains(%s)' % word.lower()] = True
+    features['first_word'] = nltk.word_tokenize(post)[0].lower()
+    return features
+
+
+def dialogue_haveBe_features(question):
+    features = {}
+    features['first_word'] = nltk.word_tokenize(question)[0].lower()
     return features
 
 
 def trainTypeQuestion():
     posts = nltk.corpus.nps_chat.xml_posts()[:10000]
+    haveBeQuestions = ['Have you been here?', 'Are you okay?',
+                       'Are you alive?', 'Am I a dragon?',
+                       'Have you any idea?', 'Has she a cat?',
+                       'Are we greedy?', 'Is he tired?', 'Is she good?',
+                       'Are you sure?', 'Have you already done it?',
+                       'Has he eaten it?']
+
     featuresets = [(dialogue_act_features(post.text),
                     post.get('class'))for post in posts]
+
+    featuresets.extend([(dialogue_haveBe_features(q),
+                         'ynQuestion') for q in haveBeQuestions])
 
     size = int(len(featuresets) * 0.1)
     train_set, test_set = featuresets[size:], featuresets[:size]
