@@ -45,7 +45,8 @@ class Dialog():
             prevTag = None
             object = ' '
             for word, tag in qTags:
-                if(prevTag == 'DT' and tag in ['NN', 'NNS', 'NNP', 'NNPS']):
+                if(prevTag in ['DT', 'IN', 'JJ']
+                   and tag in ['NN', 'NNS', 'NNP', 'NNPS']):
                     object += prevWord + ' ' + word
                     break
                 if tag in ['NN', 'NNS', 'NNP', 'NNPS']:
@@ -76,7 +77,10 @@ class Dialog():
             # Answer according to previous results
             if len(verbs) == 1:
                 if posNegScore < 0:
-                    return subject + "don't " + verbs[0] + object
+                    if verbs[0].lower() in ['am', 'are', 'is']:
+                        return subject + verbs[0] + " not " + object
+                    else:
+                        return subject + "don't " + verbs[0] + object
                 else:
                     return subject + verbs[0] + object
             elif len(verbs) == 2:
