@@ -36,7 +36,8 @@ class Dialog():
             q = nltk.Text(tokens)
             qTags = nltk.pos_tag(q)
             print qTags
-            verbs = [word for word, tag in qTags if tag == 'VB']
+            verbs = [word for word, tag in qTags
+                     if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ']]
 
             # Find the sentence's object
             prevWord = None
@@ -55,8 +56,6 @@ class Dialog():
             # remove the space if we didn't find an object
             if object == ' ':
                 object = ''
-            else:
-                object += '.'
 
             # Answer according to previous results
             if len(verbs) == 1:
@@ -64,6 +63,11 @@ class Dialog():
                     return "No, I don't " + verbs[0] + object
                 else:
                     return "Yes, I " + verbs[0] + object
+            elif len(verbs) == 2:
+                if posNegScore < 0:
+                    return "No, I " + verbs[0] + ' not ' + verbs[1] + object
+                else:
+                    return "Yes, I " + verbs[0] + ' ' + verbs[1] + object
             else:
                 if posNegScore < 0:
                     return "No."
