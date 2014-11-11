@@ -57,17 +57,34 @@ class Dialog():
             if object == ' ':
                 object = ''
 
+            # Subject
+            if posNegScore < 0:
+                ans = "No, "
+            else:
+                ans = "Yes, "
+
+            if q[1].lower() == 'you':
+                subject = ans + "I "
+                if verbs[0].lower() == 'are':
+                    verbs[0] = 'am'
+            elif q[1].lower() == 'i':
+                subject = ans + "you "
+            else:
+                subject = ans + q[1] + " "
+
             # Answer according to previous results
             if len(verbs) == 1:
                 if posNegScore < 0:
-                    return "No, I don't " + verbs[0] + object
+                    return subject + "don't " + verbs[0] + object
                 else:
-                    return "Yes, I " + verbs[0] + object
+                    return subject + verbs[0] + object
             elif len(verbs) == 2:
+                if verbs[0].lower() == 'do':
+                    verbs[0] = ''
                 if posNegScore < 0:
-                    return "No, I " + verbs[0] + ' not ' + verbs[1] + object
+                    return subject + verbs[0] + ' not ' + verbs[1] + object
                 else:
-                    return "Yes, I " + verbs[0] + ' ' + verbs[1] + object
+                    return subject + verbs[0] + ' ' + verbs[1] + object
             else:
                 if posNegScore < 0:
                     return "No."
