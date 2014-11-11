@@ -7,6 +7,7 @@ __author__ = 'JBO, JES, JRG'
 __author_email__ = 'jeremy.rombourg@gmail.com'
 
 import nltk
+import en
 
 import learn
 
@@ -81,6 +82,9 @@ class Dialog():
             elif len(verbs) == 2:
                 if verbs[0].lower() == 'do':
                     verbs[0] = ''
+                if verbs[0].lower() == 'did':
+                    verbs[0] = ''
+                    verbs[1] = en.verb.past(verbs[1])
                 if posNegScore < 0:
                     return subject + verbs[0] + ' not ' + verbs[1] + object
                 else:
