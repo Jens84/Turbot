@@ -4,7 +4,7 @@ import turbot
 def test_YesNo_basic():
     d = turbot.Dialog()
     assert d.answer("Are you okay?") == "Yes, I am okay."
-    assert d.answer("Are you sure?") == "No, I am not sure."
+    assert d.answer("Are you sure?") == "No, I am not."
     assert d.answer("Has he a brother?") == "Yes, he has a brother."
     assert d.answer("Do you know him?") == "Yes, I know."
 

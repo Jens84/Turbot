@@ -48,9 +48,6 @@ def _getObject(question, subject):
             if(object != ""):
                 break
 
-    # remove the space if we didn't find an object
-    if object == ' ':
-        return ''
     return object
 
 
@@ -72,6 +69,56 @@ class Dialog():
         self._classifierTypeQ = learn.dialog.trainTypeQuestion()
         self._posNegWords = learn.dialog.getPosNegWords()
 
+    def _getPosNegScore(self, tokens):
+        # neutral score
+        posNegScore = 0
+        # Get score of question (positive/negative)
+        for token in tokens:
+            if token in self._posNegWords:
+                posNegScore += float(self._posNegWords[token])
+        return posNegScore
+
+    def _makeYesNoAnswer(self, subject, verbs, object, score):
+        # Get the subject
+        if score < 0:
+            ans = "No, "
+            notBe = " not "
+            notDo = "don't "
+
+            if object == ".":
+                notBe = " not"
+        else:
+            ans = "Yes, "
+            notDo = " "
+            notBe = " "
+        subject = ans + subject
+
+        # Answer according to previous results
+        if len(verbs) == 1:
+            if verbs[0].lower() in ['am', 'are', 'is']:
+                notDo = ""
+            else:
+                notBe = ""
+
+            return re.sub(r'\s+', ' ',
+                          subject + notDo + verbs[0] + notBe + object)
+        elif len(verbs) == 2:
+            if verbs[0].lower() == 'do':
+                verbs[0] = ''
+            if verbs[0].lower() == 'did':
+                verbs[0] = ''
+                verbs[1] = en.verb.past(verbs[1])
+            if verbs[0].lower() == 'will':
+                verbs[0] = 'will'
+
+            return re.sub(r'\s+', ' ',
+                          subject + verbs[0] + notBe + verbs[1] + object)
+        else:
+            if score < 0:
+                return "No."
+            else:
+                return "Yes !"
+
     def answer(self, question):
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
@@ -79,12 +126,7 @@ class Dialog():
         if type == "ynQuestion":
             tokens = nltk.word_tokenize(question)
             tokens[0] = tokens[0].lower()
-            # neutral score
-            posNegScore = 0
-            # Get score of question (positive/negative)
-            for token in tokens:
-                if token in self._posNegWords:
-                    posNegScore += float(self._posNegWords[token])
+            score = self._getPosNegScore(tokens)
 
             # Find the sentence's verb
             q = nltk.Text(tokens)
@@ -95,47 +137,14 @@ class Dialog():
             verbs = _getVerbs(q)
 
             # Get the subject
-            if posNegScore < 0:
-                ans = "No, "
-            else:
-                ans = "Yes, "
+            subject = _getSubject(q)
 
-            subject = ans + _getSubject(q)
-
-            # Get the objct
+            # Get the object
             object = _getObject(q, subject)
             object += "."
-            # Answer according to previous results
-            if len(verbs) == 1:
-                if posNegScore < 0:
-                    if verbs[0].lower() in ['am', 'are', 'is']:
-                        return re.sub(r'\s+', ' ',
-                                      subject + verbs[0] + " not " + object)
-                    else:
-                        return re.sub(r'\s+', ' ',
-                                      subject + "don't " + verbs[0] + object)
-                else:
-                    return subject + verbs[0] + object
-            elif len(verbs) == 2:
-                if verbs[0].lower() == 'do':
-                    verbs[0] = ''
-                if verbs[0].lower() == 'did':
-                    verbs[0] = ''
-                    verbs[1] = en.verb.past(verbs[1])
-                if verbs[0].lower() == 'will':
-                    verbs[0] = 'will'
-                if posNegScore < 0:
-                    return re.sub(r'\s+', ' ',
-                                  subject + verbs[0] + ' not '
-                                  + verbs[1] + object)
-                else:
-                    return re.sub(r'\s+', ' ',
-                                  subject + verbs[0] + ' ' + verbs[1] + object)
-            else:
-                if posNegScore < 0:
-                    return "No."
-                else:
-                    return "Yes !"
+
+            return self._makeYesNoAnswer(subject, verbs, object, score)
+
         else:
             return "I don't know what you mean."
 
