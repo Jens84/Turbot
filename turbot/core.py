@@ -7,7 +7,6 @@ __author__ = 'JBO, JES, JRG'
 __author_email__ = 'jeremy.rombourg@gmail.com'
 
 import nltk
-import random
 #import aiml
 import urllib
 import urllib2
@@ -15,11 +14,55 @@ import bs4
 import json
 import en
 import wikipedia
-
 import learn
-
+import re
 from SPARQLWrapper import SPARQLWrapper, JSON
 from nltk.corpus import wordnet as wn
+
+
+def _getSubject(question):
+    subject = ""
+    qTags = nltk.pos_tag(question)
+    if question[1].lower() == 'you':
+        subject = "I "
+    elif question[1].lower() == 'i':
+        subject = "you "
+    elif qTags[1][1] == 'NNP':
+        i = 1
+        while (qTags[i][1] == 'NNP'):
+            subject += question[i] + " "
+            i += 1
+    else:
+        subject = question[1] + " "
+
+    return subject
+
+
+def _getObject(question, subject):
+    object = ""
+    qTags = nltk.pos_tag(question)
+    # Find the sentence's object
+    for word, tag in qTags:
+        # This is the subject
+        if(word in subject):
+            continue
+        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS']):
+            object += ' ' + word
+        else:
+            if(object != ""):
+                break
+
+    return object
+
+
+def _getVerbs(question):
+    qTags = nltk.pos_tag(question)
+    verbs = [word for word, tag in qTags
+             if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD']]
+    if verbs[0].lower() == 'are':
+        verbs[0] = 'am'
+
+    return verbs
 
 
 class Dialog():
@@ -30,84 +73,82 @@ class Dialog():
         self._classifierTypeQ = learn.dialog.trainTypeQuestion()
         self._posNegWords = learn.dialog.getPosNegWords()
 
+    def _getPosNegScore(self, tokens):
+        # neutral score
+        posNegScore = 0
+        # Get score of question (positive/negative)
+        for token in tokens:
+            if token in self._posNegWords:
+                posNegScore += float(self._posNegWords[token])
+        return posNegScore
+
+    def _makeYesNoAnswer(self, subject, verbs, object, score):
+        # Get the subject
+        if score < 0:
+            ans = "No, "
+            notBe = " not "
+            notDo = "don't "
+
+            if object == ".":
+                notBe = " not"
+        else:
+            ans = "Yes, "
+            notDo = " "
+            notBe = " "
+        subject = ans + subject
+
+        # Answer according to previous results
+        if len(verbs) == 1:
+            if verbs[0].lower() in ['am', 'are', 'is']:
+                notDo = ""
+            else:
+                notBe = ""
+
+            return re.sub(r'\s+', ' ',
+                          subject + notDo + verbs[0] + notBe + object)
+        elif len(verbs) == 2:
+            if verbs[0].lower() == 'do':
+                verbs[0] = ''
+            if verbs[0].lower() == 'did':
+                verbs[0] = ''
+                verbs[1] = en.verb.past(verbs[1])
+            if verbs[0].lower() == 'will':
+                verbs[0] = 'will'
+
+            return re.sub(r'\s+', ' ',
+                          subject + verbs[0] + notBe + verbs[1] + object)
+        else:
+            if score < 0:
+                return "No."
+            else:
+                return "Yes !"
+
     def answer(self, question):
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
 
         if type == "ynQuestion":
-            tokens = nltk.word_tokenize(question.lower())
-            # neutral score
-            posNegScore = 0
-            # Get score of question (positive/negative)
-            for token in tokens:
-                if token in self._posNegWords:
-                    posNegScore += float(self._posNegWords[token])
+            tokens = nltk.word_tokenize(question)
+            tokens[0] = tokens[0].lower()
+            score = self._getPosNegScore(tokens)
 
             # Find the sentence's verb
             q = nltk.Text(tokens)
             qTags = nltk.pos_tag(q)
             print qTags
-            verbs = [word for word, tag in qTags
-                     if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ']]
 
-            # Find the sentence's object
-            prevWord = None
-            prevTag = None
-            object = ' '
-            for word, tag in qTags:
-                if(prevTag in ['DT', 'IN', 'JJ']
-                   and tag in ['NN', 'NNS', 'NNP', 'NNPS']):
-                    object += prevWord + ' ' + word
-                    break
-                if tag in ['NN', 'NNS', 'NNP', 'NNPS']:
-                    object += word
-                    break
-                prevWord = word
-                prevTag = tag
+            # Get the verbs
+            verbs = _getVerbs(q)
 
-            # remove the space if we didn't find an object
-            if object == ' ':
-                object = ''
+            # Get the subject
+            subject = _getSubject(q)
 
-            # Subject
-            if posNegScore < 0:
-                ans = "No, "
-            else:
-                ans = "Yes, "
+            # Get the object
+            object = _getObject(q, subject)
+            object += "."
 
-            if q[1].lower() == 'you':
-                subject = ans + "I "
-                if verbs[0].lower() == 'are':
-                    verbs[0] = 'am'
-            elif q[1].lower() == 'i':
-                subject = ans + "you "
-            else:
-                subject = ans + q[1] + " "
+            return self._makeYesNoAnswer(subject, verbs, object, score)
 
-            # Answer according to previous results
-            if len(verbs) == 1:
-                if posNegScore < 0:
-                    if verbs[0].lower() in ['am', 'are', 'is']:
-                        return subject + verbs[0] + " not " + object
-                    else:
-                        return subject + "don't " + verbs[0] + object
-                else:
-                    return subject + verbs[0] + object
-            elif len(verbs) == 2:
-                if verbs[0].lower() == 'do':
-                    verbs[0] = ''
-                if verbs[0].lower() == 'did':
-                    verbs[0] = ''
-                    verbs[1] = en.verb.past(verbs[1])
-                if posNegScore < 0:
-                    return subject + verbs[0] + ' not ' + verbs[1] + object
-                else:
-                    return subject + verbs[0] + ' ' + verbs[1] + object
-            else:
-                if posNegScore < 0:
-                    return "No."
-                else:
-                    return "Yes !"
         else:
             return "I don't know what you mean."
 
@@ -125,7 +166,8 @@ class Definition():
         '''
         self._sparql = SPARQLWrapper("http://dbpedia.org/sparql")
         self._sparql.setReturnFormat(JSON)
-        req = urllib2.Request("http://dbpedia.org/ontology/data/definitions.jsonld")
+        req = urllib2.Request(
+            "http://dbpedia.org/ontology/data/definitions.jsonld")
         f = urllib2.urlopen(req)
         response = f.read()
         f.close()
@@ -146,22 +188,24 @@ class Definition():
 
         # Get all verb lemmas of the word
         verb_lemmas = [l for s in verb_synsets for l in s.lemmas
-                if s.name.split('.')[1] == 'v']
+                       if s.name.split('.')[1] == 'v']
 
         # Get related forms
         derivationally_related_forms = [(l, l.derivationally_related_forms())
-                for l in verb_lemmas]
+                                        for l in verb_lemmas]
 
         # filter only the nouns
         related_noun_lemmas = [l for drf in derivationally_related_forms
-                for l in drf[1] if l.synset.name.split('.')[1] == 'n']
+                               for l in drf[1]
+                               if l.synset.name.split('.')[1] == 'n']
 
         # Extract the words from the lemmas
         words = [l.name for l in related_noun_lemmas]
         len_words = len(words)
 
-        # Build the result in the form of a list containing tuples (word, probability)
-        result = [(w, float(words.count(w))/len_words) for w in set(words)]
+        # Build the result in the form of
+        # a list containing tuples (word, probability)
+        result = [(w, float(words.count(w)) / len_words) for w in set(words)]
         result.sort(key=lambda w: -w[1])
 
         # return all the possibilities sorted by probability
@@ -172,9 +216,9 @@ class Definition():
         self._sparql.setQuery("""
             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             SELECT ?birthPlace
-            WHERE { <http://dbpedia.org/resource/Claude_Monet> 
-                    <http://dbpedia.org/property/birthPlace> ?birthPlace 
-            }""")
+            WHERE { <http://dbpedia.org/resource/Claude_Monet>
+             <http://dbpedia.org/property/birthPlace> ?birthPlace }
+            """)
 
         results = self._sparql.query().convert()
 
@@ -196,5 +240,4 @@ class Definition():
             return results[0].text.strip()
         else:
             return "I don't know"
-
 
