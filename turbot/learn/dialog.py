@@ -1,4 +1,5 @@
 import nltk.classify.util
+import os
 
 
 def dialogue_act_features(post):
@@ -36,7 +37,14 @@ def trainTypeQuestion():
 
 
 def getPosNegWords():
-    file = "/home/jens/Documents/DTU/Data Mining Using Python/Project/turbot/learn/SentiWordNet_3.0.0_20130122.txt"
+    path1 = "/home/jens/Documents/DTU/Data Mining Using Python/Project/turbot/learn/SentiWordNet_3.0.0_20130122.txt"
+    path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/SentiWordNet_3.0.0_20130122.txt"
+
+    if os.path.exists(path1):
+        file = path1
+    else:
+        file = path2
+
     words = dict()
     with open(file, 'r') as f:
         lines = f.readlines()[1:-1]
