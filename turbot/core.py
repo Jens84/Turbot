@@ -84,19 +84,20 @@ class Dialog():
                 posNegScore += float(self._posNegWords[token])
         return posNegScore
 
-    def _makeYesNoAnswer(self, subject, verbs, object, score):
+    def _makeYesNoAnswer(self, subject, verbs, object, score, ans):
         # Get the subject
-        if score < 0:
+        if ans == "No, " or (ans == "" and score < 0):
             ans = "No, "
             notBe = " not "
             notDo = "don't "
 
             if object == ".":
                 notBe = " not"
-        else:
+        elif ans == "Yes, " or (ans == "" and score >= 0):
             ans = "Yes, "
             notDo = " "
             notBe = " "
+
         subject = ans + subject
 
         # Answer according to previous results
@@ -125,6 +126,26 @@ class Dialog():
             else:
                 return "Yes !"
 
+    def _getAnswerFromWikipedia(self, subject, verbs, object):
+        page = wikipedia.page(wikipedia.search(subject)[0])
+
+        tokens = nltk.word_tokenize(object)
+        t = nltk.Text(tokens)
+        qTags = nltk.pos_tag(t)
+
+        newObject = ''.join([o for o, tag in qTags
+                             if tag not in ['DT', 'IN']])
+        newObject = newObject[:-1]
+        print newObject
+        sent = re.findall(r"([^.]*?" +
+                          newObject +
+                          "[^.]*\.)", page.summary, re.IGNORECASE)
+
+        if len(sent) == 0 or re.search(r'\bnot|n\'t\b', sent[0]):
+            return "No, "
+        else:
+            return "Yes, "
+
     def answer(self, question):
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
@@ -133,6 +154,7 @@ class Dialog():
             tokens = nltk.word_tokenize(question)
             tokens[0] = tokens[0].lower()
             score = self._getPosNegScore(tokens)
+            ans = ""
 
             # Find the sentence's verb
             q = nltk.Text(tokens)
@@ -152,12 +174,13 @@ class Dialog():
             # We need to check the answer : yes or no
             if subject not in ["I ", "you ", "we ",
                                "he ", "she ", "it ", "they "]:
-                # Go to definition
-                #return ""
-                TODO = ""
+                ans = self._getAnswerFromWikipedia(subject, verbs, object)
 
-            return self._makeYesNoAnswer(subject, verbs, object, score)
+            return self._makeYesNoAnswer(subject, verbs, object, score, ans)
+        elif type == "whQuestion":
 
+            d = Definition()
+            return d.answer(question)
         else:
             return "I don't know what you mean."
 
@@ -244,9 +267,8 @@ class Definition():
         req = urllib2.Request("http://wiki.answers.com/search?" + params)
         response = urllib2.urlopen(req, params).read()
         soup = bs4.BeautifulSoup(response)
-        results = soup.findAll('div', attrs = {'class': 'answer_text'})
+        results = soup.findAll('div', attrs={'class': 'answer_text'})
         if len(results) > 0:
             return results[0].text.strip()
         else:
             return "I don't know"
-
