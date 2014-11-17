@@ -42,7 +42,7 @@ def _getObject(question, subject):
         # This is the subject
         if(word in subject):
             continue
-        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS', 'RB']):
+        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS']):
             object += ' ' + word
         else:
             if(object != ""):
