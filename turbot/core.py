@@ -11,12 +11,12 @@ import urllib2
 import json
 import en
 import learn
-
+import re
 from SPARQLWrapper import SPARQLWrapper, JSON
-from nltk.corpus import WordNet as wn
+from nltk.corpus import wordnet as wn
 
 
-def _getSubject(self, question):
+def _getSubject(question):
     subject = ""
     qTags = nltk.pos_tag(question)
     if question[1].lower() == 'you':
@@ -30,11 +30,12 @@ def _getSubject(self, question):
             i += 1
     else:
         subject = question[1] + " "
+
     return subject
 
 
-def _getObject(self, question, subject):
-    object = " "
+def _getObject(question, subject):
+    object = ""
     qTags = nltk.pos_tag(question)
     # Find the sentence's object
     for word, tag in qTags:
@@ -42,18 +43,18 @@ def _getObject(self, question, subject):
         if(word in subject):
             continue
         if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS', 'RB']):
-            object += word + ' '
+            object += ' ' + word
         else:
-            if(object != " "):
+            if(object != ""):
                 break
 
     # remove the space if we didn't find an object
     if object == ' ':
-        object = ''
+        return ''
     return object
 
 
-def _getVerbs(self, question):
+def _getVerbs(question):
     qTags = nltk.pos_tag(question)
     verbs = [word for word, tag in qTags
              if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD']]
@@ -103,14 +104,16 @@ class Dialog():
 
             # Get the objct
             object = _getObject(q, subject)
-
+            object += "."
             # Answer according to previous results
             if len(verbs) == 1:
                 if posNegScore < 0:
                     if verbs[0].lower() in ['am', 'are', 'is']:
-                        return subject + verbs[0] + " not " + object
+                        return re.sub(r'\s+', ' ',
+                                      subject + verbs[0] + " not " + object)
                     else:
-                        return subject + "don't " + verbs[0] + object
+                        return re.sub(r'\s+', ' ',
+                                      subject + "don't " + verbs[0] + object)
                 else:
                     return subject + verbs[0] + object
             elif len(verbs) == 2:
@@ -122,9 +125,12 @@ class Dialog():
                 if verbs[0].lower() == 'will':
                     verbs[0] = 'will'
                 if posNegScore < 0:
-                    return subject + verbs[0] + ' not ' + verbs[1] + object
+                    return re.sub(r'\s+', ' ',
+                                  subject + verbs[0] + ' not '
+                                  + verbs[1] + object)
                 else:
-                    return subject + verbs[0] + ' ' + verbs[1] + object
+                    return re.sub(r'\s+', ' ',
+                                  subject + verbs[0] + ' ' + verbs[1] + object)
             else:
                 if posNegScore < 0:
                     return "No."
