@@ -20,12 +20,57 @@ class Dialog():
         self._classifierTypeQ = learn.dialog.trainTypeQuestion()
         self._posNegWords = learn.dialog.getPosNegWords()
 
+    def _getSubject(self, question):
+        subject = ""
+        qTags = nltk.pos_tag(question)
+        if question[1].lower() == 'you':
+            subject = "I "
+        elif question[1].lower() == 'i':
+            subject = "you "
+        elif qTags[1][1] == 'NNP':
+            i = 1
+            while (qTags[i][1] == 'NNP'):
+                subject += question[i] + " "
+                i += 1
+        else:
+            subject = question[1] + " "
+        return subject
+
+    def _getObject(self, question, subject):
+        object = " "
+        qTags = nltk.pos_tag(question)
+        # Find the sentence's object
+        for word, tag in qTags:
+            # This is the subject
+            if(word in subject):
+                continue
+            if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS', 'RB']):
+                object += word + ' '
+            else:
+                if(object != " "):
+                    break
+
+        # remove the space if we didn't find an object
+        if object == ' ':
+            object = ''
+        return object
+
+    def _getVerbs(self, question):
+        qTags = nltk.pos_tag(question)
+        verbs = [word for word, tag in qTags
+                 if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD']]
+        if verbs[0].lower() == 'are':
+            verbs[0] = 'am'
+
+        return verbs
+
     def answer(self, question):
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
 
         if type == "ynQuestion":
-            tokens = nltk.word_tokenize(question.lower())
+            tokens = nltk.word_tokenize(question)
+            tokens[0] = tokens[0].lower()
             # neutral score
             posNegScore = 0
             # Get score of question (positive/negative)
@@ -37,42 +82,20 @@ class Dialog():
             q = nltk.Text(tokens)
             qTags = nltk.pos_tag(q)
             print qTags
-            verbs = [word for word, tag in qTags
-                     if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD']]
 
-            # Find the sentence's object
-            prevWord = None
-            prevTag = None
-            object = ' '
-            for word, tag in qTags:
-                if(prevTag in ['DT', 'IN', 'JJ']
-                   and tag in ['NN', 'NNS', 'NNP', 'NNPS']):
-                    object += prevWord + ' ' + word
-                    break
-                if tag in ['NN', 'NNS', 'NNP', 'NNPS']:
-                    object += word
-                    break
-                prevWord = word
-                prevTag = tag
+            # Get the verbs
+            verbs = self._getVerbs(q)
 
-            # remove the space if we didn't find an object
-            if object == ' ':
-                object = ''
-
-            # Subject
+            # Get the subject
             if posNegScore < 0:
                 ans = "No, "
             else:
                 ans = "Yes, "
 
-            if q[1].lower() == 'you':
-                subject = ans + "I "
-                if verbs[0].lower() == 'are':
-                    verbs[0] = 'am'
-            elif q[1].lower() == 'i':
-                subject = ans + "you "
-            else:
-                subject = ans + q[1] + " "
+            subject = ans + self._getSubject(q)
+
+            # Get the objct
+            object = self._getObject(q, subject)
 
             # Answer according to previous results
             if len(verbs) == 1:
