@@ -16,6 +16,53 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 from nltk.corpus import WordNet as wn
 
 
+def _getSubject(self, question):
+    subject = ""
+    qTags = nltk.pos_tag(question)
+    if question[1].lower() == 'you':
+        subject = "I "
+    elif question[1].lower() == 'i':
+        subject = "you "
+    elif qTags[1][1] == 'NNP':
+        i = 1
+        while (qTags[i][1] == 'NNP'):
+            subject += question[i] + " "
+            i += 1
+    else:
+        subject = question[1] + " "
+    return subject
+
+
+def _getObject(self, question, subject):
+    object = " "
+    qTags = nltk.pos_tag(question)
+    # Find the sentence's object
+    for word, tag in qTags:
+        # This is the subject
+        if(word in subject):
+            continue
+        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS', 'RB']):
+            object += word + ' '
+        else:
+            if(object != " "):
+                break
+
+    # remove the space if we didn't find an object
+    if object == ' ':
+        object = ''
+    return object
+
+
+def _getVerbs(self, question):
+    qTags = nltk.pos_tag(question)
+    verbs = [word for word, tag in qTags
+             if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD']]
+    if verbs[0].lower() == 'are':
+        verbs[0] = 'am'
+
+    return verbs
+
+
 class Dialog():
     _classifierTypeQ = None
     _posNegWords = None
@@ -23,50 +70,6 @@ class Dialog():
     def __init__(self):
         self._classifierTypeQ = learn.dialog.trainTypeQuestion()
         self._posNegWords = learn.dialog.getPosNegWords()
-
-    def _getSubject(self, question):
-        subject = ""
-        qTags = nltk.pos_tag(question)
-        if question[1].lower() == 'you':
-            subject = "I "
-        elif question[1].lower() == 'i':
-            subject = "you "
-        elif qTags[1][1] == 'NNP':
-            i = 1
-            while (qTags[i][1] == 'NNP'):
-                subject += question[i] + " "
-                i += 1
-        else:
-            subject = question[1] + " "
-        return subject
-
-    def _getObject(self, question, subject):
-        object = " "
-        qTags = nltk.pos_tag(question)
-        # Find the sentence's object
-        for word, tag in qTags:
-            # This is the subject
-            if(word in subject):
-                continue
-            if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS', 'RB']):
-                object += word + ' '
-            else:
-                if(object != " "):
-                    break
-
-        # remove the space if we didn't find an object
-        if object == ' ':
-            object = ''
-        return object
-
-    def _getVerbs(self, question):
-        qTags = nltk.pos_tag(question)
-        verbs = [word for word, tag in qTags
-                 if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD']]
-        if verbs[0].lower() == 'are':
-            verbs[0] = 'am'
-
-        return verbs
 
     def answer(self, question):
         type = self._classifierTypeQ.classify(
@@ -88,7 +91,7 @@ class Dialog():
             print qTags
 
             # Get the verbs
-            verbs = self._getVerbs(q)
+            verbs = _getVerbs(q)
 
             # Get the subject
             if posNegScore < 0:
@@ -96,10 +99,10 @@ class Dialog():
             else:
                 ans = "Yes, "
 
-            subject = ans + self._getSubject(q)
+            subject = ans + _getSubject(q)
 
             # Get the objct
-            object = self._getObject(q, subject)
+            object = _getObject(q, subject)
 
             # Answer according to previous results
             if len(verbs) == 1:
