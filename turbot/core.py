@@ -139,8 +139,14 @@ class Dialog():
         newObject = ' '.join([o for o, tag in qTags
                              if tag not in ['DT', 'IN']])
         newObject = newObject[:-1]
+
+        if len(newObject.split()) > 1:
+            regObject = '|'.join([o for o in newObject])
+        else:
+            regObject = newObject
+
         sent = re.findall(r"([^.]*?" +
-                          newObject +
+                          regObject +
                           "[^.]*\.)", page.summary, re.IGNORECASE)
 
         if len(sent) == 0 or re.search(r'\bnot|n\'t\b', sent[0]):

@@ -34,3 +34,5 @@ def test_YesNo_wikipedia():
     assert(d.answer("Is Obama the president?")
            == "Yes, Obama is the president.")
     assert(d.answer("Is Paris in France?") == "Yes, Paris is in France.")
+    assert(d.answer("Is London in United Kingdom?")
+           == "Yes, London is in United Kingdom.")
