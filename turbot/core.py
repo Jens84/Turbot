@@ -100,6 +100,9 @@ class Dialog():
 
         subject = ans + subject
 
+        print subject
+        print verbs
+        print object
         # Answer according to previous results
         if len(verbs) == 1:
             if verbs[0].lower() in ['am', 'are', 'is']:
