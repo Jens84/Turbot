@@ -4,6 +4,7 @@ from django.forms import ModelForm
 
 class Question(models.Model):
     content = models.CharField(max_length=200)
+    type = models.CharField(max_length=20)
 
     def __str__(self):
         return self.content
@@ -12,7 +13,7 @@ class Question(models.Model):
 class QuestionForm(ModelForm):
     class Meta:
         model = Question
-        fields = ['content']
+        fields = ['content', 'type']
 
 
 class Answer(models.Model):
