@@ -11,6 +11,7 @@ class MainView():
 
     def __init__(self):
         self._dialog = turbot.Dialog()
+        self._definition = turbot.Definition()
 
     def index(self, request):
         answer = ""
@@ -18,7 +19,15 @@ class MainView():
             q = QuestionForm(request.POST)
             if q.is_valid():
                 q.save()
-            answer = self._dialog.answer(Question.objects.latest('id').content)
+
+            last = Question.objects.latest('id')
+
+            if last.type == 'dialog':
+                answer = self._dialog.answer(last.content)
+            elif last.type == 'definition':
+                answer = self._definition.answer(last.content)
+            else:
+                answer = ""
 
         try:
             last_question = Question.objects.latest('id')

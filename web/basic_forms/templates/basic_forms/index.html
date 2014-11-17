@@ -1,5 +1,9 @@
 <form method="post" action=""> {% csrf_token %}
 	<label>Question: </label><input type="text" name="content" value="{{last_question.content}}"><br>
+	<select name="type">
+		<option value="dialog">Dialog</option>
+		<option value="definition">Definition</option>
+	</select>
 	<input type="submit" value="Ask">
 	<input type="submit" value="Ask Sentence Type">
 </form>
