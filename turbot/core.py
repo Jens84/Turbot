@@ -233,12 +233,39 @@ class Definition():
 
         return results["results"]["bindings"]
         '''
-        #tokens = nltk.word_tokenize(sentence.lower())
-        #s = nltk.Text(tokens)
-        #sTags = nltk.pos_tag(s)
-        #nltk.help.upenn_tagset()
-        #print sTags
-        #print wikipedia.search(sentence)
+        keywords = {'where': ['place', 'city', 'country'], 
+                    'when': ['date', 'time'],
+                    'what': 'thing',
+                    'who': 'person',
+                    'wow': ['way', 'means'],
+                    'why': 'reason'
+                   }
+
+        tokens = nltk.word_tokenize(sentence)
+        s = nltk.Text(tokens)
+        sTags = nltk.pos_tag(s)
+        print sTags
+        
+        whWord = ""
+        for word, tag in sTags:
+            if "W" in tag:
+                whWord = word
+                break
+
+        print keywords[whWord.lower()]
+
+        sub = _getSubject(s)
+        print sub
+        obj = _getObject(s, sub)
+        print obj.strip()
+        
+        search = wikipedia.search(obj.strip())
+        print search
+        page = wikipedia.page(search[0])
+        summary = wikipedia.summary(search[0], sentences=1)
+        print summary
+
+        #TODO Fix subject/object identification & Wikipedia keyword analysis
 
         params = urllib.urlencode({'q': sentence})
         req = urllib2.Request("http://wiki.answers.com/search?" + params)
