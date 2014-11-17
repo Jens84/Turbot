@@ -136,10 +136,9 @@ class Dialog():
         t = nltk.Text(tokens)
         qTags = nltk.pos_tag(t)
 
-        newObject = ''.join([o for o, tag in qTags
+        newObject = ' '.join([o for o, tag in qTags
                              if tag not in ['DT', 'IN']])
         newObject = newObject[:-1]
-        print newObject
         sent = re.findall(r"([^.]*?" +
                           newObject +
                           "[^.]*\.)", page.summary, re.IGNORECASE)
