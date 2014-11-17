@@ -1,14 +1,80 @@
+# Comment lines should start with symbol '#' as the first character
+
+
+What are doors made of? | Definition
+What are chairs made of? | Definition
+What are windows made of? | Definition
+What is a window made of? | Definition
+What is a person made of? | Definition
+What is a widow made of? | Definition
+What is a snake made of? | Definition
+What is a cloud made of? | Definition
+What is a jacket made of? | Definition
+What is the Sun made of? | Definition
+What is the Earth made of? | Definition
+What are the buses made of? | Definition
+What are the bicycles made of? | Definition
+What are the b made of? | Definition
+What are the buses made of? | Definition
+What is my paper made of? | Definition
+What is your bag made of? | Definition
+What is your pencil made of? | Definition
+What is your beverage made of? | Definition
+What is your mouse made of? | Definition
+What is your bag made of? | Definition
+What are locks made of? | Definition
+What are lockers made of? | Definition
+What is plastic made of? | Definition
+What is rubber made of? | Definition
+What is metal made of? | Definition
+What is a battery made of? | Definition
+What are batteries made of? | Definition
+
+What are benches like? | Definition
+What are scissors like? | Definition
+What are clocks like? | Definition
+What are clothes like? | Definition
+What are shirts like? | Definition
+What are dresses like? | Definition
+What are scissors like? | Definition
+What are bikes like? | Definition
+What is a scissor like? | Definition
+What are buildings? | Definition
+What is snow like? | Definition
+What is a pen like? | Definition
+What is a folder like? | Definition
+What does a glass look like? | Definition
+What does a model look like? | Definition
+What does a man look like? | Definition
+What does a girl look like? | Definition
+What does a hair look like? | Definition
+What does a beautiful person look like? | Definition
+What does an ugly person look like? | Definition
+What do jeans look like? | Definition
+What do men look like? | Definition
+What do trousers look like? | Definition
+What do stairs look like? | Definition
+How are people like? | Definition
+How are ovnis like? | Definition
+How is an apple like? | Definition
+How are bottles like? | Definition
+How is an airplane like? | Definition
+How is a sweatshirt like? | Definition
+
+What are doors made of? | Definition
 What does war mean? | Definition
 What does happy mean? | Definition
 What does pretty mean? | Definition
 What does stupid mean? | Definition
 What does cloak mean? | Definition
 What does tidy mean? | Definition
+What does selfish mean? | Definition
 What does the word clever mean? | Definition
 What does the word girl mean? | Definition
 What does the word ant mean? | Definition
 What does the word homogeneous mean? | Definition
 What does the word protective mean? | Definition
+
 What is the meaning of juice? | Definition
 What is the meaning of milk? | Definition
 What is the meaning of rock? | Definition
@@ -20,6 +86,11 @@ What is the meaning of player? | Definition
 What is the meaning of bang? | Definition
 What is the meaning of thief? | Definition
 What is the meaning of miscellaneous? | Definition
+What's the meaning of broke? | Definition
+What's the meaning of mad? | Definition
+What's the meaning of slut? | Definition
+What's the meaning of badass? | Definition
+
 What is a duck? | Definition
 What is a chicken? | Definition
 What is a pen? | Definition
@@ -41,14 +112,15 @@ What's pencil? | Definition
 What is happy? | Definition
 What is dunkin donuts? | Definition
 What is starbucks? | Definition
-What's the meaning of broke? | Definition
-What's the meaning of mad? | Definition
-What's the meaning of slut? | Definition
-What's the meaning of badass? | Definition
+
 What is a bad ass? | Definition
 What is a mellon? | Definition
 What are mellons? | Definition
 What are children? | Definition
 What are trees? | Definition
 What are planets? | Definition
-What are plants? | Definition
+What are cars? | Definition
+What are doors? | Definition
+What are backpacks? | Definition
+What are dogs? | Definition
+What are signs? | Definition

@@ -14,7 +14,7 @@ def labeledSentencesFileParser(filename):
     print "Name of the file: ", textFile.name
     
     line = textFile.readlines()
-    print "Read Line: %s" % (line)
+#    print "Read Line: %s" % (line)
     
     features = {}
     flag_label=0
@@ -25,6 +25,9 @@ def labeledSentencesFileParser(filename):
         for words in sentence:
             each_sentence=[]
             for word in words:
+                if word[0] == '#':
+#                    print "This line is a comment"
+                    break
                 if word == "|":
                     flag_label=1
                     continue
@@ -44,6 +47,7 @@ def labeledSentencesFileParser(filename):
                 featureSets.append(featureSet)
     # Close opend file
     textFile.close()
+    print featureSets
     return featureSets
 
 
