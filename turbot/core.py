@@ -23,9 +23,11 @@ def _getSubject(question):
         subject = "I "
     elif question[1].lower() == 'i':
         subject = "you "
-    elif qTags[1][1] == 'NNP':
+    elif qTags[1][1] == 'DT':
+        subject = question[1] + " " + question[2] + " "
+    elif qTags[1][1] in ['NNP', 'NNPS']:
         i = 1
-        while (qTags[i][1] == 'NNP'):
+        while (qTags[i][1] in ['NNP', 'NNPS']):
             subject += question[i] + " "
             i += 1
     else:
@@ -142,6 +144,13 @@ class Dialog():
             # Get the object
             object = _getObject(q, subject)
             object += "."
+
+            # We need to check the answer : yes or no
+            if subject not in ["I ", "you ", "we ",
+                               "he ", "she ", "it ", "they "]:
+                # Go to definition
+                #return ""
+                TODO = ""
 
             return self._makeYesNoAnswer(subject, verbs, object, score)
 
