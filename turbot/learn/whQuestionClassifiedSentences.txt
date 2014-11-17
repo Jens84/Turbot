@@ -1,0 +1,992 @@
+# Training question to classify whQuestions
+# Labels: Entity, Place, Abbreviation, Reason, Time, Manner, Object, Idea, Action, 
+# 		Choice, Description (Dimension, Shape, Duration, Quantity, Frequency, Age)
+
+# A Entity can be a Person, a group of People (such as a Band), an animal, a character,
+# a nickname, the name of something (such as a beverage, job)
+
+
+# Entity - Who
+Who did this? | Entity
+Who discovered metal? | Entity
+Who discovered the pen? | Entity
+Who discovered glasses? | Entity
+Who discovered the atomic bomb? | Entity
+Who is going to discover a planet? | Entity
+Who is going to discover the next big thing? | Entity
+Who tried to win a nobel prize? | Entity
+Who tried to win the game? | Entity
+Who tried to find a new spot? | Entity
+Who developed science? | Entity
+Who developed soccer? | Entity
+Who is this Entity? | Entity
+Who are these group? | Entity
+Who is the leader of the band? | Entity
+Who is the leader of the party? | Entity
+Who is the leader of the group? | Entity
+Who is the president of the USA? | Entity
+Who is the president of Denmark? | Entity
+Who is the president of Portugal? | Entity
+Who is the president of France? | Entity
+Who is the prime minister of Brazil? | Entity
+Who is the prime minister of France? | Entity
+Who is the prime minister of Ethiopia? | Entity
+Who is the representative of ONU? | Entity
+Who is the responsible for the man on the Moon? | Entity
+Who wrote the song Rocket man? | Entity
+Who wrote the article about nuclear war? | Entity
+Who wrote this? | Entity
+Who developed this program? | Entity
+Who developed the website? | Entity
+Who developed Internet? | Entity
+Who put terrorist in charge? | Entity
+Who is Santa Claus? | Entity
+Who is that man with a green shirt? | Entity
+Who's the ugliest Entity? | Entity
+Who's the most beautiful Entity on the world? | Entity
+Who's that guy? | Entity
+Who's the best scientist around? | Entity
+Who's the best band around? | Entity
+What is the best band on the world? | Entity
+Who's the best scientist around? | Entity
+Who are the men behind the band? | Entity
+Who is there? | Entity
+Who lives in the most beautiful house? | Entity
+Who lives in the woods? | Entity
+Who is living in an apartment? | Entity
+Who is living in my old house? | Entity
+Who is living in the USA? | Entity
+Who are the people over there? | Entity
+Who has been the most important Entity in your life? | Entity
+Who has the biggest amount of money in the world? | Entity
+Who has the biggest nose in Poland? | Entity
+Who has the smalles feet in Russia? | Entity
+Who has gold in their teeth? | Entity
+Who is the rapper that has two big vans and a golden tooth? | Entity
+
+Who puts out fires? | Entity
+Who do we go see when we're sick? | Entity
+Who takes care of animals at the zoo? | Entity
+Who teaches kids at school? | Entity
+Who delivers mail? | Entity
+Who checks our teeth for cavities? | Entity 
+Who helps people in the store? | Entity
+Who takes care of sick animals? | Entity
+Who has a job of cutting people's hair? | Entity
+Who flies an airplane? | Entity
+Who builds houses? | Entity
+Who created LEGO? | Entity
+Who made flying possible? | Entity
+Who is married to Angelina Jolie? | Entity
+Who married that guy? | Entity
+Who married two times? | Entity
+Who is going to get married for the tenth time? | Entity
+Who is he going to marry? | Entity
+Who is John going to marry? | Entity
+Who is John's date? | Entity
+
+#  Entity - Whom
+With whom am I speaking? | Entity
+With whom is she going to have a baby with? | Entity
+Whom was she stabbing in the back? | Entity
+Whom was she sleeping with? | Entity
+With whom was she partying with? | Entity
+Whom did you speak to? | Entity
+What is the name of the guy with whom you had a relationship? | Entity
+With whom did you share that moment? | Entity
+Whom was I talking to? | Entity
+To whom did you lend my computer? | Entity
+
+#  Entity - Whose
+Whose books are these? | Entity
+Whose are these books? | Entity
+Whose are these dolls? | Entity
+Whose are these cups? | Entity
+Whose jeans are these? | Entity
+Whose phone is this? | Entity
+Whose calculator did you borrow? | Entity
+Whose computer did you steal? | Entity
+Whose scanner was it over the table? | Entity
+
+#  Entity - Which
+Which person was here with you? | Entity
+Which guy does this belong to? | Entity
+Which guy is the responsible for the Iran war? | Entity
+Which man did this? | Entity
+Which woman is the ugliest? | Entity
+Which is the toughest man on Earth? | Entity
+Which is the bravest horse in cartoons? | Entity
+Which is my hero? | Entity
+Which is the full name of MDMA? | Entity
+Which person tried to kill JFK? | Entity
+Which person tried to murder the Pope? | Entity
+Which person tried to murder the Pope? | Entity
+Which of you are interested in hiking? | Entity
+Which of the jobs apply to me? | Entity
+Which job am I qualified to do? | Entity
+Which is the best job in the planet? | Entity
+Which studio has the best records produced? | Entity
+Which music studio has the best artists? | Entity
+
+#  Entity - Different types
+What's the name of the baby? | Entity
+What is the name of her friend? | Entity
+What is the name of Einstein's wife? | Entity
+What is the name of a cow's baby? | Entity
+What's the name of a small tree? | Entity
+How is Carolina called? | Entity
+How is coffee with milk called? | Entity
+How's a phone with touchscreen called? | Entity
+What's the nickname for Joseph? | Entity
+What is the nickname for Robert? | Entity
+What is the full name of Monet? | Entity
+What is the full name of Galileu? | Entity
+What's the full name of LSD? | Entity
+What is the extended name of USA? | Entity
+What is the person to whom is was taken the lungs? | Entity
+What is the person to whom is was taken all his gold? | Entity
+What is the person to whom the money was stolen? | Entity
+What is the person who invented the glasses? | Entity
+What is the person who started Google? | Entity
+What is the person who opened the window? | Entity
+What is the name of her friend? | Entity
+What is the perfect job? | Entity
+What are the world's four oceans? | Entity
+
+# Entity - General
+What films featured the character Popeye Doyle? | Entity
+What fowl grabs the spotlight after the Chinese Year of the Monkey? | Entity
+What is considered the costliest disaster the insurance industry has ever faced ? | Entity
+What articles of clothing are tokens in Monopoly? | Entity
+What 's the second-most-used vowel in English? | Entity
+Name a golf course in Myrtle Beach . | Entity
+What does a spermologer collect ? | Entity
+In what religion was Isis the nature goddess? | Entity
+What relative of the racoon is sometimes known as the cat-bear? | Entity
+What was cash-conscious Colonel Edwin L. Drake the first to drill? | Entity
+What cocktail inspired John Doxat to write the book Stirred-Not Shaken? | Entity
+What weapon is the mythological character Apollo most proficient with? | Entity
+What 's the only color Johnny Cash wears on stage? | Entity
+What 's the term for a young fox? | Entity
+What does the six-footed Musca domestica become when it enters a house? | Entity
+The corpus callosum is in what part of the body? | Entity
+What is Nebraska 's most valuable resource? | Entity
+What was the first domesticated bird? | Entity
+What is a fear of shadows? | Entity
+What J.R.R. Tolkien book features Bilbo Baggins as the central character? | Entity
+What kind of animals were in the Paleozoic era? | Entity
+What is a female rabbit called? | Entity
+What 's the only work by Michelangelo that bears his signature? | Entity
+What is the largest snake in the world? | Entity
+In what medium is Stuart Hamblen considered to be the first singing cowboy? | Entity
+What 's the common name for acetylsalicylic acid? | Entity
+Which two products use a tiger as their symbol? | Entity
+What novel inspired the movie BladeRunner? | Entity
+What is a film starring Jude Law? | Entity
+What Hollywood dog died in the arms of Jean Harlow in 1932? | Entity
+What are the most common elements in the Earth 's crust? | Entity
+What was the name of the "Little Rascals" dog? | Entity
+What Broadway musical was inspired by Cervantes 's Don Quixote? | Entity
+What part of your body contains the corpus callosum? | Entity
+What album put The Beatles on the cover of Time in 1967 ? | Entity
+What poem contains the line, "grow old with me the best is yet to be". | Entity
+What war did the Wanna-Go-Home Riots occur after? | Entity
+What 's the colored part of the eye called? | Entity
+On what T.V. show could Tom Terrific be found? | Entity
+What game's board shows the territories of Irkutsk , Yakutsk and Kamchatka? | Entity
+What therapy attempts to elicit the "primal scream"? | Entity
+What dangles over the tongue from the palate? | Entity
+What is a ball that hits the foul pole called? | Entity
+What are the rites accompanying the circumcision of a newly born-child in Judaism called? | Entity
+What was the education system in the 1960's? | Entity
+What shrubs can be planted that will be safe from deer? | Entity
+Name a technique widely used to detect birth defects? | Entity
+What four forms does gold occur in? | Entity
+What's the slowest Olympic swimming stroke? | Entity
+What disease is transmitted by the Anopheles mosquito? | Entity
+What rum is so "mixable" it is a one-brand bar? | Entity
+Which mosquito's bite draws blood. | Entity
+What instrument is Ray Charles best known for playing? | Entity
+What is the mascot for Notre Dame University? | Entity
+To what does Microsoft's Windows 3 owe its success? | Entity
+What are other ways of getting stretch marks besides pregnancy , weight loss , and weight lifting? | Entity
+What did brontosauruses eat? | Entity
+What color bottles do good Rhine wines come in? | Entity
+What is the lowest level of the American judiciary? | Entity
+What's the official animal of Canada? | Entity
+What animal has the biggest eyes? | Entity
+What do Italians call Florence? | Entity
+What's the term for a bet before cards are dealt? | Entity
+Which came first , according to Genesis 1 : 2 : 22 - the chicken or the egg? | Entity
+What is Latin for incompetent? | Entity
+What chemicals are used in lethal injection? | Entity
+What board game does a "wood-pusher" play poorly? | Entity
+What are the 7 articles of the constitution ? | Entity
+What is the fastest commercial automobile that can be bought in the US? | Entity
+What is the best way to remove wallpaper ? | Entity
+What are Halloween's colors? | Entity
+What creature scares people in the film "Jaws"? | Entity
+What are the four elements? | Entity
+What's the tallest piece on a chessboard? | Entity
+What product did Robert Conrad dare people to knock off his shoulder? | Entity
+What are the different approaches of systems analysis? | Entity
+What are the developmental stages of a swimmer? | Entity
+What gaming devices were dubbed "Mississippi marbles" and "Memphis dominoes"? | Entity
+What Jewish holiday saw the start of the 1973 Mideast War? | Entity
+What is Dudley Do-Right's horse's name? | Entity
+What TV game show once saw a contestant admit to picking his toes in the shower ? | Entity
+What war did Florence Nightingale tend the troops in? | Entity
+What is the fear of cockroaches called? | Entity
+What CBS soap opera was interrupted by the bulletin of John F. Kennedy 's assassination? | Entity
+What film did Lee Marvin win the 1965 best actor Oscar for? | Entity
+What product does "Mrs. Olsen" promote? | Entity
+What 's the most powerful card in Euchre? | Entity
+What crop failure caused the Irish Famine? | Entity
+What is the longest-running television series? | Entity
+What predators exist on Antarctica ? | Entity
+What beer advertised that it had "three rings"? | Entity
+What golfing accessory was patented by George Grant on December 12? | Entity
+What are the different types of plastic? | Entity
+What movie tour of the Roman empire features the admonition: "Row well and live"? | Entity
+What kind of animal is Babar? | Entity
+What killed Bob Marley? | Entity
+What do bicornate animals have two of? | Entity
+What is a fear of weakness? | Entity
+What song served as the closing theme of The Johnny Cash Show? | Entity
+What field sport did dentist William Beers promote and write a standard book of rules for? | Entity
+What English word comes from the Old French covrefeu , meaning cover fire? | Entity
+What musical instrument did Prewitt play in James Jones 's From Here to Eternity ? | Entity
+Where does your hair grow the fastest ? | Entity
+What film marked Robert Redford 's directorial debut ? | Entity
+What film or films has Jude Law appeared in ? | Entity
+What 's the most commonly-spoken language in Belgium ? | Entity
+What children 's tale contains the line : "Come , Cinderslut , and hold this skein of wool for me"? | Entity
+What cocktail do you concoct with whisky and sweet vermouth? | Entity
+How do you say "fresh" in Spanish? | Entity
+What movie did Madilyn Kahn star in with Gene Wilder? | Entity
+What type of bridge is the Golden Gate Bridge? | Entity
+What was the first Lifesaver flavor? | Entity
+What is the Jewish bible called? | Entity
+What deck of cards includes the Wheel of Fortune, the Lovers, and Death? | Entity
+What does the Statue of Liberty wear on her feet ? | Entity
+What household facility contains a float ball, ballcock, and overflow tube ? | Entity
+What was the name of Betty Boop's dog? | Entity
+What was the Bridge of San Luis Rey made of? | Entity
+What is Grenada 's main commodity export? | Entity
+What "magic" does Mandrake employ? | Entity
+What was introduced commercially by Bayer A.G. of Leverkusen, in 1899? | Entity
+What product on the market is good for hiding facial scars? | Entity
+Name a movie about the Sioux Indians starring Kevin Costner. | Entity
+What is a fear of thunder? | Entity
+What animal has killed the most people? | Entity
+What kind of file has the extension .dbf? | Entity
+What then-derogatory term was applied to the painters Monet , Sisley , Pissarro , Renoir and Degas? | Entity
+What was the name of the sitcom that Alyssa Milano starred in with Tony Danza? | Entity
+Name a film in which Jude Law acted. | Entity
+What is a fear of bees? | Entity
+What Vladimir Nabokov novel features Professor Humbert in love with a 12-year-old girl? | Entity
+What does a chairbound basophobic fear? | Entity
+What game do Steve McQueen and Edward G. Robinson play in The Cincinnati Kid? | Entity
+What fastener did Whitcomb Judson patent in 1893? | Entity
+What does ribavirin consist of? | Entity
+Name the soft drink that is "number one in the sun". | Entity
+What was the name of that popular song the Creeps sang? | Entity
+What is a fear of being alone? | Entity
+What do you get by adding Lactobacillus bulgaricus to milk ? | Entity
+What plant has the largest seed ? | Entity
+What's approaching when a cyclist shouts : "Oil"? | Entity
+What kind of sport is often associated with hooligans ? | Entity
+What is the longest word in the English language ? | Entity
+What is "the bear of beers"? | Entity
+Name the operating system that runs on IBM-compatible machines . | Entity
+What color of dry wine should be served with veal roasts and chops ? | Entity
+What is a golf ball made of ? | Entity
+What sign is The Water Carrier the zodiacal symbol for ? | Entity
+What animals do you find in the stock market ? | Entity
+What did Shostakovich write for Rostropovich ? | Entity
+What is the second hardest substance ? | Entity
+What two colors are you blind to if you suffer from protanopia ? | Entity
+What was the name of the movie that starred Sharon Stone and Arnold Schwarzenegger ? | Entity
+What do flatfish eat ? | Entity
+What can I use to remove the stubborn gummed labels from some diskettes ? | Entity
+What sport do you shag flies in ? | Entity
+What kind of wine is Spumante ? | Entity
+How do you say I love you in Spanish ? | Entity
+What is the most advanced handheld calculator in the world ? | Entity
+What is the belt of low pressure around the equator called ? | Entity
+Name a tiger that is extinct . | Entity
+What kind of books does Fodor 's publish ? | Entity
+What is a fear of passing high objects ? | Entity
+What is the rarest coin ? | Entity
+What Judith Rossner novel was made into a film starring Diane Keaton ? | Entity
+What is a fear of parasites ? | Entity
+In what Olympic Games did Nadia Comaneci become popular ? | Entity
+In what sport are these following numbers relevant : 118 , 126 , 134 , 142 , 15 , 158 , 167 , 177 , and 19 ? | Entity
+What 2 statues did France give to other countries ? | Entity
+Name the disposable razor that "costs about 19 cents". | Entity
+What is the fear of being loved ? | Entity
+What type of food makes you fat ? | Entity
+What is the name of the chronic neurological autoimmune disease which attacks the protein sheath that surrounds nerve cells causing a gradual loss of movement in the body ? | Entity
+What kind of animals are Dorsets , Lincolns , Oxfords and Southdowns? | Entity
+What are the shortest and the longest songs ever produced? | Entity
+What letter is to the right of K on a typewriter keyboard? | Entity
+What is the plural of gulf? | Entity
+What's the literary term for a play on words? | Entity
+What color were their horses? | Entity
+What kind of education do I need to become a flight attendant? | Entity
+What are the two languages of Malta? | Entity
+What do you call a group of geese? | Entity
+What was Mel Gibson 's first movie? | Entity
+What horse did Zorro ride ? | Entity
+Which hair care product told us "hate that gray , wash it away"? | Entity
+What was Connecticut 's first constitution called? | Entity
+What historical event happened in Dogtown in 1899? | Entity
+What is the most common kind of skin cancer in the U.S.? | Entity
+What are two plants that clothes are made from? | Entity
+What is the most heavily caffeinated soft drink? | Entity
+What language is mostly spoken in Brazil? | Entity
+What does a topophobic actor suffer from? | Entity
+What type of hunting are retrievers used for? | Entity
+Italy is the largest producer of what? | Entity
+What infectious disease is the world 's deadliest ? | Entity
+What was the name of the orca that died of a fungal infection? | Entity
+What is Mississippi's state animal? | Entity
+What did Dan Aykroyd and John Belushi quit Saturday Night Live to become? | Entity
+What Italian liner was hijacked in 1985? | Entity
+What soap was touted as being "for people who like people"? | Entity
+What are some tips for building a fire in a fireplace? | Entity
+What do manatees eat? | Entity
+How do you say 2 in Latin? | Entity
+What were popular songs and types of songs in the 1920s ? | Entity
+What is November 's birthstone ? | Entity
+What Boris Pasternak book sold 5 , 0 copies to become the fiction best-seller of 1958? | Entity
+What is the longest English word? | Entity
+What species is a colt? | Entity
+What age followed the Bronze Age? | Entity
+Which killer whale died at Sea World of a fungal infection ? | Entity
+What is a language spoken by the Sioux ? | Entity
+What breed of dog was the "Little Rascals" dog? | Entity
+What color are school buses? | Entity
+What events happened January 26 , 1978 ? | Entity
+What other name were the "Little Rascals" known as? | Entity
+What is a fear of food? | Entity
+What's the word for broken glass or sharp rocks embedded in cement on top of a wall ? | Entity
+Which soft drink does Madonna advertise for ? | Entity
+Name the vessel used by the Atari Force in the DC comics . | Entity
+What is the only gland in humans that can regenerate itself ? | Entity
+What astronomical phenomenon takes place in Jan. 1999 ? | Entity
+What was the top box office movie in April 1998 ? | Entity
+Which is the largest clock , diameter wise , in Europe ? | Entity
+What plant is rum made from ? | Entity
+Which condiment was once sold as a patent medicine ? | Entity
+What are the chemicals used in glowsticks ? | Entity
+What color are tennis balls ? | Entity
+What sports event is Meyer Wolfsheim supposed to have fixed in The Great Gatsby ? | Entity
+What card game has variations called Canfield , Klondike and Spider ? | Entity
+What mammal of North America is the world's longest-lived for its size ? | Entity
+What is the dialogue circle in cartoons called ? | Entity
+What sport is Chris Jogis a top player of ? | Entity
+What types of water pollution are there ? | Entity
+What soft drink would provide me with the biggest intake of caffeine? | Entity
+What's the name of a golf course in Myrtle Beach ? | Entity
+What are some of the significant historical events of the 1990s? | Entity
+Name the only extant trilogy of classical Greek plays. | Entity
+What does God create in the first sentence of the Bible? | Entity
+What 1966 boob tube bomb took astronauts back to prehistoric times? | Entity
+What holidays are celebrated in Ireland? | Entity
+What is a fear of sleep? | Entity
+What auto race was Wilbur Reed the first to win three times? | Entity
+What are the most common breeding birds in the U.S.? | Entity
+What was organized as a Confederate veterans' social club in Pulaski , in Tennessee , in 1866? | Entity
+
+
+# Entity - General under name "HUM"
+What contemptible scoundrel stole the cork from my lunch ? | Entity
+What team did baseball's St. Louis Browns become ? | Entity
+What is the oldest profession ? | Entity
+Name the scar-faced bounty hunter of The Old West . | Entity
+Who was The Pride of the Yankees ? | Entity
+Who killed Gandhi ? | Entity
+Name 11 famous martyrs . | Entity
+Who was the inventor of silly putty ? | Entity
+Which company that manufactures video-game hardware sells the "super system"? | Entity
+What 1920s cowboy star rode Tony the Wonder Horse ? | Entity
+What ISPs exist in the Caribbean ? | Entity
+Who was the prophet of the Muslim people ? | Entity
+Who is Snoopy's arch-enemy ? | Entity
+Who do Herb and Tootsie live next door to ? | Entity
+Who is the founder of Scientology ? | Entity
+Who starred in Singing in the Rain and The Singing Nun ? | Entity
+What 19th-century painter died in the Marquesas Islands ? | Entity
+Who were the five Marx brothers ? | Entity
+What company 's logo is a "W" in a circle ? | Entity
+Who invented Make-up ? | Entity
+Which of the following was Rhodes Scholar ? | Entity
+Who comprised the now-defunct comic book team known as the Champions ? | Entity
+What crooner joined The Andrews Sisters for Pistol Packin Mama ? | Entity
+What piano company claims its product is the "Instrument of the immortals"? | Entity
+What actress has received the most Oscar nominations ? | Entity
+Who produces Spumante ? | Entity
+Who earns their money the hard way ? | Entity
+Who founded the People 's Temple Commune ? | Entity
+What athlete makes the most money from sports merchandise sales ? | Entity
+Who discovered electricity ? | Entity
+Who was the first American in space ? | Entity
+Which Japanese car maker had its biggest percentage of sale in the domestic market ? | Entity
+Who is the mayor of Marbella ? | Entity
+Who sings the themes for "Dawson 's Creek" and "Felicity"? | Entity
+Who directed "Jaws"? | Entity
+What Indian tribe is F Troop perpetually doing battle with ? | Entity
+What is the name of the managing director of Apricot Computer ? | Entity
+What is the occupation of Nicholas Cage ? | Entity
+Which Ventura County police department seized the largest cocaine shipment in it's history ? | Entity
+Who created Dennis the Menace ? | Entity
+What dummy received an honorary degree from Northwestern University ? | Entity
+Name Alvin's brothers | Entity
+What actor said in A Day at the Races : "Either he's dead or my watch has stopped"? | Entity
+What explorer was nicknamed Iberia's Pilot ? | Entity
+Which company created the Internet browser Mosaic ? | Entity
+What organization 's offices were broken into at Watergate in 1972 ? | Entity
+What Russian composer 's Prelude in C Sharp Minor brought him fame and fortune ? | Entity
+Who was the mother of the man who would not be king , the duke of Windsor ? | Entity
+What was the name of the first Russian astronaut to do a spacewalk ? | Entity
+Who wrote NN DT NNP NNP? | Entity
+What diminutive American female gymnast stole the show at the 1984 Olympics ? | Entity
+What schools in the Washington. | Entity
+Who is Terrence Malick ? | Entity
+Who was President of Afghanistan in 1994 ? | Entity
+Who was the lead actress in the movie "Sleepless in Seattle"? | Entity
+Who was the 16th President of the United States ? | Entity
+Who are the two sons of Ozzie and Harriet Nelson ? | Entity
+Who was the author of the book about computer hackers called "The Cuckoo 's Egg : Tracking a Spy Through the Maze of Computer Espionage"? | Entity
+Who was the founding member of the Pink Floyd band ? | Entity
+What toy company is the world's No.1 maker of female apparel ? | Entity
+Which Doonesbury character was likely to turn into a werewolf ? | Entity
+Who has won the most Super Bowls ? | Entity
+Who has the only speaking role in "Silent Movie"? | Entity
+What girl's name is "Teddy" an affectionate form of ? | Entity
+What company tabulates the ballots in voting for the Academy Awards ? | Entity
+Who made a boat out of gopher wood ? | Entity
+Which Bloom County resident wreaks havoc with a computer ? | Entity
+What part did John Peter Zenger play in the deveopment of the newspaper in America ? | Entity
+Who followed Caesar ? | Entity
+Who was the first woman golfer to earn a million ? | Entity
+Who does the advertizing for Frito-Lay ? | Entity
+Who is the leading competitor of Trans Union Company ? | Entity
+Who invented the radio? | Entity
+Who is the man behind the pig-the man who pulls the strings and speaks for Miss Piggy ? | Entity
+What actor first portrayed James Bond ? | Entity
+Who was the first American poet to win the Nobel Prize for literature , in 1948 ? | Entity
+Who won the Nobel Peace Prize in 1991 ? | Entity
+Who are the Challengers of the Unknown ? | Entity
+Who was the first coach of the Cleveland Browns ? | Entity
+Who said of Super Bowl III in 1969 : "We 'll win- I guarantee it"? | Entity
+Who declared : "I am down on whores and I shan't stop ripping them"? | Entity
+What Soviet leader owned a Rolls-Royce ? | Entity
+Who wrote the song , "Stardust"? | Entity
+Who is the only prime minister of Canada to serve 22 years but not necessarily consecutively ? | Entity
+Who received the Will Rogers Award in 1989 ? | Entity
+What was the name of the lawyer who represented Randy Craft ? | Entity
+What United States President had dreamed that he was assassinated ? | Entity
+What Polynesian people inhabit New Zealand ? | Entity
+What President lived at 219 North Delaware Street , Independence , Missouri ? | Entity
+What famous model was married to Billy Joel ? | Entity
+Who danced into stardom with Fred Astaire in 1941 's You 'll Never Get Rich ? | Entity
+Who is Stein Eriksen ? | Entity
+Who is the fastest swimmer in the world ? | Entity
+What actor 's autobiography is titled All My Yesterdays ? | Entity
+What Russian master spy lived in the U.S. under the name Emil Goldfus ? | Entity
+Who played the original Charlie 's Angels ? | Entity
+Who wrote The Night of the Iguana ? | Entity
+Who painted Mother and Child ? | Entity
+What was Mao 's second name ? | Entity
+Who is the "Queen Mother"? | Entity
+Who has more DNA - a man or a woman ? | Entity
+What level of government or governmental agency is responsible for dealing with racism ? | Entity
+Who came up with the name , El Nino ? | Entity
+What dictator has the nickname "El Maximo"? | Entity
+What stereo manufacturer is "Slightly ahead of its time"? | Entity
+What TV sitcom character had the maiden name Ethel Potter ? | Entity
+Who kept the most famous diary in the English language ? | Entity
+What Spanish artist painted Crucifixion ? | Entity
+What spy novelist served as Moscow correspondent for Reuter and The Times of London ? | Entity
+Which oil company almost picked a word that meant "stalled car" in Japanese as its new international name ? | Entity
+Who was Randy Steven Craft 's lawyer ? | Entity
+Who was the first host of Person to Person ? | Entity
+Name the Ranger who was always after Yogi Bear. | Entity
+Who is the superstar in rent-a-cars ? | Entity
+Who is the president of Stanford University ? | Entity
+Whose first presidential order was : "Let 's get this goddamn thing airborne"? | Entity
+Who invented baseball ? | Entity
+Who was shot in the back during a Poker game in Deadwood , the Dakota territory ? | Entity
+What is the best college in the country ? | Entity
+What wrestling star became "The Incredible Hulk"? | Entity
+Who was the star of the 1965 Broadway hit Golden Boy ? | Entity
+What army was founded by William Booth and his wife Catherine ? | Entity
+What was her real name ? | Entity
+Who invented the toothbrush ? | Entity
+What baseball star turned down a $1 , 000-a-year contract because he felt he had n't earned it ? | Entity
+What video game hero do some of his fans call Chomper ? | Entity
+What TV comediennes's characters include former movie star Nora Desmond , secretary Mrs. Wiggins and a housewife named Eunice ? | Entity
+What was the name of the 187s Irish terrorist group in Pennsylvania mining areas ? | Entity
+Who played the Ringo Kid in the 1939 film Stagecoach ? | Entity
+Who died 1 feet from where John F. Kennedy did ? | Entity
+What first name was Nipsy Russell given at birth ? | Entity
+Who is the youngest of the Beatles ? | Entity
+Who is Coronado ? | Entity
+Who was the first Holy Roman Emperor ? | Entity
+Name the organization that is presided by a Security Council . | Entity
+Who graced the airwaves with such pearls as "Do ya lo-o-ove me ? Get naked , baby !"? | Entity
+Who portrayed portly criminologist Carl Hyatt on Checkmate ? | Entity
+Whom did the Chicago Bulls beat in the 1993 championship ? | Entity
+Who is Desmond Tutu ? | Entity
+What are the first names of Rowan and Martin , the stars of TV 's Laugh-In ? | Entity
+Who is the worst US President ever ? | Entity
+What Asian leader was known as The Little Brown Saint ? | Entity
+Who sings the song "Drink to me with thine eyes" by Ben Johnson ? | Entity
+Who is the monarch of the United Kingdom ? | Entity
+What are the top ten most common girl names in the US ? | Entity
+Who does data collection in tourism ? | Entity
+What was the name of the daughter of the Virginia chief Powhatan that married John Rolfe ? | Entity
+Who were the four famous founders of United Artists ? | Entity
+Who was the only U.S. President to wear a Nazi uniform ? | Entity
+Woodrow Wilson served as president of what university ? | Entity
+What 's the nickname of oddsmaker Jimmy Snyder ? | Entity
+What was Queen Victoria 's title regarding India ? | Entity
+Whose autobiography is titled Yes I Can ? | Entity
+Who claimed he killed 4 , 280 buffalo as food for the crew building the Kansas Pacific Railway ? | Entity
+What double talking "professor" holds a doctorate in Nothing ? | Entity
+What 19th-century writer had a country estate on the Hudson dubbed Sunnyside ? | Entity
+What was the name of the cook on Rawhide ? | Entity
+Who was named Admiral of the Ocean Seas and Viceroy and Governor General of all the islands he might discover , and also granted 10-?? of all profits of his voyage . | Entity
+What author landed a 468-pound marlin without harness in the early 193 's ? | Entity
+What lawyer won the largest divorce settlement , $85 million , in U.S. history for Sheika Dena Al-Farri ? | Entity
+Who delivered his last newscast on March 6 , 1981 ? | Entity
+What former major-league left-handed baseball pitcher was known as "Space Man" ? | Entity
+What was Michelangelo's last name ? | Entity
+Who is Barbara Jordan ? | Entity
+Who was the Democratic nominee in the American presidential election ? | Entity
+What President-to-be was the first member of Congress to enlist following the attack on Pearl Harbor ? | Entity
+What college produced the most winning Super Bowl quarterbacks ? | Entity
+What classical Spanish writer warned : "All that glitters is not gold"? | Entity
+What actor married John F. Kennedy 's sister ? | Entity
+Who fired Maria Ybarra from her position in San Diego council ? | Entity
+Who was the first black golfer to tee off in the Masters ? | Entity
+What U.S. President showed a fondness for munching on bee pollen bars ? | Entity
+Whose cover is that of an employee of Universal Import and Export ? | Entity
+What former president's daughter has written a book titled Murder in the White House ? | Entity
+What fictional character is known as the "melancholy Dane" ? | Entity
+What longtime game show host dropped dead while jogging in Central Park in 1984 ? | Entity
+Who were the "filthiest people alive ?" | Entity
+What is the real name of disc jockey "Wolfman Jack" ? | Entity
+Who invented silly putty ? | Entity
+What new middle school was built in Philadelphia , Pennsylvania last year ? | Entity
+Who patented the first phonograph ? | Entity
+Who created private detective Philip Marlowe ? | Entity
+Who is Colin Powell ? | Entity
+Who coined the term NN cyberspace "in his novel NN Neuromancer"? | Entity
+What is her profession ? | Entity
+What is the full name of the man who invented the multicolored game cube that has 42.3 quintillion potential combinations ? | Entity
+Who was Lauren Bacall 's first husband ? | Entity
+What U.S. Congressman said : "Keep the faith , baby". | Entity
+Who created the character of Scrooge ? | Entity
+What party was Winston Churchill a member of ? | Entity
+What American League baseball team 's worst finish between 1926 and 1964 was fourth ? | Entity
+Who was the author of "John Brown 's Body"? | Entity
+What American poet wrote : "Good fences make good neighbors"? | Entity
+What was the occupation of Mandy Rice-Davies ? | Entity
+Who painted the Sistine Chapel ? | Entity
+Name the various costumed personas of Dr. Henry Pym . | Entity
+What explorers followed Columbus to the Americas ? | Entity
+Who is actress Goldie Hawn 's current actor boyfriend ? | Entity
+Who banned Peter Rose from baseball for betting on games ? | Entity
+What are the names of Richard Nixon 's two daughters ? | Entity
+What organization was founded by the Rev. Jerry Falwell ? | Entity
+What company is being bought by Yahoo and how much is the deal worth ? | Entity
+Who was nicknamed The Little Corporal ? | Entity
+What was American folk hero John Chapman 's nickname ? | Entity
+What author did photographer Yousuf Karsh call "the shiest man I ever met" ? | Entity
+Name the poet of the poem which begins : I do not know much about gods ; but I think that the river Is a strong brown god-sullen , and untamed ? | Entity
+What barroom judge called himself The Law West of the Pecos ? | Entity
+Who was President of Costa Rica in 1994 ? | Entity
+Who was chairman of the Senate select committee that tried to get to the bottom of Watergate ? | Entity
+What actor starred in 1980 's Blue Lagoon , 1982 's The Pirate Movie and 1983 's A Night in Heaven ? | Entity
+Who is the voice of Miss Piggy ? | Entity
+Who replaced Bert Parks as the host of The Miss America Pageant ? | Entity
+Who was the first person inducted into the U.S. Swimming Hall of Fame ? | Entity
+What golfer has been called Ohio Fats and Blobbo ? | Entity
+Who murdered Leno and Rosemary LaBianca on August 1 | Entity
+Which of the following men was not married to Rita Hayworth ? | Entity
+Who said , "I shall return." during World War Two ? | Entity
+Who portrayed Etta Place , companion to Butch Cassidey and the Sundance Kid ? | Entity
+Who was the Charlie perfume woman ? | Entity
+Who portrayed "Rosanne Rosanna-Dana" on the television show "Saturday Night Live"?  | Entity
+
+
+
+# ----------------------------------------------------------------------------------------
+# A place can be a country, area, ocean, website, etc.
+
+#  Place - Where
+Where do you live? | Place
+Where do people live? | Place
+Where do people meet? | Place
+Where do people stay? | Place
+Where does a person stay when they want to ski? | Place
+Where do people go to do snowboard? | Place
+
+Where do cows live? | Place
+Where does your pet live? | Place
+Where do you stay over the night? | Place
+Where are you staying at the moment? | Place
+Where are you staying over the night? | Place
+Where can I meet you? | Place
+Where is the perfect meeting spot? | Place
+Where does Alex live? | Place
+Where are people living? | Place
+Where is the place with highest suicide rate? | Place
+Where is the location with most theft? | Place
+Where is the location that has the cleanest streets? | Place
+Where was Einstein born? | Place
+Where was Jessica born? | Place
+Where did Joe come from? | Place
+Where does Joey come from? | Place
+Where does Clint come from? | Place
+Where does Carlsberg come from? | Place
+Where do Australians come from? | Place
+Where do French come from? | Place
+Where do Indians come from? | Place
+Where does my nickname come from? | Place
+Where does oranges come from? | Place
+Where does virus start to grow? | Place
+Where is it possible for me to go? | Place
+Where is it possible to plant trees? | Place
+Where is it possible to snow? | Place
+Where is it possible to rain like hell? | Place
+Where is hell? | Place
+Where is South America located? | Place
+Where can you find Azores on the map? | Place
+Where is Indonesia located in the map? | Place
+Where is the USA located in the map? | Place
+Where is US located in the map? | Place
+Where is my favourite place to travel? | Place
+Where is Indonesia located in the map? | Place
+Where should you go to sightsee? | Place
+Where do people go to do some sightseeing? | Place
+Where do people go to do some snorkelling? | Place
+Where does a person go to enjoy a movie? | Place
+Where does a person go to have surgery? | Place
+Where is it possible for me to go? | Place
+Where has Pete been living? | Place
+Where has Julia been hiding? | Place
+Where has her been staying? | Place
+Where have them been trying to fish? | Place
+Where have you ever fished? | Place
+Where have you ever tried to swim? | Place
+
+
+Where can hair grow? | Place
+Where can oranges grow? | Place
+Where can I go to surf? | Place
+Where should I meet my friends? | Place
+Where should I drink with my friends? | Place
+Where shall I lay down? | Place
+Where shall I tell them to go to? | Place
+Where shall I tell you to drive to? | Place
+Where should I consider driving to? | Place
+Where should I think of walking to? | Place
+Where should you try to walk to? | Place
+Where do the best players come from? | Place
+Where does the best bag come from? | Place
+Where do the biggest tomatoes come from? | Place
+
+# Place - What
+What is the location with more trees per habitant? | Place
+What is the best public place to have a coffee? | Place
+What is the best public place to meet friends? | Place
+What is the worst private place to golf? | Place
+What is the best private place to work? | Place
+What is the smallest private location that has a beach? | Place
+Where is your favourite place to travel? | Place
+Where is my favourite place to sightsee? | Place
+
+# Place - Which
+Which is the best disco to go to in town? | Place
+Which is the best theater in the world? | Place
+In which continent is India located? | Place
+Brazil is part of which continent? | Place
+In which theater can I expect to have the most fun? | Place
+In which location is tourism good? | Place
+In which stadium can I watch a good football match? | Place
+Which studio can I watch a good football match? | Place
+In which area are computers made? | Place
+
+# Place - General
+What sprawling U.S. state boasts the most airports? | Place
+What is the highest waterfall in the United States? | Place
+Which two states enclose Chesapeake Bay? | Place
+Where do the adventures of "The Swiss Family Robinson" take place? | Place
+What country do the Galapagos Islands belong to? | Place
+tate What U.S. state lived under six flags?v
+DESC:def What is the Kashmir issue? | Place
+Where is the Loop? | Place
+What country's capital is Tirana? | Place
+Which city has the oldest relationship as a sister city with Los Angeles? | Place
+What are the names of the tourist attractions in Reims? | Place
+What body of water does the Danube River flow into? | Place
+What country did the Nazis occupy? | Place
+What is the nickname for the state of Mississippi? | Place
+What country did King Wenceslas rule ? | Place
+What country's national passenger rail system is called Via? | Place
+What U.S. state is Fort Knox in? | Place
+Where is the highest point in Japan? | Place
+Where does Barney Rubble go to work after he drops Fred off in the "Flintstones" cartoon series? | Place
+Where on the Internet can I find a song lyrics database similar to the International Lyrics Server? | Place
+Where can I find a list of "classic" books 5th and 6th graders should read? | Place
+What city is sometimes called Gotham? | Place
+What countries have the largest areas of forest? | Place
+What South American city has the world's highest commercial landing field? | Place
+What two European countries entered the War of American Independence against the British? | Place
+What is the name of the tallest mountain in the world? | Place
+Where can I find a review of Nightmare on Elm Street in a film journal? | Place
+Where was George Washington born? | Place
+What Las Vegas hotel burned in November , 1980 , with the loss of 84 lives? | Place
+What European city do Nicois live in? | Place
+What is California's capital? | Place
+What European country is home to the beer-producing city of Budweis? | Place
+Where was Christopher Columbus born? | Place
+What city did the Flintstones live in? | Place
+What sea did the Romans call mare nostrum? | Place
+What stadium do the Miami Dolphins play their home games in? | Place
+What state is John F. Kennedy buried in? | Place
+What U.S. state has an element named for it? | Place
+What is the deepest area of the Arctic Ocean? | Place
+Where can I find a "Fifth Element" screensaver? | Place
+What is Answers.com address? | Place
+Where can I buy movies on videotape online? | Place
+What ocean is the largest in the world? | Place
+Which city did Christian Crusaders fight to recapture from the Muslims? | Place
+Where does chocolate come from? | Place
+Where can I find a case on Individuals with Disabilities Education Act of 1991? | Place
+What mountains lie between the Arkansas and Missouri rivers? | Place
+What's the closest G2 Spectrum Yellow Dwarf to Earth? | Place
+Where is Basque country located? | Place
+What South Korean city is served by Kimpo International Airport? | Place
+What was the highest mountain on earth before Mount Everest was discovered? | Place
+Where was the Ligurian Republic , 1797-185? | Place
+What country's people are the top television watchers? | Place
+What Nevada center has been dubbed The Biggest Little City in the World? | Place
+Where must a soccer goalie stand to be permitted to handle the ball? | Place
+In what U.S. state was the first woman governor elected? | Place
+What is the highest peak in Africa? | Place
+Where is Procter & Gamble headquartered in the U.S.? | Place
+What desert has been called The Garden of Allah? | Place
+Where's the 19th hole on a golf course? | Place
+Where can I find a person's address from a telephone number? | Place
+Where did Sarge Steel get his metal hand? | Place
+What country did King Gustav V reign over from 197 to 195? | Place
+In what area of the world was the Six Day War fought? | Place
+What is the brightest star visible from Earth? | Place
+Where do hyenas live? | Place
+What U.S. city is The Queen of the Pacific? | Place
+Where can I find out the top 1 singles? | Place
+What was known as the Spice Island? | Place
+McCarren Airport is located in what city? | Place
+What country has the largest sheep population? | Place
+What country is the world 's largest importer of cognac? | Place
+What country has the most time zones, with 11? | Place
+What city is Logan Airport in? | Place
+What is the largest city on the Great Lakes? | Place
+What city gained renown for its pea-soup fogs? | Place
+What Russian seaport has a name meaning "Lord of the East"? | Place
+Where can stocks be traded on-line? | Place
+Where do people mountain climb in Nepal? | Place
+What are the Nordic nations? | Place
+Where on the Internet can I get information about the Fifth Amendment on the American Bill of Rights? | Place
+Where did the myth of Santa Claus originate? | Place
+What city is served by Logan International Airport? | Place
+What attracts tourists to Reims? | Place
+Where is Procter & Gamble based in the U.S.? | Place
+What is the web address of the list of e-mail addresses of members of the House of Representatives? | Place
+Where is the Abominable Snowman said to wander? | Place
+What was the only country you were allowed to drive into Israel from in 1979? | Place
+In What city or state do the most gay men live in? | Place
+Where can I find the best free evidence for debate about Russia? | Place
+What is Bill Gates of Microsoft E-mail address? | Place
+What Russian city boasts the Hermitage Museum? | Place
+Where is Trinidad? | Place
+What's the tallest building in New York City? | Place
+Where can I find information on the Narragansett Indians and other tribes in Rhode Island? | Place
+What is the highest mountain in the world? | Place
+What arch can you see from the Place de la Concorde? | Place
+Which way do you turn your Bic to increase the flame - clockwise or counterclockwise? | Place
+Which is the wealthiest country in the world? | Place
+Which country is Australia 's largest export market? | Place
+Where is the Kentucky Horse Park located? | Place
+What is the leading pecan and peanut growing state? | Place
+Where are the tropical rain forest distributions? | Place
+Where was Lincoln assassinated? | Place
+What city was President William McKinley shot in? | Place
+What city has the world 's longest subway system? | Place
+What are the five most expensive cities in the world? | Place
+What county is Chicago in? | Place
+Where is the Danube? | Place
+What is the longest place name in the U.S.? | Place
+Where does Buzz Aldrin want to build a permanent, manned space station? | Place
+Where can I find correct tabs for Third Eye Blind songs? | Place
+What Asian country has a bill of rights for cows? | Place
+What city is the setting for Puccini 's opera La Boheme? | Place
+Where is Mozambique located? | Place
+
+# ----------------------------------------------------------------------------------------
+
+# Abbreviation
+What is the full form of .com? | Abbreviation
+What does the abbreviation AIDS stand for? | Abbreviation
+What does INRI stand for when used on Jesus cross? | Abbreviation
+What does S.O.S. stand for? | Abbreviation
+CNN is the abbreviation for what? | Abbreviation
+What does PSI stand for? | Abbreviation
+What is the abbreviation for micro? | Abbreviation
+What does NASDAQ stand for? | Abbreviation
+What is BPH? | Abbreviation
+What is the abbreviation of the company name General Motors? | Abbreviation
+What does G.M.T. stand for? | Abbreviation
+What does SIDS stand for? | Abbreviation
+When reading classified ads , what does EENTY : other stand for? | Abbreviation
+What is the abbreviated expression for the National Bureau of Investigation? | Abbreviation
+What does NAFTA stand for? | Abbreviation
+What is the full name of the PLO? | Abbreviation
+What does the word LASER mean? | Abbreviation
+What does NN O mean when used as a prefix in Irish surnames? | Abbreviation
+
+# ----------------------------------------------------------------------------------------
+
+# Reason
+Why did you do that? | Reason
+Why did the apple fall? | Reason
+Why does the Earth move? | Reason
+Why des the Sun shine? | Reason
+Why did it rain? | Reason
+Why do clothes get wet? | Reason
+Why do you never listen? | Reason
+Why is your hair sticky? | Reason
+Why didn't you get dress? | Reason
+Why didn't you prepare for this? | Reason
+Why isn't she prepared for the occasion? | Reason
+Why aren't I good at the job? | Reason
+Why did your mother take care of her? | Reason
+Why did they help him? | Reason
+Why were they helping her? | Reason
+Why aren't you aiding the guy? | Reason
+Why is this good for me? | Reason
+What is the good thing about love? | Reason
+What is the reason to care? | Reason
+Why don't you join them? | Reason
+Why can't you go with me? | Reason
+Why can't anyone understand my problem? | Reason
+Why is it my problem? | Reason
+What is their problem? | Reason
+Why do you have to fix it? | Reason
+Why aren't they making it better? | Reason
+Why am I putting so much effort? | Reason
+What made you upset? | Reason
+What made you think that? | Reason
+What makes you happy? | Reason
+What made you cry? | Reason
+What makes you take this long? | Reason
+What makes you mad? | Reason
+What makes you turn into a wolf? | Reason
+What does it take to make you love me? | Reason
+What does it take to scare you? | Reason
+Why don't you mind your own business? | Reason
+Why are you in trouble? | Reason
+Why are you always with problems? | Reason
+Why are you always with a sad face? | Reason
+Why aren't you smart enough? | Reason
+Why aren't you stupid like the rest of them? | Reason
+Why couldn't you take care of it? | Reason
+How come you are late? | Reason
+How come you never come? | Reason
+How come you never went to the concert? | Reason
+How come it always rains around here? | Reason
+How come I didn't get invited? | Reason
+How come the bus arrived at 8 but you only got here at 10? | Reason
+How come you are always late? | Reason
+How come you are so beautiful? | Reason
+What made you sick? | Reason
+What reason do you have for being late? | Reason
+What is your excuse for not doing it? | Reason
+What is your excuse for this mess? | Reason
+What is my excuse to be so pretty? | Reason
+What is her excuse to not go to work? | Reason
+What was the excuse she gave? | Reason
+What reason is there to cheat? | Reason
+What took you so long? | Reason
+Why did you do it so slowly? | Reason
+Why is it so perfect? | Reason
+Why did Michael Jackson die? | Reason
+Why is Metallica a good band? | Reason
+Why does Jessica scream? | Reason
+Why is Pete joking? | Reason
+Why is Joseph asking so many questions? | Reason
+
+
+# ----------------------------------------------------------------------------------------
+
+# Time
+
+When were you born? | Time
+When was Claudio born? | Time
+When is his birthday? | Time
+When is her birthday? | Time
+When is your birthday? | Time
+When is my date of birth? | Time
+When am I going to turn 20? | Time
+When am I going to die? | Time
+When did he die? | Time
+When is his death date? | Time
+When are they going to die? | Time
+When are you going out? | Time
+When did you plan to meet? | Time
+When did you think about it? | Time
+When did this happen? | Time
+When did the war take place? | Time
+When did the submarines arrive? | Time
+When is the bus leaving? | Time
+When am I going to be ready? | Time
+When are they planning to travel? | Time
+When is it going to rain? | Time
+When is it going to be sunny? | Time
+When will it rain? | Time
+When will the clouds disappear? | Time
+When were you going to tell me? | Time
+When are you planning to take this course? | Time
+When is the exam date? | Time
+When did the professor leave? | Time
+When could you have this ready? | Time
+
+How early are they leaving? | Time
+How early did you meet? | Time
+How early are you thinking of going out? | Time
+How late are you coming home? | Time
+How late did you go to bed? | Time
+How late is your flight? | Time
+How early is your class tomorrow? | Time
+
+What is his date of death? | Time
+What is the due date? | Time
+What is the project's due date? | Time
+What is the deadline for this assignment? | Time
+What is the last date to deliver? | Time
+What is the date to deliver this task? | Time
+
+At what time is the meeting? | Time
+At what time did you plan to go? | Time
+At what time do you start working? | Time
+At what time did you drink the last beer? | Time
+At what time do you do your homework? | Time
+
+
+
+

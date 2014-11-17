@@ -11,7 +11,7 @@ def labeledSentencesFileParser(filename):
 
     # Open a file
     textFile = open(filename, "r")
-    print "Name of the file: ", textFile.name
+    #print "Name of the file: ", textFile.name
     
     line = textFile.readlines()
 #    print "Read Line: %s" % (line)
@@ -47,7 +47,7 @@ def labeledSentencesFileParser(filename):
                 featureSets.append(featureSet)
     # Close opend file
     textFile.close()
-    print featureSets
+    #print featureSets
     return featureSets
 
 
@@ -73,12 +73,15 @@ featuresets = [(dialogue_act_features(post.text),
 
 
 featuresets2 = labeledSentencesFileParser("ClassifiedSentences.txt")
+#print featuresets2[:20]
+#print "------------------\n----------------\n------"
 featuresets+=featuresets2
+print featuresets[:20]
 
 size = int(len(featuresets) * 0.1)
 train_set, test_set = featuresets[size:], featuresets[:size]
 classifier = nltk.NaiveBayesClassifier.train(train_set)
-print(nltk.classify.accuracy(classifier, test_set))
+#print(nltk.classify.accuracy(classifier, test_set))
 
 while True:
     print classifier.classify(

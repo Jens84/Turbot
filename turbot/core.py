@@ -69,11 +69,13 @@ def _getVerbs(question):
 
 class Dialog():
     _classifierTypeQ = None
+    _classifierWhQ = None
     _posNegWords = None
 
     def __init__(self):
         self._classifierTypeQ = learn.dialog.trainTypeQuestion()
         self._posNegWords = learn.dialog.getPosNegWords()
+        self._classifierWhQ = learn.dialog.trainWhQuestion()
 
     def _getPosNegScore(self, tokens):
         # neutral score
@@ -152,6 +154,10 @@ class Dialog():
     def answer(self, question):
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
+            
+        if type == "whQuestion":
+            whType = self._classifierWhQ.classify(learn.dialog.dialogue_act_features(question))
+            return "This question is of type wh and its category is: "+whType
 
         if type == "ynQuestion":
             tokens = nltk.word_tokenize(question)
