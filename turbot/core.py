@@ -38,7 +38,7 @@ class Dialog():
             qTags = nltk.pos_tag(q)
             print qTags
             verbs = [word for word, tag in qTags
-                     if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ']]
+                     if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD']]
 
             # Find the sentence's object
             prevWord = None
@@ -89,6 +89,8 @@ class Dialog():
                 if verbs[0].lower() == 'did':
                     verbs[0] = ''
                     verbs[1] = en.verb.past(verbs[1])
+                if verbs[0].lower() == 'will':
+                    verbs[0] = 'will'
                 if posNegScore < 0:
                     return subject + verbs[0] + ' not ' + verbs[1] + object
                 else:
