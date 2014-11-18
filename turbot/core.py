@@ -41,13 +41,14 @@ def _getSubject(question, ind):
     return subject
 
 
-def _getObject(question, subject):
+def _getObject(question, subject, verbs):
     object = ""
     qTags = nltk.pos_tag(question)
     # Find the sentence's object
     for word, tag in qTags:
         # This is the subject
-        if(word in subject):
+        if(word in subject.replace(" ", "") or
+           word in verbs):
             continue
         # TODO : add PRP without take care of the subject
         if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS']):
@@ -62,7 +63,8 @@ def _getObject(question, subject):
 def _getVerbs(question, subject):
     qTags = nltk.pos_tag(question)
     verbs = [word for word, tag in qTags
-             if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD']]
+             if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD'] and
+             word not in subject.replace(' ', '')]
     if verbs[0].lower() == 'are' and subject == 'I ':
         verbs[0] = 'am'
 
@@ -182,7 +184,7 @@ class Dialog():
             verbs = _getVerbs(q, subject)
 
             # Get the object
-            object = _getObject(q, subject)
+            object = _getObject(q, subject, verbs)
             object += "."
             print subject
             print verbs

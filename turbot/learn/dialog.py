@@ -25,7 +25,7 @@ def trainTypeQuestion():
                        'Have you any idea?', 'Has she a cat?',
                        'Are we greedy?', 'Is he tired?', 'Is she good?',
                        'Are you sure?', 'Have you already done it?',
-                       'Has he eaten it?']
+                       'Has he eaten it?', 'Is tomato red?']
 
     featuresets = [(dialogue_act_features(post.text),
                     post.get('class'))for post in posts]
