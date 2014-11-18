@@ -28,13 +28,13 @@ def _getSubject(question, ind):
         subject = "I "
     elif question[ind].lower() == 'i':
         subject = "you "
-    elif qTags[ind][ind] == 'DT':
+    elif qTags[ind][1] == 'DT':
         subject = question[ind] + " " + question[ind + 1] + " "
-    elif qTags[ind][ind] in ['NNP', 'NNPS']:
+    elif qTags[ind][1] in ['NNP', 'NNPS']:
         i = ind
-        while (qTags[i][ind] in ['NNP', 'NNPS']):
+        while (qTags[i][1] in ['NNP', 'NNPS']):
             subject += question[i] + " "
-            i += ind
+            i += 1
     else:
         subject = question[ind] + " "
 
@@ -49,7 +49,8 @@ def _getObject(question, subject):
         # This is the subject
         if(word in subject):
             continue
-        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS', 'PRP']):
+        # TODO : add PRP without take care of the subject
+        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS']):
             object += ' ' + word
         else:
             if(object != ""):
@@ -183,7 +184,9 @@ class Dialog():
             # Get the object
             object = _getObject(q, subject)
             object += "."
-
+            print subject
+            print verbs
+            print object
             # We need to check the answer : yes or no
             if subject not in ["I ", "you ", "we ",
                                "he ", "she ", "it ", "they "]:
