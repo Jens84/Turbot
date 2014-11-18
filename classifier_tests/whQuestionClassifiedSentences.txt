@@ -838,6 +838,29 @@ What Asian country has a bill of rights for cows? | Place
 What city is the setting for Puccini 's opera La Boheme? | Place
 Where is Mozambique located? | Place
 
+Where does milk come from? | Place
+Where do horses, pigs, and sheep live? | Place
+Where do we put a hat? | Place
+Where do we go to buy food? | Place
+Where do you sleep? | Place
+Where do we see clouds? | Place
+Where do we put toothpaste? | Place
+Where do fish live? | Place
+Where do we plants seeds? | Place
+Where does a bird lay eggs? | Place
+Where can we play? | Place
+Where do shoes and socks go? | Place
+Where do a king and queen live? | Place
+Where can we see monkeys, bears, and elephants? | Place
+Where do bats live? | Place
+Where do we go to learn ABC's? | Place
+Where do we bake cookies? | Place
+Where do we keep milk and butter? | Place
+Where can we sit? | Place
+Where do we put peanut butter? | Place
+Where was the last place you went swimming? | Place
+Where was the last place you went out to dinner? | Place
+
 # ----------------------------------------------------------------------------------------
 
 # Abbreviation
@@ -930,7 +953,16 @@ Why is Metallica a good band? | Reason
 Why does Jessica scream? | Reason
 Why is Pete joking? | Reason
 Why is Joseph asking so many questions? | Reason
-
+Why do we put gas in a car? | Reason
+Why does a giraffe have a long neck? | Reason
+Why do we mow the grass? | Reason
+Why do we wear sunglasses? | Reason
+Why do we take a bath? | Reason
+Why do we use an umbrella? | Reason
+Why does a bird have wings? | Reason
+Why do we have teeth? | Reason
+Why do we wear shoes? | Reason
+Why do children go to school? | Reason
 
 # ----------------------------------------------------------------------------------------
 
@@ -965,6 +997,7 @@ When are you planning to take this course? | Time
 When is the exam date? | Time
 When did the professor leave? | Time
 When could you have this ready? | Time
+When did the apple fall on Newton's head? | Time
 
 How early are they leaving? | Time
 How early did you meet? | Time
@@ -986,7 +1019,69 @@ At what time did you plan to go? | Time
 At what time do you start working? | Time
 At what time did you drink the last beer? | Time
 At what time do you do your homework? | Time
+At what time was Jen born? | Time
+At what time is his surgery? | Time
+At which time is the meeting being held? | Time
+At which time is he planning to meet her? | Time
+At which time does the bell ring? | Time
+In which months does it rain in Siberia? | Time
+In which months does the sun rise before 4pm? | Time
+In which year was Bob born? | Time
+In which months is a bear awake? | Time
+On which month did you start school? | Time
+On which month did the baby start to walk? | Time
+In which month did she throw him out of the house? | Time
+When is the pear season? | Time
+When is the season to ski? | Time
+When does it start to snow in Germany? | Time
+At what time of the year should I visit Greece? | Time
+What is the best time of the year to sightsee Europe? | Time
+What is the best time of the year to run? | Time
+What is the most suitable time for you to meet? | Time
+
+When do we sleep? | Time
+When do we eat breakfast? | Time
+When do we take a bath? | Time
+When do we wear sunglasses? | Time
+When do we put on a bandaid? | Time
+When do we use an umbrella? | Time
+When do we need to wear a coat? | Time
+When do we wear a swimming suit? | Time
+When do we wear a seatbelt? | Time
+When do we turn on a flashlight? | Time
+When did you last see a doctor? | Time
+When was the last time you went swimming? | Time
+When was the last time you played at a friend's house? | Time
+When did you go on your last vacation? | Time
+When was the last time you went out to dinner? | Time
+
+# ----------------------------------------------------------------------------------------
+
+# Manner
+
+How do you go to school? | Manner
+How did you go to work? | Manner
+Did you take the bus or the subway? | Manner
+Do you go by car or by plane? | Manner
+What is the fastest way to go from Denmark to Poland? | Manner
+How should I go from DTU to my house? | Manner
+Should I take the bike or the bus to go to work? | Manner
+What is the best way to go from the store to the hospital? | Manner
+What means of transportation can I take to go to yoga classes? | Manner
+How do you go to school when it's raining? | Manner
+How should I go to the supermarket when it is raining? | Manner
+How should you move from one place to another? | Manner
+How did they go from Russia to Belgium? | Manner
 
 
 
 
+# Problems:
+# Isn't sugar sweet?
+# When was the ww2?
+# What does beautiful mean?
+# If you put Maria or Hanna, it breaks.
+# Does Tania like men? -> No, Tania don't does like men.
+# is dot a bad question? -> Yes, dot is dot a bad question.
+# Are tomatoes blue? -> No, tomatoes am not tomatoes blue.
+# Did you have lunch with her? -> No, I not had lunch with.
