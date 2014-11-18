@@ -838,6 +838,29 @@ What Asian country has a bill of rights for cows? | Place
 What city is the setting for Puccini 's opera La Boheme? | Place
 Where is Mozambique located? | Place
 
+Where does milk come from? | Place
+Where do horses, pigs, and sheep live? | Place
+Where do we put a hat? | Place
+Where do we go to buy food? | Place
+Where do you sleep? | Place
+Where do we see clouds? | Place
+Where do we put toothpaste? | Place
+Where do fish live? | Place
+Where do we plants seeds? | Place
+Where does a bird lay eggs? | Place
+Where can we play? | Place
+Where do shoes and socks go? | Place
+Where do a king and queen live? | Place
+Where can we see monkeys, bears, and elephants? | Place
+Where do bats live? | Place
+Where do we go to learn ABC's? | Place
+Where do we bake cookies? | Place
+Where do we keep milk and butter? | Place
+Where can we sit? | Place
+Where do we put peanut butter? | Place
+Where was the last place you went swimming? | Place
+Where was the last place you went out to dinner? | Place
+
 # ----------------------------------------------------------------------------------------
 
 # Abbreviation
@@ -930,20 +953,37 @@ Why is Metallica a good band? | Reason
 Why does Jessica scream? | Reason
 Why is Pete joking? | Reason
 Why is Joseph asking so many questions? | Reason
-
+Why do we put gas in a car? | Reason
+Why does a giraffe have a long neck? | Reason
+Why do we mow the grass? | Reason
+Why do we wear sunglasses? | Reason
+Why do we take a bath? | Reason
+Why do we use an umbrella? | Reason
+Why does a bird have wings? | Reason
+Why do we have teeth? | Reason
+Why do we wear shoes? | Reason
+Why do children go to school? | Reason
 
 # ----------------------------------------------------------------------------------------
 
 # Time
+# It is related to a certain time, year, month or season.
+# It is not related to duration or age.
 
-When were you born? | Time
-When was Claudio born? | Time
+When is your birthday?
+When is my date of birth?
+When am I going to turn 20?
+When am I going to die?
+What is the year in which I was born?
+In which year were you born?
+At what time were you born?
+At what time was I born?
+When were you born?
+In which day was Hanna born?
+In which day was Jacqueline born?
+When was Claudio born?
 When is his birthday? | Time
 When is her birthday? | Time
-When is your birthday? | Time
-When is my date of birth? | Time
-When am I going to turn 20? | Time
-When am I going to die? | Time
 When did he die? | Time
 When is his death date? | Time
 When are they going to die? | Time
@@ -965,6 +1005,7 @@ When are you planning to take this course? | Time
 When is the exam date? | Time
 When did the professor leave? | Time
 When could you have this ready? | Time
+When did the apple fall on Newton's head? | Time
 
 How early are they leaving? | Time
 How early did you meet? | Time
@@ -986,7 +1027,424 @@ At what time did you plan to go? | Time
 At what time do you start working? | Time
 At what time did you drink the last beer? | Time
 At what time do you do your homework? | Time
+At what time was Jen born? | Time
+At what time is his surgery? | Time
+At which time is the meeting being held? | Time
+At which time is he planning to meet her? | Time
+At which time does the bell ring? | Time
+In which months does it rain in Siberia? | Time
+In which months does the sun rise before 4pm? | Time
+In which year was Bob born? | Time
+In which months is a bear awake? | Time
+On which month did you start school? | Time
+On which month did the baby start to walk? | Time
+In which month did she throw him out of the house? | Time
+When is the pear season? | Time
+When is the season to ski? | Time
+When does it start to snow in Germany? | Time
+At what time of the year should I visit Greece? | Time
+What is the best time of the year to sightsee Europe? | Time
+What is the best time of the year to run? | Time
+What is the most suitable time for you to meet? | Time
+
+When do we sleep? | Time
+When do we eat breakfast? | Time
+When do we take a bath? | Time
+When do we wear sunglasses? | Time
+When do we put on a bandaid? | Time
+When do we use an umbrella? | Time
+When do we need to wear a coat? | Time
+When do we wear a swimming suit? | Time
+When do we wear a seatbelt? | Time
+When do we turn on a flashlight? | Time
+When did you last see a doctor? | Time
+When was the last time you went swimming? | Time
+When was the last time you played at a friend's house? | Time
+When did you go on your last vacation? | Time
+When was the last time you went out to dinner? | Time
+
+# ----------------------------------------------------------------------------------------
+
+# Manner
+
+# Manner - Means of transportation
+
+How do you go to school? | Manner
+How did you go to work? | Manner
+Did you take the bus or the subway? | Manner
+Do you go by car or by plane? | Manner
+What is the fastest way to go from Denmark to Poland? | Manner
+How should I go from DTU to my house? | Manner
+Should I take the bike or the bus to go to work? | Manner
+What is the best way to go from the store to the hospital? | Manner
+What means of transportation can I take to go to yoga classes? | Manner
+How do you go to school when it's raining? | Manner
+How should I go to the supermarket when it is raining? | Manner
+How should you move from one place to another? | Manner
+How did they go from Russia to Belgium? | Manner
 
 
 
+# ----------------------------------------------------------------------------------------
 
+# Description
+
+# Description (Composition, Dimension, Look and Shape, Meaning, Duration, Quantity, Frequency, Age)
+
+# DescriptionWh (Composition, Meaning)
+
+# Description - Composition
+
+What are doors made of? | DescriptionWh
+What are chairs made of? | DescriptionWh
+What are windows made of? | DescriptionWh
+What is a window made of? | DescriptionWh
+What is a person made of? | DescriptionWh
+What is a widow made of? | DescriptionWh
+What is a snake made of? | DescriptionWh
+What is a cloud made of? | DescriptionWh
+What is a jacket made of? | DescriptionWh
+What is the Sun made of? | DescriptionWh
+What is the Earth made of? | DescriptionWh
+What are the buses made of? | DescriptionWh
+What are the bicycles made of? | DescriptionWh
+What are the b made of? | DescriptionWh
+What are the buses made of? | DescriptionWh
+What is my paper made of? | DescriptionWh
+What is your bag made of? | DescriptionWh
+What is your pencil made of? | DescriptionWh
+What is your beverage made of? | DescriptionWh
+What is your mouse made of? | DescriptionWh
+What is your bag made of? | DescriptionWh
+What are locks made of? | DescriptionWh
+What are lockers made of? | DescriptionWh
+What is plastic made of? | DescriptionWh
+What is rubber made of? | DescriptionWh
+What is metal made of? | DescriptionWh
+What is a battery made of? | DescriptionWh
+What are batteries made of? | DescriptionWh
+
+
+
+# Description - Meaning
+
+What does war mean? | DescriptionWh
+What does happy mean? | DescriptionWh
+What does pretty mean? | DescriptionWh
+What does stupid mean? | DescriptionWh
+What does cloak mean? | DescriptionWh
+What does tidy mean? | DescriptionWh
+What does selfish mean? | DescriptionWh
+What does the word clever mean? | DescriptionWh
+What does the word girl mean? | DescriptionWh
+What does the word ant mean? | DescriptionWh
+What does the word homogeneous mean? | DescriptionWh
+What does the word protective mean? | DescriptionWh
+What is the meaning of juice? | DescriptionWh
+What is the meaning of milk? | DescriptionWh
+What is the meaning of rock? | DescriptionWh
+What is the meaning of asshole? | DescriptionWh
+What is the meaning of wtf? | DescriptionWh
+What is the meaning of atm? | DescriptionWh
+What is the meaning of zapping? | DescriptionWh
+What is the meaning of player? | DescriptionWh
+What is the meaning of bang? | DescriptionWh
+What is the meaning of thief? | DescriptionWh
+What is the meaning of miscellaneous? | DescriptionWh
+What's the meaning of broke? | DescriptionWh
+What's the meaning of mad? | DescriptionWh
+What's the meaning of slut? | DescriptionWh
+What's the meaning of badass? | DescriptionWh
+
+What is a duck? | DescriptionWh
+What is a chicken? | DescriptionWh
+What is a pen? | DescriptionWh
+What is a car? | DescriptionWh
+What is a street? | DescriptionWh
+What is an avenue? | DescriptionWh
+What is an elephant? | DescriptionWh
+What is an eye? | DescriptionWh
+What is an ear? | DescriptionWh
+What is a haircut? | DescriptionWh
+What's a booger? | DescriptionWh
+What's a brain? | DescriptionWh
+What's a hog? | DescriptionWh
+What's a purse? | DescriptionWh
+What's an animal? | DescriptionWh
+What's plug? | DescriptionWh
+What's ground? | DescriptionWh
+What's pencil? | DescriptionWh
+What is happy? | DescriptionWh
+What is dunkin donuts? | DescriptionWh
+What is starbucks? | DescriptionWh
+What is Santa Claus? | DescriptionWh
+What is a bad ass? | DescriptionWh
+What is a mellon? | DescriptionWh
+What are mellons? | DescriptionWh
+What are children? | DescriptionWh
+What are trees? | DescriptionWh
+What are planets? | DescriptionWh
+What are cars? | DescriptionWh
+What are doors? | DescriptionWh
+What are backpacks? | DescriptionWh
+What are dogs? | DescriptionWh
+What are signs? | DescriptionWh
+
+
+# DescriptionH (Age, Duration, Quantity, Frequency, Age)
+
+# DescriptionH - Age
+
+What is Gandalf's age?
+What is the professor's age? | DescriptionH
+What is my age? | DescriptionH
+What is your age? | DescriptionH
+What age do you think I have? | DescriptionH
+How old do you think I am? | DescriptionH
+How old is my teacher? | DescriptionH
+How old are you? | DescriptionH
+How old am I? | DescriptionH
+How old is her? | DescriptionH
+How old is the guy on the movie "Harry Potter"? | DescriptionH
+How old was Jude when she got pregnant? | DescriptionH
+How old was your mother when she got you? | DescriptionH
+How old can someone be to have responsibilities? | DescriptionH
+How old do I have to be to get a driver's license in the USA? | DescriptionH
+How old were you when you first punched a guy? | DescriptionH
+How old do you have to be in order to be allowed to drink? | DescriptionH
+How old is your brother? | DescriptionH
+How many years have you lived? | DescriptionH
+How long have you lived? | DescriptionH
+When is your birthday? | DescriptionH
+In which day were you born? | DescriptionH
+
+Which is the best age to move out? | DescriptionH
+Which is the best age to live by yourself? | DescriptionH
+At what age should I start living by myself? | DescriptionH
+What's the allowed drinking age? | DescriptionH
+What is an appropriate age to start having sex? | DescriptionH
+What is the appropriate age to start gambling? | DescriptionH
+What is the best age to meet a girl? | DescriptionH
+What is the best age to marry? | DescriptionH
+What's the best age to start a family? | DescriptionH
+Which is the best age to have a kid? | DescriptionH
+What is the best time in your life to have a baby? | DescriptionH
+What is the best time in your life to take yoga classes? | DescriptionH
+Which is the best time in your life to go to college? | DescriptionH
+
+# DescriptionH - Duration
+
+How long does milk take to expire? | DescriptionH
+How long can an egg last? | DescriptionH
+How long is the movie? | DescriptionH
+How long did you take to watch the musical? | DescriptionH
+How long did the game take? | DescriptionH
+How long were the kids out on the street? | DescriptionH
+How long was I out for? | DescriptionH
+How long did the bus take to come? | DescriptionH
+How long does it take for you to realize I am the love of your life? | DescriptionH
+How long can a person live without eating? | DescriptionH
+How long can a person live without drinking water? | DescriptionH
+How long do you expect this relationship to last? | DescriptionH
+How long have you kept the cheese in the fridge? | DescriptionH
+What is the meat's expiry date? | DescriptionH
+What is a yogurt's expiry date? | DescriptionH
+For how long are you going to run? | DescriptionH
+For how long are you planning to stay here? | DescriptionH
+For how long are you leaving? | DescriptionH
+For how long did you expect to be there? | DescriptionH
+For how long did you manage to pull it off? | DescriptionH
+For how long have you planned it? | DescriptionH
+For how long have you known this? | DescriptionH
+For how long have they kept it a secret? | DescriptionH
+How long did it take to get it back? | DescriptionH
+How long did Armstrong stay on the Moon? | DescriptionH
+For how much time was I unconscious? | DescriptionH
+For how much time did she have a piercing? | DescriptionH
+How much time will the wound need to heal? | DescriptionH
+How much time did Nelson Mandela spend in prison? | DescriptionH
+How long was Gandhi without eating? | DescriptionH
+For how long has Obama been a president? | DescriptionH
+What is the rental time? | DescriptionH
+What is the minimum period allowed to rent a car? | DescriptionH
+What is the maximum period that you can be locked up for? | DescriptionH
+For which period of time do you get drunk? | DescriptionH
+How long does it take for a hangover to pass? | DescriptionH
+What is the period of time that a butterfly lives? | DescriptionH
+What is the exam period of time? | DescriptionH
+How long is the exam? | DescriptionH
+How long is the bus trip? | DescriptionH
+How long do you have to wait in line? | DescriptionH
+How long do you have to sit down in a hospital? | DescriptionH
+How long have you been here? | DescriptionH
+What has been the average period of time to make this task? | DescriptionH
+What is the period of time taken to do homework? | DescriptionH
+
+# DescriptionH - Quantity
+
+How many cells does a dog have? | DescriptionH
+How many questions does it take to get an answer? | DescriptionH
+How many right scores do I need? | DescriptionH
+How many peas did you get? | DescriptionH
+How many bills are you keeping? | DescriptionH
+How many secrets do you keep from me? | DescriptionH
+How many bugs have you seen in the museum? | DescriptionH
+How many pictures did you take? | DescriptionH
+How many dogs did John have? | DescriptionH
+How many prisoners are there in Albatroz? | DescriptionH
+How many owls appear in the movie? | DescriptionH
+How many trains is it needed to have a proper station? | DescriptionH
+How much water does it take to fill the bottle? | DescriptionH
+How much oil can your deposit handle? | DescriptionH
+How much money does he earn? | DescriptionH
+How much stars does a person get from doing a task? | DescriptionH
+How much coke does it take to get an OD? | DescriptionH
+How much paper can a tree provide? | DescriptionH
+How much hair does an ordinary bear have? | DescriptionH
+What is the amount of beans in that jar? | DescriptionH
+What is the amount of cereal in a corn field? | DescriptionH
+What is the amount of seats in the car? | DescriptionH
+What is the amount of air inside my lungs? | DescriptionH
+What is the number of passenger seats of the train? | DescriptionH
+What is the maximum number of persons allowed on the elevator? | DescriptionH
+What is the maximum weight that the escalator supports? | DescriptionH
+
+# Description - Frequency
+
+How often do you go bowling? | DescriptionH
+How often do you stay over? | DescriptionH
+How often have you gone fishing? | DescriptionH
+How often do you use make up? | DescriptionH
+How regular is our practice? | DescriptionH
+How regular are your heartbeats? | DescriptionH
+With which frequency does something occur in space? | DescriptionH
+With which frequency can you hear lightning? | DescriptionH
+With which frequency can a doctor perform surgery
+With which frequency are your symtoms coming back? | DescriptionH
+How frequent was your visit? | DescriptionH
+How frequent is my heart beating
+How frequent are her strokes? | DescriptionH
+How frequently did she pass through the stage? | DescriptionH
+How frequent was her appearance? | DescriptionH
+How frequently does he scream? | DescriptionH
+How frequently is she pregnant? | DescriptionH
+How usually does someone have a lucky break? | DescriptionH
+How usually do you eat breakfast? | DescriptionH
+How usually should I run? | DescriptionH
+How usual is a heart attack? | DescriptionH
+How usual were the meetings? | DescriptionH
+How usual are the practices? | DescriptionH
+How typical is it for someone to get sick? | DescriptionH
+How typical is it to get infected? | DescriptionH
+How typical are storms in Japan? | DescriptionH
+How typical are tsunamis? | DescriptionH
+how typical is this type of investigative journalism? | DescriptionH
+How repeatedly can someone be hit over the head? | DescriptionH
+How regularly can I fly? | DescriptionH
+How regularly should you check perishable foods for signs of deterioration? | DescriptionH
+How regularly should you poop? | DescriptionH
+How regularly can you give blood? | DescriptionH
+How regularly can you take ibuprofen? | DescriptionH
+
+
+# DescriptionOther (Dimension, Look and Shape)
+
+# DescriptionOther - Dimension
+
+How big is the train? | DescriptionOther
+How small is your car? | DescriptionOther
+How tall his her? | DescriptionOther
+How tiny can a bug be? | DescriptionOther
+How huge is that monster? | DescriptionOther
+How far is the highway from here to Boston? | DescriptionOther
+How short can a lamp be? | DescriptionOther
+How is the size of that tree? | DescriptionOther
+What is the size of an average person? | DescriptionOther
+What is the size of an old woman? | DescriptionOther
+What was the size of Einstein's feet? | DescriptionOther
+What is your shoe size? | DescriptionOther
+What is the size of Hitler's feet in inches? | DescriptionOther
+What is the size of Napoleon's feet in European scale? | DescriptionOther
+What is the size of a regular hand? | DescriptionOther
+What is the size of a regular hand? | DescriptionOther
+What is the size of a regular hand? | DescriptionOther
+What is the volume of that bottle? | DescriptionOther
+What's the volume of an arc? | DescriptionOther
+What is the capacity of that package? | DescriptionOther
+What's the average capacity of a person's stomach? | DescriptionOther
+What is the normal magnitude of a small earthquake? | DescriptionOther
+What is the order of magnitude of mm? | DescriptionOther
+What is the order of magnitude of nm? | DescriptionOther
+What's the order of magnitude of kilowatt? | DescriptionOther
+What is the extension of Amazon forest? | DescriptionOther
+What is the extension of a soccer field? | DescriptionOther
+What is the volume of the planet Earth? | DescriptionOther
+How big is the volume of water in a human? | DescriptionOther
+How far is London from California? | DescriptionOther
+How far is Denmark from Korea? | DescriptionOther
+What is the distance from India to Pakistan? | DescriptionOther
+How far is it from Japan to Spain? | DescriptionOther
+
+# DescriptionOther - Look and Shape
+
+What are benches like? | DescriptionOther
+What are scissors like? | DescriptionOther
+What are clocks like? | DescriptionOther
+What are clothes like? | DescriptionOther
+What are shirts like? | DescriptionOther
+What are dresses like? | DescriptionOther
+What are scissors like? | DescriptionOther
+What are bikes like? | DescriptionOther
+What is a scissor like? | DescriptionOther
+What are buildings? | DescriptionOther
+What is snow like? | DescriptionOther
+What is a pen like? | DescriptionOther
+What is a folder like? | DescriptionOther
+What does a glass look like? | DescriptionOther
+What does a model look like? | DescriptionOther
+What does a man look like? | DescriptionOther
+What does a girl look like? | DescriptionOther
+What does a hair look like? | DescriptionOther
+What does a beautiful person look like? | DescriptionOther
+What does an ugly person look like? | DescriptionOther
+What do jeans look like? | DescriptionOther
+What do men look like? | DescriptionOther
+What do trousers look like? | DescriptionOther
+What do stairs look like? | DescriptionOther
+How are people like? | DescriptionOther
+How are ovnis like? | DescriptionOther
+How is an apple like? | DescriptionOther
+How are bottles like? | DescriptionOther
+How is an airplane like? | DescriptionOther
+How is a sweatshirt like? | DescriptionOther
+What is the shape of a ball? | DescriptionOther
+
+How do OVNIs look like? | DescriptionOther
+How does a stripper look like? | DescriptionOther
+What is the form of a bicycle? | DescriptionOther
+What is the form that defines a bag? | DescriptionOther
+What is the form that makes a doll pretty? | DescriptionOther
+How is the form of an apple? | DescriptionOther
+How is the form that makes sense to draw? | DescriptionOther
+What is the structure of an atom? | DescriptionOther
+What is the structure of an a plane? | DescriptionOther
+How is the silhouette of a lady? | DescriptionOther
+How is the outline of an ugly building? | DescriptionOther
+How is the contour of the sun? | DescriptionOther
+
+
+# ----------------------------------------------------------------------------------------
+
+# Problems:
+# Isn't sugar sweet?
+# When was the ww2?
+# What does beautiful mean?
+# If you put Maria or Hanna, it breaks.
+# Does Tania like men? -> No, Tania don't does like men.
+# is dot a bad question? -> Yes, dot is dot a bad question.
+# Are tomatoes blue? -> No, tomatoes am not tomatoes blue.
+# Did you have lunch with her? -> No, I not had lunch with.
+# Is an orange orange? -> Yes, an orange is .
+# Is orange orange?
+# Is red red? -> wrong classification.
+# What do you mean? - what should it be labeled to?
