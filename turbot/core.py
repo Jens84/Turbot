@@ -8,6 +8,7 @@ __author_email__ = 'jeremy.rombourg@gmail.com'
 
 import nltk
 #import aiml
+import random
 import urllib
 import urllib2
 import bs4
@@ -20,22 +21,22 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 from nltk.corpus import wordnet as wn
 
 
-def _getSubject(question):
+def _getSubject(question, ind):
     subject = ""
     qTags = nltk.pos_tag(question)
-    if question[1].lower() == 'you':
+    if question[ind].lower() == 'you':
         subject = "I "
-    elif question[1].lower() == 'i':
+    elif question[ind].lower() == 'i':
         subject = "you "
-    elif qTags[1][1] == 'DT':
-        subject = question[1] + " " + question[2] + " "
-    elif qTags[1][1] in ['NNP', 'NNPS']:
-        i = 1
-        while (qTags[i][1] in ['NNP', 'NNPS']):
+    elif qTags[ind][ind] == 'DT':
+        subject = question[ind] + " " + question[ind + 1] + " "
+    elif qTags[ind][ind] in ['NNP', 'NNPS']:
+        i = ind
+        while (qTags[i][ind] in ['NNP', 'NNPS']):
             subject += question[i] + " "
-            i += 1
+            i += ind
     else:
-        subject = question[1] + " "
+        subject = question[ind] + " "
 
     return subject
 
@@ -48,7 +49,7 @@ def _getObject(question, subject):
         # This is the subject
         if(word in subject):
             continue
-        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS']):
+        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS', 'PRP']):
             object += ' ' + word
         else:
             if(object != ""):
@@ -57,11 +58,11 @@ def _getObject(question, subject):
     return object
 
 
-def _getVerbs(question):
+def _getVerbs(question, subject):
     qTags = nltk.pos_tag(question)
     verbs = [word for word, tag in qTags
              if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD']]
-    if verbs[0].lower() == 'are':
+    if verbs[0].lower() == 'are' and subject == 'I ':
         verbs[0] = 'am'
 
     return verbs
@@ -102,9 +103,6 @@ class Dialog():
 
         subject = ans + subject
 
-        print subject
-        print verbs
-        print object
         # Answer according to previous results
         if len(verbs) == 1:
             if verbs[0].lower() in ['am', 'are', 'is']:
@@ -157,29 +155,30 @@ class Dialog():
             return "Yes, "
 
     def answer(self, question):
+        tokens = nltk.word_tokenize(question)
+        tokens[0] = tokens[0].lower()
+        score = self._getPosNegScore(tokens)
+
+        q = nltk.Text(tokens)
+        qTags = nltk.pos_tag(q)
+        print qTags
+
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
-            
+        print "Type => " + type
         if type == "whQuestion":
-            whType = self._classifierWhQ.classify(learn.dialog.dialogue_act_features(question))
-            return "This question is of type wh and its category is: "+whType
+            whType = self._classifierWhQ.classify(
+                learn.dialog.dialogue_act_features(question))
+            return "This question is of type wh and its category is: " + whType
 
         if type == "ynQuestion":
-            tokens = nltk.word_tokenize(question)
-            tokens[0] = tokens[0].lower()
-            score = self._getPosNegScore(tokens)
             ans = ""
 
-            # Find the sentence's verb
-            q = nltk.Text(tokens)
-            qTags = nltk.pos_tag(q)
-            print qTags
+            # Get the subject
+            subject = _getSubject(q, 1)
 
             # Get the verbs
-            verbs = _getVerbs(q)
-
-            # Get the subject
-            subject = _getSubject(q)
+            verbs = _getVerbs(q, subject)
 
             # Get the object
             object = _getObject(q, subject)
@@ -195,6 +194,18 @@ class Dialog():
 
             d = Definition()
             return d.answer(question)
+        elif type == "Statement" or type == "Emphasis":
+            subject = q[0] + " "
+            verbs = _getVerbs(q, subject)
+            object = _getObject(q, subject)
+
+            sentence = ""
+            if object == " you":
+                ending = [" more", " too", ""]
+                sentence = (subject + verbs[0] +
+                            object + random.choice(ending) + ".")
+            return sentence.capitalize()
+
         else:
             return "I don't know what you mean."
 
@@ -270,19 +281,19 @@ class Definition():
 
         return results["results"]["bindings"]
         '''
-        keywords = {'where': ['place', 'city', 'country'], 
+        keywords = {'where': ['place', 'city', 'country'],
                     'when': ['date', 'time'],
                     'what': 'thing',
                     'who': 'person',
                     'wow': ['way', 'means'],
                     'why': 'reason'
-                   }
+                    }
 
         tokens = nltk.word_tokenize(sentence)
         s = nltk.Text(tokens)
         sTags = nltk.pos_tag(s)
         print sTags
-        
+
         whWord = ""
         for word, tag in sTags:
             if "W" in tag:
@@ -291,11 +302,11 @@ class Definition():
 
         print keywords[whWord.lower()]
 
-        sub = _getSubject(s)
+        sub = _getSubject(s, 2)
         print sub
         obj = _getObject(s, sub)
         print obj.strip()
-        
+
         search = wikipedia.search(obj.strip())
         print search
         page = wikipedia.page(search[0])

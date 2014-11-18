@@ -19,6 +19,7 @@ def dialogue_haveBe_features(question):
 
 def trainTypeQuestion():
     posts = nltk.corpus.nps_chat.xml_posts()[:10000]
+
     haveBeQuestions = ['Have you been here?', 'Are you okay?',
                        'Are you alive?', 'Am I a dragon?',
                        'Have you any idea?', 'Has she a cat?',

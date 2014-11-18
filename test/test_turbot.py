@@ -7,6 +7,7 @@ def test_YesNo_basic():
     assert(d.answer("Are you sure?") == "No, I am not.")
     assert(d.answer("Has he a brother?") == "Yes, he has a brother.")
     assert(d.answer("Do you know him?") == "Yes, I know.")
+    assert(d.answer("Are they fine?") == "Yes, they are fine.")
 
 
 def test_YesNo_complex():
