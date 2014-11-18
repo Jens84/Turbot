@@ -63,8 +63,8 @@ def _getObject(question, subject, verbs):
 def _getVerbs(question, subject):
     qTags = nltk.pos_tag(question)
     verbs = [word for word, tag in qTags
-             if tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD'] and
-             word not in subject.replace(' ', '')]
+             if (tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD'] and
+                 word != subject.replace(' ', ''))]
     if verbs[0].lower() == 'are' and subject == 'I ':
         verbs[0] = 'am'
 
