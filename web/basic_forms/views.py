@@ -8,10 +8,13 @@ import turbot
 
 class MainView():
     _dialog = None
+    _definition = None
 
     def __init__(self):
-        self._dialog = turbot.Dialog()
-        self._definition = turbot.Definition()
+        if not self._dialog:
+            self._dialog = turbot.Dialog()
+        if not self._definition:
+            self._definition = turbot.Definition()
 
     def index(self, request):
         answer = ""

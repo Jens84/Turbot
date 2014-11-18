@@ -19,12 +19,13 @@ def dialogue_haveBe_features(question):
 
 def trainTypeQuestion():
     posts = nltk.corpus.nps_chat.xml_posts()[:10000]
+
     haveBeQuestions = ['Have you been here?', 'Are you okay?',
                        'Are you alive?', 'Am I a dragon?',
                        'Have you any idea?', 'Has she a cat?',
                        'Are we greedy?', 'Is he tired?', 'Is she good?',
                        'Are you sure?', 'Have you already done it?',
-                       'Has he eaten it?']
+                       'Has he eaten it?', 'Is tomato red?']
 
     featuresets = [(dialogue_act_features(post.text),
                     post.get('class'))for post in posts]
@@ -37,65 +38,62 @@ def trainTypeQuestion():
     return nltk.NaiveBayesClassifier.train(train_set)
 
 
-
-
 def labeledSentencesFileParser(filename):
 
     # Open a file
     textFile = open(filename, "r")
-    
+
     line = textFile.readlines()
-    
+
     features = {}
-    flag_label=0
-    every_words=[]
-    featureSets=[]
+    flag_label = 0
+    every_words = []
+    featureSets = []
     for l in line:
-        sentence=[l.split()]
+        sentence = [l.split()]
         for words in sentence:
-            each_sentence=[]
+            each_sentence = []
             for word in words:
                 if word[0] == '#':
 #                    print "This line is a comment"
                     break
                 if word == "|":
-                    flag_label=1
+                    flag_label = 1
                     continue
-                if flag_label==1:
+                if flag_label == 1:
                     label = re.findall(r"[\w']+|[.,!?;]", word)
-                    flag_label=0
+                    flag_label = 0
                     continue
-                each_word=re.findall(r"[\w']+|[.,!?;:]", word)
-                every_words+=each_word
-                each_sentence+=each_word
+                each_word = re.findall(r"[\w']+|[.,!?;:]", word)
+                every_words += each_word
+                each_sentence += each_word
             if each_sentence:
-                features={}
-                featureSet=()
+                features = {}
+                featureSet = ()
                 for word_ in each_sentence:
                     features['contains(%s)' % word_.lower()] = True
-                featureSet=(features,label[0])
+                featureSet = (features, label[0])
                 featureSets.append(featureSet)
     # Close opend file
     textFile.close()
     return featureSets
 
 
-
-
 def trainWhQuestion():
-    path = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/whQuestionClassifiedSentences.txt"
-    featuresets = labeledSentencesFileParser(path)
-    
+    path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/whQuestionClassifiedSentences.txt"
+    path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/whQuestionClassifiedSentences.txt"
+
+    if os.path.exists(path1):
+        file = path1
+    else:
+        file = path2
+
+    featuresets = labeledSentencesFileParser(file)
+
     size = int(len(featuresets) * 0.05)
     train_set, test_set = featuresets[size:], featuresets[:size]
     classifier = nltk.NaiveBayesClassifier.train(train_set)
     return classifier
-
-    
-    
-    
-    
-    
 
 
 def getPosNegWords():
