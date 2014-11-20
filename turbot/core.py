@@ -82,9 +82,14 @@ class Dialog():
         # load classifiers from pickle file
         self._classifierWhQ = learn.pickleHandler.load_object('classifierWhQ.pkl')
         self._classifierTypeQ = learn.pickleHandler.load_object('classifierTypeQ.pkl')
-        self._classifierDescOtherQ = learn.dialog.trainWhQuestion(2)
-        #self._classifierTypeQ = learn.dialog.trainTypeQuestion(1)
+        self._classifierDescOtherQ = learn.pickleHandler.load_object('classifierDescOtherQ.pkl')
+        self._classifierDescHQ = learn.pickleHandler.load_object('classifierDescHQ.pkl')
+        self._classifierDescWhQ = learn.pickleHandler.load_object('classifierDescWhQ.pkl')
         #self._classifierWhQ = learn.dialog.trainWhQuestion()
+        #self._classifierTypeQ = learn.dialog.trainTypeQuestion(1)
+        #self._classifierDescOtherQ = learn.dialog.trainWhQuestion(2)
+        #self._classifierDescHQ = learn.dialog.trainWhQuestion(3)
+        #self._classifierDescWhQ = learn.dialog.trainWhQuestion(4)
         
 
     def _getPosNegScore(self, tokens):
@@ -180,6 +185,14 @@ class Dialog():
                 learn.dialog.dialogue_act_features(question))
             if whType == "DescriptionOther":
                 descriptionType = self._classifierDescOtherQ.classify(
+                        learn.dialog.dialogue_act_features(question))
+                return "This question is of type wh and its category is: " + descriptionType
+            if whType == "DescriptionH":
+                descriptionType = self._classifierDescHQ.classify(
+                        learn.dialog.dialogue_act_features(question))
+                return "This question is of type wh and its category is: " + descriptionType
+            if whType == "DescriptionWh":
+                descriptionType = self._classifierDescWhQ.classify(
                         learn.dialog.dialogue_act_features(question))
                 return "This question is of type wh and its category is: " + descriptionType
             return "This question is of type wh and its category is: " + whType

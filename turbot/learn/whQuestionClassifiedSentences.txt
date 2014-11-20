@@ -1064,13 +1064,15 @@ How did they go from Russia to Belgium? | Manner
 
 
 
+
 # ----------------------------------------------------------------------------------------
 
 # Description
 
-# Description (Composition, Dimension, Look and Shape, Meaning, Duration, Quantity, Frequency, Age)
+# Description (Composition, Dimension, Look and Shape, Meaning, Duration, Quantity,
+#				Frequency, Age, Abbreviation)
 
-# DescriptionWh (Composition, Meaning)
+# DescriptionWh (Composition, Meaning, Abbreviation)
 
 # Description - Composition
 
@@ -1195,7 +1197,7 @@ What does NN O mean when used as a prefix in Irish surnames? | DescriptionWh
 
 # DescriptionH - Age
 
-What is Gandalf's age?
+What is Gandalf's age? | DescriptionH
 What is the professor's age? | DescriptionH
 What is my age? | DescriptionH
 What is your age? | DescriptionH
@@ -1523,3 +1525,5 @@ How is the contour of the sun? | DescriptionOther
 # What do you mean? - what should it be labeled to?
 # What is the Dumbledore's age? -> should be DescriptionH
 # What is the age of Peter? -> should be DescriptionH
+# With which frequency can you see birds on the afternoon? -> should be DescriptionH
+# What is the size of Einstein's head? -> but What is the size of Einstein head? is good :/

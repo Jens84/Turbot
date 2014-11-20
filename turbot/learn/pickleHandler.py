@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#import cPickle as pickle
+
 import pickle
 import os
 import dialog
@@ -50,13 +50,23 @@ def load_object(filename):
 
 def update_classifiers():
     
-    trainWhQuestionClassifier = dialog.trainWhQuestion()
     trainTypeQClassifier = dialog.trainTypeQuestion()
+    trainWhQuestionClassifier = dialog.trainWhQuestion(1)
+    trainDescOtherQuestionClassifier = dialog.trainWhQuestion(2)
+    trainDescHQuestionClassifier = dialog.trainWhQuestion(3)
+    trainDescWhQuestionClassifier = dialog.trainWhQuestion(4)
 
-    save_object(trainWhQuestionClassifier, 'classifierWhQ.pkl')
+    # Save classifier that determines the general type of question
     save_object(trainTypeQClassifier, 'classifierTypeQ.pkl')
+    # Save classifier that determines the type of "WhQuestion"
+    save_object(trainWhQuestionClassifier, 'classifierWhQ.pkl')
+    # Save classifier that determines the type of "DescriptionOther"
+    save_object(trainDescOtherQuestionClassifier, 'classifierDescOtherQ.pkl')
+    # Save classifier that determines the type of "DescriptionH"
+    save_object(trainDescHQuestionClassifier, 'classifierDescHQ.pkl')
+    # Save classifier that determines the type of "DescriptionWh"
+    save_object(trainDescWhQuestionClassifier, 'classifierDescWhQ.pkl')
 
-
-
+# Call function update_classifiers to update the classifier files
 #update_classifiers()
 

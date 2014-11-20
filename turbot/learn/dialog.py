@@ -97,6 +97,12 @@ def trainWhQuestion(mode):
     elif(mode == 2):
         path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/classifierDescriptionOther.txt"
         path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/classifierDescriptionOther.txt"
+    elif(mode == 3):
+        path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/classifierDescriptionH.txt"
+        path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/classifierDescriptionH.txt"
+    elif(mode == 4):
+        path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/classifierDescriptionWh.txt"
+        path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/classifierDescriptionWh.txt"
         
     if os.path.exists(path1):
         file = path1

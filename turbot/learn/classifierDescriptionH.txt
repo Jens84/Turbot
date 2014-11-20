@@ -1,0 +1,208 @@
+# DescriptionH (Age, Duration, Quantity, Frequency, Age)
+
+# Age
+
+What is Gandalf's age? | Age
+What is the professor's age? | Age
+What is my age? | Age
+What is your age? | Age
+What age do you think I have? | Age
+How old do you think I am? | Age
+How old is my teacher? | Age
+How old are you? | Age
+How old am I? | Age
+How old is her? | Age
+How old is the guy on the movie "Harry Potter"? | Age
+How old was Jude when she got pregnant? | Age
+How old was your mother when she got you? | Age
+How old can someone be to have responsibilities? | Age
+How old do I have to be to get a driver's license in the USA? | Age
+How old were you when you first punched a guy? | Age
+How old do you have to be in order to be allowed to drink? | Age
+How old is your brother? | Age
+How many years have you lived? | Age
+How long have you lived? | Age
+When is your birthday? | Age
+In which day were you born? | Age
+
+Which is the best age to move out? | Age
+Which is the best age to live by yourself? | Age
+At what age should I start living by myself? | Age
+What's the allowed drinking age? | Age
+What is an appropriate age to start having sex? | Age
+What is the appropriate age to start gambling? | Age
+What is the best age to meet a girl? | Age
+What is the best age to marry? | Age
+What's the best age to start a family? | Age
+Which is the best age to have a kid? | Age
+What is the best time in your life to have a baby? | Age
+What is the best time in your life to take yoga classes? | Age
+Which is the best time in your life to go to college? | Age
+
+# Duration
+
+How long does milk take to expire? | Duration
+How long does rice take to expire? | Duration
+How long do grains take to expire? | Duration
+How long do you take to travel from Belgium to the Netherlands? | Duration
+How long do you take to travel from Switzerland to Germany? | Duration
+How long do you take by car from Lisbon to Oporto? | Duration
+How long do you take to get from Ireland to Denmark? | Duration
+How long do you take to go home? | Duration
+How should does it take to move from one place to another? | Duration
+How long does it take to get to school? | Duration
+How long does it take to travel from Indonesia to Malaysia? | Duration
+How long is the plane flight from Brussels to the US? | Duration
+How long can free divers stay without breathing? | Duration
+How long can an egg last? | Duration
+How long is the movie? | Duration
+How long did you take to watch the musical? | Duration
+How long did the game take? | Duration
+How long were the kids out on the street? | Duration
+How long was I out for? | Duration
+How long did the bus take to come? | Duration
+How long does it take for you to realize I am the love of your life? | Duration
+How long does it take to go from a France to Argelia? | Duration
+How long does it take to finish a bowl of soup? | Duration
+How long can a person live without eating? | Duration
+How long can a person live without drinking water? | Duration
+How long do you expect this relationship to last? | Duration
+How long have you kept the cheese in the fridge? | Duration
+How long is the way from DTU to my house? | Duration
+How long is the way to go from the store to the hospital? | Duration
+How long does it take to go to the supermarket when it	 is raining? | Duration
+How did it take to get to work? | Duration
+How did it the plane take to get here? | Duration
+What is the meat's expiry date? | Duration
+What is a yogurt's expiry date? | Duration
+What is the expiry date of feta cheese? | Duration
+What is the average duration of a marathon? | Duration
+What is the average length of an arm? | Duration
+What is the normal length of a potato? | Duration
+What is the normal duration of jogging activity? | Duration
+What is the normal duration of dancing class? | Duration
+What is the duration of a computer? | Duration
+What is the duration of a soccer game? | Duration
+What is the duration of the longest nap? | Duration
+What is the duration of pregnancy? | Duration
+What is the duration of a cold? | Duration
+What is the duration of a bond? | Duration
+What is the duration of the lion king musical? | Duration
+What is the common duration of cirque du soleil show? | Duration
+What is the duration of a computer? | Duration
+For how long are you going to run? | Duration
+For how long are you planning to stay here? | Duration
+For how long are you leaving? | Duration
+For how long did you expect to be there? | Duration
+For how long did you manage to pull it off? | Duration
+For how long have you planned it? | Duration
+For how long have you known this? | Duration
+For how long have they kept it a secret? | Duration
+How long did it take to get it back? | Duration
+How long did Armstrong stay on the Moon? | Duration
+For how much time was I unconscious? | Duration
+For how much time did she have a piercing? | Duration
+How much time will the wound need to heal? | Duration
+How much time did Nelson Mandela spend in prison? | Duration
+How long was Gandhi without eating? | Duration
+For how long has Obama been a president? | Duration
+What is the rental time? | Duration
+What is the minimum period allowed to rent a car? | Duration
+What is the maximum period that you can be locked up for? | Duration
+For which period of time do you get drunk? | Duration
+How long does it take for a hangover to pass? | Duration
+What is the period of time that a butterfly lives? | Duration
+What is the exam period of time? | Duration
+How long is the exam? | Duration
+How long is the bus trip? | Duration
+How long do you have to wait in line? | Duration
+How long do you have to sit down in a hospital? | Duration
+How long have you been here? | Duration
+What has been the average period of time to make this task? | Duration
+What is the period of time taken to do homework? | Duration
+What is the average period of time that takes to finish a meal? | Duration
+What is the period of time that a regular person takes to get a tattoo? | Duration
+
+# Quantity
+
+How many cells does a dog have? | Quantity
+How many questions does it take to get an answer? | Quantity
+How many right scores do I need? | Quantity
+How many peas did you get? | Quantity
+How many bills are you keeping? | Quantity
+How many secrets do you keep from me? | Quantity
+How many bugs have you seen in the museum? | Quantity
+How many pictures did you take? | Quantity
+How many dogs did John have? | Quantity
+How many prisoners are there in Albatroz? | Quantity
+How many owls appear in the movie? | Quantity
+How many trains is it needed to have a proper station? | Quantity
+How much water does it take to fill the bottle? | Quantity
+How much oil can your deposit handle? | Quantity
+How much money does he earn? | Quantity
+How much stars does a person get from doing a task? | Quantity
+How much coke does it take to get an OD? | Quantity
+How much paper can a tree provide? | Quantity
+How much hair does an ordinary bear have? | Quantity
+What is the amount of beans in that jar? | Quantity
+What is the amount of cereal in a corn field? | Quantity
+What is the amount of seats in the car? | Quantity
+What is the amount of air inside my lungs? | Quantity
+What is the number of passenger seats of the train? | Quantity
+What is the maximum number of persons allowed on the elevator? | Quantity
+What is the maximum weight that the escalator supports? | Quantity
+What is the average amount of energy in a star? | Quantity
+What is the average number of white globes in blood? | Quantity
+What is the number of digits on a cell phone number? | Quantity
+What is the number of tools that a box supports? | Quantity
+What is the maximum number of people inside a car? | Quantity
+What is the usual number of people on top of a skateboard? | Quantity
+What is the usual number of animals taking an exam? | Quantity
+
+# Frequency
+
+How often do you go bowling? | Frequency
+How often do you stay over? | Frequency
+How often have you gone fishing? | Frequency
+How often do you use make up? | Frequency
+How regular is our practice? | Frequency
+How regular are your heartbeats? | Frequency
+With which frequency does something occur in space? | Frequency
+With which frequency can you hear lightning? | Frequency
+With which frequency can you hear screams at night? | Frequency
+With which frequency can you train in the gym? | Frequency
+With which frequency can a doctor perform surgery? | Frequency
+With which frequency are your symtoms coming back? | Frequency
+With which frequency can I do surgery? | Frequency
+With which frequency do you take exams? | Frequency
+With which frequency do you hear shouts in the morning? | Frequency
+With which frequency do you hear take a pill at dinner? | Frequency
+With which frequency can someone do diving? | Frequency
+With which frequency does your mother visit you? | Frequency
+With which frequency do you eat chocolate? | Frequency
+With which frequency do you travel? | Frequency
+With which frequency do you go to school? | Frequency
+How frequent was your visit? | Frequency
+How frequent is my heart beating? | Frequency
+How frequent are her strokes? | Frequency
+How frequently did she pass through the stage? | Frequency
+How frequent was her appearance? | Frequency
+How frequently does he scream? | Frequency
+How frequently is she pregnant? | Frequency
+How usually does someone have a lucky break? | Frequency
+How usually do you eat breakfast? | Frequency
+How usually should I run? | Frequency
+How usual is a heart attack? | Frequency
+How usual were the meetings? | Frequency
+How usual are the practices? | Frequency
+How typical is it for someone to get sick? | Frequency
+How typical is it to get infected? | Frequency
+How typical are storms in Japan? | Frequency
+How typical are tsunamis? | Frequency
+how typical is this type of investigative journalism? | Frequency
+How repeatedly can someone be hit over the head? | Frequency
+How regularly can I fly? | Frequency
+How regularly should you check perishable foods for signs of deterioration? | Frequency
+How regularly should you poop? | Frequency
+How regularly can you give blood? | Frequency
+How regularly can you take ibuprofen? | Frequency
