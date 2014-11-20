@@ -2,8 +2,12 @@
 
 # Dimension
 
+How tall are you? | Dimension
+How tall are they? | Dimension
 How tall is Johanna? | Dimension
 How tall is an elephant? | Dimension
+How short are you? | Dimension
+How short are they? | Dimension
 How short is Chris? | Dimension
 How big is the train? | Dimension
 How small is your car? | Dimension

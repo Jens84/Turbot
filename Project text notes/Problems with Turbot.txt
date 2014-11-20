@@ -1,0 +1,24 @@
+Problems with Turbot:
+
+Questions:
+
+Isn't sugar sweet?
+When was the ww2?
+How long did it take to go from Mozambique to Pakistan? -> should be DescriptionH
+What does beautiful mean?
+If you put Maria or Hanna, it breaks.
+Does Tania like men? -> No, Tania don't does like men.
+is dot a bad question? -> Yes, dot is dot a bad question.
+Are tomatoes blue? -> No, tomatoes am not tomatoes blue.
+Did you have lunch with her? -> No, I not had lunch with.
+Is an orange orange? -> Yes, an orange is .
+Is orange orange?
+Is red red? -> wrong classification.
+Is black better than white? -> Is black better than white?
+
+What do you mean? - what should it be labeled to?
+What is the Dumbledore's age? -> should be DescriptionH
+What is the age of Peter? -> should be DescriptionH
+With which frequency can you see birds on the afternoon? -> should be DescriptionH
+What is the size of Einstein's head? -> but What is the size of Einstein head? is good :/
+

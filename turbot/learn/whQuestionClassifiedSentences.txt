@@ -1407,9 +1407,13 @@ How regularly can you take ibuprofen? | DescriptionH
 
 # DescriptionOther - Dimension
 
+How tall are you? | DescriptionOther
+How tall are them? | DescriptionOther
 How tall is Johanna? | DescriptionOther
 How tall is an elephant? | DescriptionOther
 How short is Chris? | DescriptionOther
+How short are you? | DescriptionOther
+How short are they? | DescriptionOther
 How big is the train? | DescriptionOther
 How small is your car? | DescriptionOther
 How tall his her? | DescriptionOther
@@ -1507,23 +1511,3 @@ How is the outline of an ugly building? | DescriptionOther
 How is the contour of the sun? | DescriptionOther
 
 
-# ----------------------------------------------------------------------------------------
-
-# Problems:
-# Isn't sugar sweet?
-# When was the ww2?
-# How long did it take to go from Mozambique to Pakistan? -> should be DescriptionH
-# What does beautiful mean?
-# If you put Maria or Hanna, it breaks.
-# Does Tania like men? -> No, Tania don't does like men.
-# is dot a bad question? -> Yes, dot is dot a bad question.
-# Are tomatoes blue? -> No, tomatoes am not tomatoes blue.
-# Did you have lunch with her? -> No, I not had lunch with.
-# Is an orange orange? -> Yes, an orange is .
-# Is orange orange?
-# Is red red? -> wrong classification.
-# What do you mean? - what should it be labeled to?
-# What is the Dumbledore's age? -> should be DescriptionH
-# What is the age of Peter? -> should be DescriptionH
-# With which frequency can you see birds on the afternoon? -> should be DescriptionH
-# What is the size of Einstein's head? -> but What is the size of Einstein head? is good :/

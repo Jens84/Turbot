@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 
-import pickle
+#import pickle
+import cPickle as pickle
 import os
 import dialog
 
