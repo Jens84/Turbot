@@ -1,6 +1,6 @@
 # Training question to classify whQuestions
-# Labels: Entity, Place, Abbreviation, Reason, Time, Manner, Object, Idea, Action, 
-# 		Choice, Description (Dimension, Shape, Duration, Quantity, Frequency, Age)
+# Labels: Entity, Place, Reason, Time, Manner, Object, Idea, Action, 
+# 		Choice, Description (Dimension, Shape, Duration, Quantity, Frequency, Age, Meaning, Abbreviation)
 
 # A Entity can be a Person, a group of People (such as a Band), an animal, a character,
 # a nickname, the name of something (such as a beverage, job)
@@ -861,27 +861,6 @@ Where do we put peanut butter? | Place
 Where was the last place you went swimming? | Place
 Where was the last place you went out to dinner? | Place
 
-# ----------------------------------------------------------------------------------------
-
-# Abbreviation
-What is the full form of .com? | Abbreviation
-What does the abbreviation AIDS stand for? | Abbreviation
-What does INRI stand for when used on Jesus cross? | Abbreviation
-What does S.O.S. stand for? | Abbreviation
-CNN is the abbreviation for what? | Abbreviation
-What does PSI stand for? | Abbreviation
-What is the abbreviation for micro? | Abbreviation
-What does NASDAQ stand for? | Abbreviation
-What is BPH? | Abbreviation
-What is the abbreviation of the company name General Motors? | Abbreviation
-What does G.M.T. stand for? | Abbreviation
-What does SIDS stand for? | Abbreviation
-When reading classified ads , what does EENTY : other stand for? | Abbreviation
-What is the abbreviated expression for the National Bureau of Investigation? | Abbreviation
-What does NAFTA stand for? | Abbreviation
-What is the full name of the PLO? | Abbreviation
-What does the word LASER mean? | Abbreviation
-What does NN O mean when used as a prefix in Irish surnames? | Abbreviation
 
 # ----------------------------------------------------------------------------------------
 
@@ -1191,6 +1170,27 @@ What are dogs? | DescriptionWh
 What are signs? | DescriptionWh
 
 
+# DescriptionWh - Abbreviation
+What is the full form of .com? | DescriptionWh
+What does the abbreviation AIDS stand for? | DescriptionWh
+What does INRI stand for when used on Jesus cross? | DescriptionWh
+What does S.O.S. stand for? | DescriptionWh
+CNN is the abbreviation for what? | DescriptionWh
+What does PSI stand for? | DescriptionWh
+What is the abbreviation for micro? | DescriptionWh
+What does NASDAQ stand for? | DescriptionWh
+What is BPH? | DescriptionWh
+What is the abbreviation of the company name General Motors? | DescriptionWh
+What does G.M.T. stand for? | DescriptionWh
+What does SIDS stand for? | DescriptionWh
+When reading classified ads , what does EENTY : other stand for? | DescriptionWh
+What is the abbreviated expression for the National Bureau of Investigation? | DescriptionWh
+What does NAFTA stand for? | DescriptionWh
+What is the full name of the PLO? | DescriptionWh
+What does the word LASER mean? | DescriptionWh
+What does NN O mean when used as a prefix in Irish surnames? | DescriptionWh
+
+
 # DescriptionH (Age, Duration, Quantity, Frequency, Age)
 
 # DescriptionH - Age
@@ -1235,6 +1235,18 @@ Which is the best time in your life to go to college? | DescriptionH
 # DescriptionH - Duration
 
 How long does milk take to expire? | DescriptionH
+How long does rice take to expire? | DescriptionH
+How long do grains take to expire? | DescriptionH
+How long do you take to travel from Belgium to the Netherlands? | DescriptionH
+How long do you take to travel from Switzerland to Germany? | DescriptionH
+How long do you take by car from Lisbon to Oporto? | DescriptionH
+How long do you take to get from Ireland to Denmark? | DescriptionH
+How long do you take to go home? | DescriptionH
+How should does it take to move from one place to another? | DescriptionH
+How long does it take to get to school? | DescriptionH
+How long does it take to travel from Indonesia to Malaysia? | DescriptionH
+How long is the plane flight from Brussels to the US? | DescriptionH
+How long can free divers stay without breathing? | DescriptionH
 How long can an egg last? | DescriptionH
 How long is the movie? | DescriptionH
 How long did you take to watch the musical? | DescriptionH
@@ -1243,12 +1255,34 @@ How long were the kids out on the street? | DescriptionH
 How long was I out for? | DescriptionH
 How long did the bus take to come? | DescriptionH
 How long does it take for you to realize I am the love of your life? | DescriptionH
+How long does it take to go from a France to Argelia? | DescriptionH
+How long does it take to finish a bowl of soup? | DescriptionH
 How long can a person live without eating? | DescriptionH
 How long can a person live without drinking water? | DescriptionH
 How long do you expect this relationship to last? | DescriptionH
 How long have you kept the cheese in the fridge? | DescriptionH
+How long is the way from DTU to my house? | DescriptionH
+How long is the way to go from the store to the hospital? | DescriptionH
+How long does it take to go to the supermarket when it	 is raining? | DescriptionH
+How did it take to get to work? | DescriptionH
+How did it the plane take to get here? | DescriptionH
 What is the meat's expiry date? | DescriptionH
 What is a yogurt's expiry date? | DescriptionH
+What is the expiry date of feta cheese? | DescriptionH
+What is the average duration of a marathon? | DescriptionH
+What is the average length of an arm? | DescriptionH
+What is the normal length of a potato? | DescriptionH
+What is the normal duration of jogging activity? | DescriptionH
+What is the normal duration of dancing class? | DescriptionH
+What is the duration of a computer? | DescriptionH
+What is the duration of a soccer game? | DescriptionH
+What is the duration of the longest nap? | DescriptionH
+What is the duration of pregnancy? | DescriptionH
+What is the duration of a cold? | DescriptionH
+What is the duration of a bond? | DescriptionH
+What is the duration of the lion king musical? | DescriptionH
+What is the common duration of cirque du soleil show? | DescriptionH
+What is the duration of a computer? | DescriptionH
 For how long are you going to run? | DescriptionH
 For how long are you planning to stay here? | DescriptionH
 For how long are you leaving? | DescriptionH
@@ -1279,6 +1313,8 @@ How long do you have to sit down in a hospital? | DescriptionH
 How long have you been here? | DescriptionH
 What has been the average period of time to make this task? | DescriptionH
 What is the period of time taken to do homework? | DescriptionH
+What is the average period of time that takes to finish a meal? | DescriptionH
+What is the period of time that a regular person takes to get a tattoo? | DescriptionH
 
 # DescriptionH - Quantity
 
@@ -1308,8 +1344,15 @@ What is the amount of air inside my lungs? | DescriptionH
 What is the number of passenger seats of the train? | DescriptionH
 What is the maximum number of persons allowed on the elevator? | DescriptionH
 What is the maximum weight that the escalator supports? | DescriptionH
+What is the average amount of energy in a star? | DescriptionH
+What is the average number of white globes in blood? | DescriptionH
+What is the number of digits on a cell phone number? | DescriptionH
+What is the number of tools that a box supports? | DescriptionH
+What is the maximum number of people inside a car? | DescriptionH
+What is the usual number of people on top of a skateboard? | DescriptionH
+What is the usual number of animals taking an exam? | DescriptionH
 
-# Description - Frequency
+# DescriptionH - Frequency
 
 How often do you go bowling? | DescriptionH
 How often do you stay over? | DescriptionH
@@ -1319,10 +1362,21 @@ How regular is our practice? | DescriptionH
 How regular are your heartbeats? | DescriptionH
 With which frequency does something occur in space? | DescriptionH
 With which frequency can you hear lightning? | DescriptionH
-With which frequency can a doctor perform surgery
+With which frequency can you hear screams at night? | DescriptionH
+With which frequency can you train in the gym? | DescriptionH
+With which frequency can a doctor perform surgery? | DescriptionH
 With which frequency are your symtoms coming back? | DescriptionH
+With which frequency can I do surgery? | DescriptionH
+With which frequency do you take exams? | DescriptionH
+With which frequency do you hear shouts in the morning? | DescriptionH
+With which frequency do you hear take a pill at dinner? | DescriptionH
+With which frequency can someone do diving? | DescriptionH
+With which frequency does your mother visit you? | DescriptionH
+With which frequency do you eat chocolate? | DescriptionH
+With which frequency do you travel? | DescriptionH
+With which frequency do you go to school? | DescriptionH
 How frequent was your visit? | DescriptionH
-How frequent is my heart beating
+How frequent is my heart beating? | DescriptionH
 How frequent are her strokes? | DescriptionH
 How frequently did she pass through the stage? | DescriptionH
 How frequent was her appearance? | DescriptionH
@@ -1351,11 +1405,29 @@ How regularly can you take ibuprofen? | DescriptionH
 
 # DescriptionOther - Dimension
 
+How tall is Johanna? | DescriptionOther
+How tall is an elephant? | DescriptionOther
+How short is Chris? | DescriptionOther
 How big is the train? | DescriptionOther
 How small is your car? | DescriptionOther
 How tall his her? | DescriptionOther
+How tall can a human be? | DescriptionOther
+How tall is the tallest tree in the world? | DescriptionOther
+How tall is the biggest mountain? | DescriptionOther
+How high is the Mount Everest? | DescriptionOther
+How high does a plane fly? | DescriptionOther
+How high can a bird go in the air? | DescriptionOther
 How tiny can a bug be? | DescriptionOther
-How huge is that monster? | DescriptionOther
+How tiny are ants? | DescriptionOther
+How big are trees? | DescriptionOther
+How big can a dog grow up to be? | DescriptionOther
+How small can a shirt become after laundry? | DescriptionOther
+How small can a shirt become after laundry? | DescriptionOther
+How near can two lightnings strike? | DescriptionOther
+How near can two magnets be without touching? | DescriptionOther
+How near is Lisbon to Madrid? | DescriptionOther
+How far is Fiji from India? | DescriptionOther
+How far can a squirrel jump? | DescriptionOther
 How far is the highway from here to Boston? | DescriptionOther
 How short can a lamp be? | DescriptionOther
 How is the size of that tree? | DescriptionOther
@@ -1438,6 +1510,7 @@ How is the contour of the sun? | DescriptionOther
 # Problems:
 # Isn't sugar sweet?
 # When was the ww2?
+# How long did it take to go from Mozambique to Pakistan? -> should be DescriptionH
 # What does beautiful mean?
 # If you put Maria or Hanna, it breaks.
 # Does Tania like men? -> No, Tania don't does like men.
@@ -1448,3 +1521,5 @@ How is the contour of the sun? | DescriptionOther
 # Is orange orange?
 # Is red red? -> wrong classification.
 # What do you mean? - what should it be labeled to?
+# What is the Dumbledore's age? -> should be DescriptionH
+# What is the age of Peter? -> should be DescriptionH
