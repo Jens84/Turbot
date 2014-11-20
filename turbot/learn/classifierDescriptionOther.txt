@@ -1,0 +1,102 @@
+# DescriptionOther (Dimension, Look and Shape)
+
+# Dimension
+
+How tall is Johanna? | Dimension
+How tall is an elephant? | Dimension
+How short is Chris? | Dimension
+How big is the train? | Dimension
+How small is your car? | Dimension
+How tall his her? | Dimension
+How tall can a human be? | Dimension
+How tall is the tallest tree in the world? | Dimension
+How tall is the biggest mountain? | Dimension
+How high is the Mount Everest? | Dimension
+How high does a plane fly? | Dimension
+How high can a bird go in the air? | Dimension
+How tiny can a bug be? | Dimension
+How tiny are ants? | Dimension
+How big are trees? | Dimension
+How big can a dog grow up to be? | Dimension
+How small can a shirt become after laundry? | Dimension
+How small can a shirt become after laundry? | Dimension
+How near can two lightnings strike? | Dimension
+How near can two magnets be without touching? | Dimension
+How near is Lisbon to Madrid? | Dimension
+How far is Fiji from India? | Dimension
+How far can a squirrel jump? | Dimension
+How far is the highway from here to Boston? | Dimension
+How short can a lamp be? | Dimension
+How is the size of that tree? | Dimension
+What is the size of an average person? | Dimension
+What is the size of an old woman? | Dimension
+What was the size of Einstein's feet? | Dimension
+What is your shoe size? | Dimension
+What is the size of Hitler's feet in inches? | Dimension
+What is the size of Napoleon's feet in European scale? | Dimension
+What is the size of a regular hand? | Dimension
+What is the size of a regular hand? | Dimension
+What is the size of a regular hand? | Dimension
+What is the volume of that bottle? | Dimension
+What's the volume of an arc? | Dimension
+What is the capacity of that package? | Dimension
+What's the average capacity of a person's stomach? | Dimension
+What is the normal magnitude of a small earthquake? | Dimension
+What is the order of magnitude of mm? | Dimension
+What is the order of magnitude of nm? | Dimension
+What's the order of magnitude of kilowatt? | Dimension
+What is the extension of Amazon forest? | Dimension
+What is the extension of a soccer field? | Dimension
+What is the volume of the planet Earth? | Dimension
+How big is the volume of water in a human? | Dimension
+How far is London from California? | Dimension
+How far is Denmark from Korea? | Dimension
+What is the distance from India to Pakistan? | Dimension
+How far is it from Japan to Spain? | Dimension
+
+# LookAndShape
+
+What are benches like? | LookAndShape
+What are scissors like? | LookAndShape
+What are clocks like? | LookAndShape
+What are clothes like? | LookAndShape
+What are shirts like? | LookAndShape
+What are dresses like? | LookAndShape
+What are scissors like? | LookAndShape
+What are bikes like? | LookAndShape
+What is a scissor like? | LookAndShape
+What are buildings? | LookAndShape
+What is snow like? | LookAndShape
+What is a pen like? | LookAndShape
+What is a folder like? | LookAndShape
+What does a glass look like? | LookAndShape
+What does a model look like? | LookAndShape
+What does a man look like? | LookAndShape
+What does a girl look like? | LookAndShape
+What does a hair look like? | LookAndShape
+What does a beautiful person look like? | LookAndShape
+What does an ugly person look like? | LookAndShape
+What do jeans look like? | LookAndShape
+What do men look like? | LookAndShape
+What do trousers look like? | LookAndShape
+What do stairs look like? | LookAndShape
+How are people like? | LookAndShape
+How are ovnis like? | LookAndShape
+How is an apple like? | LookAndShape
+How are bottles like? | LookAndShape
+How is an airplane like? | LookAndShape
+How is a sweatshirt like? | LookAndShape
+What is the shape of a ball? | LookAndShape
+
+How do OVNIs look like? | LookAndShape
+How does a stripper look like? | LookAndShape
+What is the form of a bicycle? | LookAndShape
+What is the form that defines a bag? | LookAndShape
+What is the form that makes a doll pretty? | LookAndShape
+How is the form of an apple? | LookAndShape
+How is the form that makes sense to draw? | LookAndShape
+What is the structure of an atom? | LookAndShape
+What is the structure of an a plane? | LookAndShape
+How is the silhouette of a lady? | LookAndShape
+How is the outline of an ugly building? | LookAndShape
+How is the contour of the sun? | LookAndShape

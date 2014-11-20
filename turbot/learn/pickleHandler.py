@@ -58,5 +58,5 @@ def update_classifiers():
 
 
 
-update_classifiers()
+#update_classifiers()
 

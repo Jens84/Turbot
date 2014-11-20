@@ -88,10 +88,16 @@ def labeledSentencesFileParser(filename):
     return featureSets
 
 
-def trainWhQuestion():
-    path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/whQuestionClassifiedSentences.txt"
-    path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/whQuestionClassifiedSentences.txt"
-
+def trainWhQuestion(mode):
+    
+    # Choose mode to train different classifiers
+    if(mode == 1):
+        path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/whQuestionClassifiedSentences.txt"
+        path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/whQuestionClassifiedSentences.txt"
+    elif(mode == 2):
+        path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/classifierDescriptionOther.txt"
+        path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/classifierDescriptionOther.txt"
+        
     if os.path.exists(path1):
         file = path1
     else:

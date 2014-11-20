@@ -82,7 +82,8 @@ class Dialog():
         # load classifiers from pickle file
         self._classifierWhQ = learn.pickleHandler.load_object('classifierWhQ.pkl')
         self._classifierTypeQ = learn.pickleHandler.load_object('classifierTypeQ.pkl')
-        #self._classifierTypeQ = learn.dialog.trainTypeQuestion()
+        self._classifierDescOtherQ = learn.dialog.trainWhQuestion(2)
+        #self._classifierTypeQ = learn.dialog.trainTypeQuestion(1)
         #self._classifierWhQ = learn.dialog.trainWhQuestion()
         
 
@@ -177,6 +178,10 @@ class Dialog():
         if type == "whQuestion":
             whType = self._classifierWhQ.classify(
                 learn.dialog.dialogue_act_features(question))
+            if whType == "DescriptionOther":
+                descriptionType = self._classifierDescOtherQ.classify(
+                        learn.dialog.dialogue_act_features(question))
+                return "This question is of type wh and its category is: " + descriptionType
             return "This question is of type wh and its category is: " + whType
 
         if type == "ynQuestion":
