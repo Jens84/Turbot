@@ -77,9 +77,14 @@ class Dialog():
     _posNegWords = None
 
     def __init__(self):
-        self._classifierTypeQ = learn.dialog.trainTypeQuestion()
         self._posNegWords = learn.dialog.getPosNegWords()
-        self._classifierWhQ = learn.dialog.trainWhQuestion()
+        
+        # load classifiers from pickle file
+        self._classifierWhQ = learn.pickleHandler.load_object('classifierWhQ.pkl')
+        self._classifierTypeQ = learn.pickleHandler.load_object('classifierTypeQ.pkl')
+        #self._classifierTypeQ = learn.dialog.trainTypeQuestion()
+        #self._classifierWhQ = learn.dialog.trainWhQuestion()
+        
 
     def _getPosNegScore(self, tokens):
         # neutral score

@@ -1,0 +1,12 @@
+# Additional labeled sentences for first classifier, that correct some problems
+
+
+With which frequency do you run? | whQuestion
+With which frequency does he travel? | whQuestion
+With which frequency does someone die? | whQuestion
+With which frequency do bears hibernate? | whQuestion
+With which frequency are birds changing nests? | whQuestion
+With which frequency is Peter doing laundry? | whQuestion
+
+
+

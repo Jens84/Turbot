@@ -32,6 +32,15 @@ def trainTypeQuestion():
 
     featuresets.extend([(dialogue_haveBe_features(q),
                          'ynQuestion') for q in haveBeQuestions])
+    path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/firstClassifierAdditionalSentences.txt"
+    
+    if os.path.exists(path1):
+        filename = path1
+    else:
+        print "Please insert the path to file firstClassifierAdditionalSentences.txt"
+    
+    featuresets2 = labeledSentencesFileParser(filename)
+    featuresets+=featuresets2
 
     size = int(len(featuresets) * 0.1)
     train_set, test_set = featuresets[size:], featuresets[:size]
