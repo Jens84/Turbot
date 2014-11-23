@@ -10,7 +10,7 @@ def save_object(obj, filename):
 
     path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/"
     path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/"
-    path3 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/"
+    path3 = "/home/jens/Documents/DTU/Data Mining Using Python/Project/turbot/learn/"
 
 
     if os.path.exists(path1):
@@ -31,7 +31,7 @@ def load_object(filename):
 
     path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/"
     path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/"
-    path3 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/"
+    path3 = "/home/jens/Documents/DTU/Data Mining Using Python/Project/turbot/learn/"
 
 
     if os.path.exists(path1):

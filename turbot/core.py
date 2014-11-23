@@ -7,17 +7,17 @@ __author__ = 'JBO, JES, JRG'
 __author_email__ = 'jeremy.rombourg@gmail.com'
 
 import nltk
-#import aiml
 import random
 import urllib
 import urllib2
 import bs4
-#import json
+import json
 import en
 import wikipedia
 import learn
 import re
-#from SPARQLWrapper import SPARQLWrapper, JSON
+import difflib
+from SPARQLWrapper import SPARQLWrapper, JSON
 from nltk.corpus import wordnet as wn
 
 
@@ -71,6 +71,55 @@ def _getVerbs(question, subject):
     return verbs
 
 
+def _tokenizeFromStanfordNLP(sentence):
+    params = urllib.urlencode({'query': sentence})
+    req = urllib2.Request("http://nlp.stanford.edu:8080/parser/index.jsp")
+    response = urllib2.urlopen(req, params).read()
+    soup = bs4.BeautifulSoup(response)
+    parsed = soup.find('div', attrs={'class': 'parserOutputMonospace'})
+    sTags = []
+    for c in parsed.children:
+        if c.name != "div":
+            continue
+        e = c.string.strip().split('/')
+        sTags.append((e[0], e[1]))
+    return sTags
+
+
+def _nounify(verb_word):
+    ''' Transform a verb to the closest noun: die -> death '''
+    verb_synsets = wn.synsets(verb_word, pos="v")
+
+    # Word not found
+    if not verb_synsets:
+        return []
+
+    # Get all verb lemmas of the word
+    verb_lemmas = [l for s in verb_synsets
+                   for l in s.lemmas() if s.name().split('.')[1] == 'v']
+
+    # Get related forms
+    derivationally_related_forms = [(l, l.derivationally_related_forms())
+                                    for l in verb_lemmas]
+
+    # filter only the nouns
+    related_noun_lemmas = [l for drf in derivationally_related_forms
+                           for l in drf[1]
+                           if l.synset().name().split('.')[1] == 'n']
+
+    # Extract the words from the lemmas
+    words = [l.name() for l in related_noun_lemmas]
+    len_words = len(words)
+
+    # Build the result in the form of
+    # a list containing tuples (word, probability)
+    result = [(w, float(words.count(w)) / len_words) for w in set(words)]
+    result.sort(key=lambda w: -w[1])
+
+    # return all the possibilities sorted by probability
+    return result
+
+
 class Dialog():
     _classifierTypeQ = None
     _classifierWhQ = None
@@ -89,11 +138,11 @@ class Dialog():
                                   load_object('classifierDescHQ.pkl'))
         self._classifierDescWhQ = (learn.pickleHandler.
                                    load_object('classifierDescWhQ.pkl'))
-        #self._classifierWhQ = learn.dialog.trainWhQuestion()
-        #self._classifierTypeQ = learn.dialog.trainTypeQuestion(1)
-        #self._classifierDescOtherQ = learn.dialog.trainWhQuestion(2)
-        #self._classifierDescHQ = learn.dialog.trainWhQuestion(3)
-        #self._classifierDescWhQ = learn.dialog.trainWhQuestion(4)
+        # self._classifierWhQ = learn.dialog.trainWhQuestion()
+        # self._classifierTypeQ = learn.dialog.trainTypeQuestion(1)
+        # self._classifierDescOtherQ = learn.dialog.trainWhQuestion(2)
+        # self._classifierDescHQ = learn.dialog.trainWhQuestion(3)
+        # self._classifierDescWhQ = learn.dialog.trainWhQuestion(4)
 
     def _getPosNegScore(self, tokens):
         # neutral score
@@ -183,6 +232,7 @@ class Dialog():
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
         print "Type => " + type
+        '''
         if type == "whQuestion":
             whType = self._classifierWhQ.classify(
                 learn.dialog.dialogue_act_features(question))
@@ -202,6 +252,7 @@ class Dialog():
                 return ("This question is of type wh and its category is: "
                         + descriptionType)
             return "This question is of type wh and its category is: " + whType
+        '''
 
         if type == "ynQuestion":
             ans = ""
@@ -243,20 +294,13 @@ class Dialog():
         else:
             return "I don't know what you mean."
 
-    def chat(self):
-        #k = aiml.Kernel()
-        #k.learn("./turbot/standard-aiml/std-startup.xml")
-        #while True:
-        #   k.respond(raw_input(">"))
-        return ""
-
 
 class Definition():
 
     def __init__(self):
-        '''
         self._sparql = SPARQLWrapper("http://dbpedia.org/sparql")
         self._sparql.setReturnFormat(JSON)
+
         req = urllib2.Request(
             "http://dbpedia.org/ontology/data/definitions.jsonld")
         f = urllib2.urlopen(req)
@@ -264,91 +308,87 @@ class Definition():
         f.close()
         data = json.loads(response)
         result = [row["http://open.vocab.org/terms/defines"]
-                for row in data["@graph"]
-                if row["@id"] == "http://dbpedia.org/ontology/"][0]
+                  for row in data["@graph"]
+                  if row["@id"] == "http://dbpedia.org/ontology/"][0]
         self._properties = [p[28:] for p in result]
-        '''
-
-    def nounify(verb_word):
-        ''' Transform a verb to the closest noun: die -> death '''
-        verb_synsets = wn.synsets(verb_word, pos="v")
-
-        # Word not found
-        if not verb_synsets:
-            return []
-
-        # Get all verb lemmas of the word
-        verb_lemmas = [l for s in verb_synsets for l in s.lemmas
-                       if s.name.split('.')[1] == 'v']
-
-        # Get related forms
-        derivationally_related_forms = [(l, l.derivationally_related_forms())
-                                        for l in verb_lemmas]
-
-        # filter only the nouns
-        related_noun_lemmas = [l for drf in derivationally_related_forms
-                               for l in drf[1]
-                               if l.synset.name.split('.')[1] == 'n']
-
-        # Extract the words from the lemmas
-        words = [l.name for l in related_noun_lemmas]
-        len_words = len(words)
-
-        # Build the result in the form of
-        # a list containing tuples (word, probability)
-        result = [(w, float(words.count(w)) / len_words) for w in set(words)]
-        result.sort(key=lambda w: -w[1])
-
-        # return all the possibilities sorted by probability
-        return result
 
     def answer(self, sentence):
-        '''
-        self._sparql.setQuery("""
-            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-            SELECT ?birthPlace
-            WHERE { <http://dbpedia.org/resource/Claude_Monet>
-             <http://dbpedia.org/property/birthPlace> ?birthPlace }
-            """)
-
-        results = self._sparql.query().convert()
-
-        return results["results"]["bindings"]
-        '''
         keywords = {'where': ['place', 'city', 'country'],
                     'when': ['date', 'time'],
-                    'what': 'thing',
-                    'who': 'person',
-                    'wow': ['way', 'means'],
-                    'why': 'reason'
+                    'what': ['thing'],
+                    'which': ['thing'],
+                    'who': ['person'],
+                    'how': ['way', 'means'],
+                    'why': ['reason']
                     }
 
-        tokens = nltk.word_tokenize(sentence)
-        s = nltk.Text(tokens)
-        sTags = nltk.pos_tag(s)
+        # Word tokenizer using Stanford NLP Parser (better than NLTK)
+        sTags = _tokenizeFromStanfordNLP(sentence)
         print sTags
 
+        # Get the wh? word from the sentence
         whWord = ""
         for word, tag in sTags:
             if "W" in tag:
-                whWord = word
+                whWord = word.lower()
                 break
 
-        print keywords[whWord.lower()]
+        # Get the object and verb of the sentence
+        obj = ' '.join([w[0] for w in sTags if 'NN' in w[1]])
+        vb = None
+        for w, t in sTags:
+            if 'VB' in t and t != 'VB':
+                vb = w
+            elif t == 'VB':
+                vb = w
+                break
+        # TODO Probability not really good (first element not always the best)
+        noun = _nounify(vb)[1][0]
+        print noun
 
-        sub = _getSubject(s, 2)
-        print sub
-        obj = _getObject(s, sub)
-        print obj.strip()
+        # Perform a search on DBPedia to find the concerned resource
+        params = urllib.urlencode({'QueryString': obj,
+                                   # 'QueryClass': keywords[whWord][0],
+                                   'MaxHints': 1})
+        url = "http://lookup.dbpedia.org/api/search/KeywordSearch?" + params
+        req = urllib2.Request(url, headers={"Accept": "application/json"})
+        response = urllib2.urlopen(req).read()
+        # print response
+        uri = json.loads(response)["results"][0]["uri"]
+        print uri
 
+        # Choose the property regarding the wh? word
+        keyword = noun
+
+        if whWord == 'where' or whWord == 'when':
+            keyword += keywords[whWord][0]
+
+        properties = difflib.get_close_matches(keyword, self._properties)
+        print properties
+        pname = 'dbo:' + properties[0]
+        filters = ""
+        # filters = 'FILTER (langMatches(lang(?pname), "EN"))'
+        self._sparql.setQuery("""
+            PREFIX dbo: <http://dbpedia.org/ontology/>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            SELECT ?pname
+            WHERE { <%s> %s ?pname %s }""" % (uri, pname, filters))
+        results = self._sparql.query().convert()
+        print results
+        answer = results["results"]["bindings"][0]['pname']['value']
+        print answer
+        # TODO Check for None
+        return answer
+
+        '''
         search = wikipedia.search(obj.strip())
         print search
         page = wikipedia.page(search[0])
         summary = wikipedia.summary(search[0], sentences=1)
         print summary
+        '''
 
-        #TODO Fix subject/object identification & Wikipedia keyword analysis
-
+        # If no result (return) until here, perform a search on answers.com
         params = urllib.urlencode({'q': sentence})
         req = urllib2.Request("http://wiki.answers.com/search?" + params)
         response = urllib2.urlopen(req, params).read()
