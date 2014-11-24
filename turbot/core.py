@@ -94,7 +94,7 @@ def _nounify(verb_word):
 
     # Get all verb lemmas of the word
     verb_lemmas = [l for s in verb_synsets
-                   for l in s.lemmas() if s.name().split('.')[1] == 'v']
+                   for l in s.lemmas if s.name.split('.')[1] == 'v']
 
     # Get related forms
     derivationally_related_forms = [(l, l.derivationally_related_forms())
@@ -103,10 +103,10 @@ def _nounify(verb_word):
     # filter only the nouns
     related_noun_lemmas = [l for drf in derivationally_related_forms
                            for l in drf[1]
-                           if l.synset().name().split('.')[1] == 'n']
+                           if l.synset.name.split('.')[1] == 'n']
 
     # Extract the words from the lemmas
-    words = [l.name() for l in related_noun_lemmas]
+    words = [l.name for l in related_noun_lemmas]
     len_words = len(words)
 
     # Build the result in the form of
@@ -228,26 +228,11 @@ class Dialog():
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
         print "Type => " + type
+        
         '''
         if type == "whQuestion":
-            whType = self._classifierWhQ.classify(
-                learn.dialog.dialogue_act_features(question))
-            if whType == "DescriptionOther":
-                descriptionType = self._classifierDescOtherQ.classify(
-                    learn.dialog.dialogue_act_features(question))
-                return ("This question is of type wh and its category is: "
-                        + descriptionType)
-            if whType == "DescriptionH":
-                descriptionType = self._classifierDescHQ.classify(
-                    learn.dialog.dialogue_act_features(question))
-                return ("This question is of type wh and its category is: "
-                        + descriptionType)
-            if whType == "DescriptionWh":
-                descriptionType = self._classifierDescWhQ.classify(
-                    learn.dialog.dialogue_act_features(question))
-                return ("This question is of type wh and its category is: "
-                        + descriptionType)
-            return "This question is of type wh and its category is: " + whType
+            whAnswerType = self.classifyWhQuestion(question)
+            return whAnswerType
         '''
 
         if type == "ynQuestion":
@@ -289,6 +274,29 @@ class Dialog():
 
         else:
             return "I don't know what you mean."
+    
+    
+    
+    
+    def classifyWhQuestion(self, question):
+        
+        whType = self._classifierWhQ.classify(
+                learn.dialog.dialogue_act_features(question))
+        if whType == "DescriptionOther":
+            descriptionType = self._classifierDescOtherQ.classify(
+                learn.dialog.dialogue_act_features(question))
+            return descriptionType
+        if whType == "DescriptionH":
+            descriptionType = self._classifierDescHQ.classify(
+                learn.dialog.dialogue_act_features(question))
+            return descriptionType
+        if whType == "DescriptionWh":
+            descriptionType = self._classifierDescWhQ.classify(
+                learn.dialog.dialogue_act_features(question))
+            return descriptionType
+        return whType
+        
+
 
 
 class Definition():
