@@ -78,10 +78,8 @@ def _tokenizeFromStanfordNLP(sentence):
     soup = bs4.BeautifulSoup(response)
     parsed = soup.find('div', attrs={'class': 'parserOutputMonospace'})
     sTags = []
-    for c in parsed.children:
-        if c.name != "div":
-            continue
-        e = c.string.strip().split('/')
+    for d in parsed.find_all('div'):
+        e = d.string.strip().split('/')
         sTags.append((e[0], e[1]))
     return sTags
 
