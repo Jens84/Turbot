@@ -1,4 +1,4 @@
-# DescriptionH (Age, Duration, Quantity, Frequency, Age)
+# DescriptionH (Age, Duration, Quantity, Frequency)
 
 # Age
 

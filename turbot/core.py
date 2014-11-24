@@ -245,26 +245,11 @@ class Dialog():
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
         print "Type => " + type
+        
         '''
         if type == "whQuestion":
-            whType = self._classifierWhQ.classify(
-                learn.dialog.dialogue_act_features(question))
-            if whType == "DescriptionOther":
-                descriptionType = self._classifierDescOtherQ.classify(
-                    learn.dialog.dialogue_act_features(question))
-                return ("This question is of type wh and its category is: "
-                        + descriptionType)
-            if whType == "DescriptionH":
-                descriptionType = self._classifierDescHQ.classify(
-                    learn.dialog.dialogue_act_features(question))
-                return ("This question is of type wh and its category is: "
-                        + descriptionType)
-            if whType == "DescriptionWh":
-                descriptionType = self._classifierDescWhQ.classify(
-                    learn.dialog.dialogue_act_features(question))
-                return ("This question is of type wh and its category is: "
-                        + descriptionType)
-            return "This question is of type wh and its category is: " + whType
+            whAnswerType = self.classifyWhQuestion(question)
+            return whAnswerType
         '''
 
         if type == "ynQuestion":
@@ -319,6 +304,29 @@ class Dialog():
 
         else:
             return "I don't know what you mean."
+    
+    
+    
+    
+    def classifyWhQuestion(self, question):
+        
+        whType = self._classifierWhQ.classify(
+                learn.dialog.dialogue_act_features(question))
+        if whType == "DescriptionOther":
+            descriptionType = self._classifierDescOtherQ.classify(
+                learn.dialog.dialogue_act_features(question))
+            return descriptionType
+        if whType == "DescriptionH":
+            descriptionType = self._classifierDescHQ.classify(
+                learn.dialog.dialogue_act_features(question))
+            return descriptionType
+        if whType == "DescriptionWh":
+            descriptionType = self._classifierDescWhQ.classify(
+                learn.dialog.dialogue_act_features(question))
+            return descriptionType
+        return whType
+        
+
 
 
 class Definition():
