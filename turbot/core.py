@@ -21,9 +21,25 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 from nltk.corpus import wordnet as wn
 
 
+def _tokenizeFromStanfordNLP(sentence):
+    params = urllib.urlencode({'query': sentence})
+    req = urllib2.Request("http://nlp.stanford.edu:8080/parser/index.jsp")
+    response = urllib2.urlopen(req, params).read()
+    soup = bs4.BeautifulSoup(response)
+    parsed = soup.find('div', attrs={'class': 'parserOutputMonospace'})
+    sTags = []
+    for c in parsed.children:
+        if c.name != "div" or c.string == "None":
+            continue
+        print c.string
+        e = c.string.strip().split('/')
+        sTags.append((e[0], e[1]))
+    return sTags
+
+
 def _getSubject(question, ind):
     subject = ""
-    qTags = nltk.pos_tag(question)
+    qTags = _tokenizeFromStanfordNLP(question)
     if question[ind].lower() == 'you':
         subject = "I "
     elif question[ind].lower() == 'i':
@@ -43,7 +59,7 @@ def _getSubject(question, ind):
 
 def _getObject(question, subject, verbs):
     object = ""
-    qTags = nltk.pos_tag(question)
+    qTags = _tokenizeFromStanfordNLP(question)
     # Find the sentence's object
     for word, tag in qTags:
         # This is the subject
@@ -61,7 +77,7 @@ def _getObject(question, subject, verbs):
 
 
 def _getVerbs(question, subject):
-    qTags = nltk.pos_tag(question)
+    qTags = _tokenizeFromStanfordNLP(question)
     verbs = [word for word, tag in qTags
              if (tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD'] and
                  word != subject.replace(' ', ''))]
@@ -69,21 +85,6 @@ def _getVerbs(question, subject):
         verbs[0] = 'am'
 
     return verbs
-
-
-def _tokenizeFromStanfordNLP(sentence):
-    params = urllib.urlencode({'query': sentence})
-    req = urllib2.Request("http://nlp.stanford.edu:8080/parser/index.jsp")
-    response = urllib2.urlopen(req, params).read()
-    soup = bs4.BeautifulSoup(response)
-    parsed = soup.find('div', attrs={'class': 'parserOutputMonospace'})
-    sTags = []
-    for c in parsed.children:
-        if c.name != "div":
-            continue
-        e = c.string.strip().split('/')
-        sTags.append((e[0], e[1]))
-    return sTags
 
 
 def _nounify(verb_word):
@@ -226,8 +227,6 @@ class Dialog():
         score = self._getPosNegScore(tokens)
 
         q = nltk.Text(tokens)
-        qTags = nltk.pos_tag(q)
-        print qTags
 
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
