@@ -45,7 +45,7 @@ def _getSubject(question, ind):
     return subject
 
 
-def _getObject(question, subject, verbs):
+def _getObject(question, subject, verbs, isYesNoQuestion):
     object = ""
     qTags = _tokenizeFromStanfordNLP(question)
     print qTags
@@ -53,11 +53,17 @@ def _getObject(question, subject, verbs):
     for word, tag in qTags:
         # This is the subject
         if(word in subject.replace(" ", "") or
-           word in verbs):
+           word in verbs or
+           word.lower() in ["does", "do"]):
             continue
-        # TODO : add PRP without take care of the subject
-        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS', 'RB']):
-            object += ' ' + word
+        if (word == "you" and subject == "I "or
+           word == "I" and subject == "you ") and isYesNoQuestion:
+            continue
+        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS', 'RB', 'PRP']):
+            if word.lower() == "me":
+                object += ' you'
+            else:
+                object += ' ' + word
         else:
             if(object != ""):
                 break
@@ -72,6 +78,11 @@ def _getVerbs(question, subject):
                  word != subject.replace(' ', ''))]
     if verbs[0].lower() == 'are' and subject == 'I ':
         verbs[0] = 'am'
+    elif verbs[0].lower() == 'am' and subject == 'you ':
+        verbs[0] = 'are'
+    elif (subject.lower() in ["he ", "she ", "it "]
+          and verbs[0][len(verbs[0]) - 1] != 's'):
+        verbs[0] += "s"
 
     return [v.lower() for v in verbs]
 
@@ -266,7 +277,7 @@ class Dialog():
             verbs = _getVerbs(q, subject)
 
             # Get the object
-            object = _getObject(q, subject, verbs)
+            object = _getObject(q, subject, verbs, True)
             object += "."
             print subject
             print verbs
@@ -282,21 +293,28 @@ class Dialog():
             d = Definition()
             return d.answer(question)
         elif type == "Statement" or type == "Emphasis":
-            subject = _getSubject(q, 0).lower()
-            print subject
+            if q.split()[0].lower() in ["i"]:
+                subject = q.split()[0] + " "
+            else:
+                subject = _getSubject(q, 0)
             verbs = _getVerbs(q, subject)
-            print verbs
-            object = _getObject(q, subject, verbs)
+            object = _getObject(q, subject, verbs, False)
 
             sentence = ""
-            if object == " you":
-                ending = [" more", " too", ""]
+            print subject
+            print verbs
+            print object
+            if object == " you" and subject == "I ":
+                ending = [" more", " too"]
                 sentence = (subject + verbs[0] +
                             object + random.choice(ending) + ".")
             else:
+
                 return self._makeYesNoAnswer(subject, verbs,
                                              object, score, sentence)
-
+            checkers = ["Really?", "Are you sure?", "Since when?"
+                        "Is it real?", "Do you know what it means?"]
+            #TODO Remenber previous questions.
             return sentence.capitalize()
 
         else:

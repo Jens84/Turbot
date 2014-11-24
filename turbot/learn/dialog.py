@@ -33,9 +33,12 @@ def trainTypeQuestion():
     featuresets.extend([(dialogue_haveBe_features(q),
                          'ynQuestion') for q in haveBeQuestions])
     path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/firstClassifierAdditionalSentences.txt"
-    
+    path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/firstClassifierAdditionalSentences.txt"
+
     if os.path.exists(path1):
         filename = path1
+    elif os.path.exists(path2):
+        filename = path2
     else:
         print "Please insert the path to file firstClassifierAdditionalSentences.txt"
     

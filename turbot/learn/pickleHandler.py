@@ -6,12 +6,12 @@ import cPickle as pickle
 import os
 import dialog
 
+
 def save_object(obj, filename):
 
     path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/"
     path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/"
     path3 = "/home/jens/Documents/DTU/Data Mining Using Python/Project/turbot/learn/"
-
 
     if os.path.exists(path1):
         filename = path1 + filename
@@ -28,11 +28,9 @@ def save_object(obj, filename):
 
 def load_object(filename):
   
-
     path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/"
     path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/"
     path3 = "/home/jens/Documents/DTU/Data Mining Using Python/Project/turbot/learn/"
-
 
     if os.path.exists(path1):
         path = path1 + filename
@@ -45,8 +43,6 @@ def load_object(filename):
     
     with open(path, 'rb') as input:
         return pickle.load(input)
-
-
 
 
 def update_classifiers():
@@ -70,4 +66,3 @@ def update_classifiers():
 
 # Call function update_classifiers to update the classifier files
 #update_classifiers()
-

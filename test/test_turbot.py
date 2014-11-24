@@ -6,7 +6,7 @@ def test_YesNo_basic():
     assert(d.answer("Are you okay?") == "Yes, I am okay.")
     assert(d.answer("Are you sure?") == "No, I am not sure.")
     assert(d.answer("Has he a brother?") == "Yes, he has a brother.")
-    assert(d.answer("Do you know him?") == "Yes, I know.")
+    assert(d.answer("Do you know him?") == "Yes, I know him.")
     assert(d.answer("Are they fine?") == "Yes, they are fine.")
 
 
@@ -60,6 +60,7 @@ def test_trainWhQuestion1():
     assert(d.answer("Where was the first concert of U2?")
            == "This question is of type wh and its category is: Place")
 
+
 def test_trainWhQuestion2():
     d = turbot.Dialog()
     assert(d.answer("Who was the first singer of the Abba band?")
@@ -70,6 +71,7 @@ def test_trainWhQuestion2():
            == "This question is of type wh and its category is: Reason")
     assert(d.answer("Why am I sad?")
            == "This question is of type wh and its category is: Reason")
+
 
 def test_trainWhQuestion3():
     d = turbot.Dialog()
@@ -82,6 +84,7 @@ def test_trainWhQuestion3():
     assert(d.answer("What is the paint of my bag made of?")
            == "This question is of type wh and its category is: DescriptionWh")
 
+
 def test_trainWhQuestion4():
     d = turbot.Dialog()
     assert(d.answer("What does selfish mean?")
@@ -91,7 +94,8 @@ def test_trainWhQuestion4():
     assert(d.answer("What does I.S.N. stand for?")
            == "This question is of type wh and its category is: DescriptionWh")
     assert(d.answer(
-           "How old do I have to be to get a driver's license in the Portugal?")
+           """How old do I have to be to get a
+           driver's license in the Portugal?""")
            == "This question is of type wh and its category is: DescriptionH")
 
 
@@ -108,5 +112,3 @@ def test_trainWhQuestion5():
     assert(d.answer("What is the form of a chain?")
            == """"This question is of type wh and its category
                   is: DescriptionOther""")
-
-
