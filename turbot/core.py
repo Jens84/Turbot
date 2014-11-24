@@ -24,19 +24,23 @@ from nltk.corpus import wordnet as wn
 def _getSubject(question, ind):
     subject = ""
     qTags = _tokenizeFromStanfordNLP(question)
-    if question[ind].lower() == 'you':
+    if qTags[ind][0].lower() == 'you':
         subject = "I "
-    elif question[ind].lower() == 'i':
+    elif qTags[ind][0].lower() == 'i':
         subject = "you "
+    elif (qTags[ind][1] == 'DT'
+            and (qTags[ind + 1][1] not in
+                    ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD'])):
+        subject = qTags[ind][0] + " " + qTags[ind + 1][0] + " "
     elif qTags[ind][1] == 'DT':
-        subject = question[ind] + " " + question[ind + 1] + " "
+        subject = qTags[ind][0] + " "
     elif qTags[ind][1] in ['NNP', 'NNPS']:
         i = ind
         while (qTags[i][1] in ['NNP', 'NNPS']):
-            subject += question[i] + " "
+            subject += qTags[i][0] + " "
             i += 1
     else:
-        subject = question[ind] + " "
+        subject = qTags[ind][0] + " "
 
     return subject
 
@@ -44,6 +48,7 @@ def _getSubject(question, ind):
 def _getObject(question, subject, verbs):
     object = ""
     qTags = _tokenizeFromStanfordNLP(question)
+    print qTags
     # Find the sentence's object
     for word, tag in qTags:
         # This is the subject
@@ -51,7 +56,7 @@ def _getObject(question, subject, verbs):
            word in verbs):
             continue
         # TODO : add PRP without take care of the subject
-        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS']):
+        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS', 'RB']):
             object += ' ' + word
         else:
             if(object != ""):
@@ -68,7 +73,7 @@ def _getVerbs(question, subject):
     if verbs[0].lower() == 'are' and subject == 'I ':
         verbs[0] = 'am'
 
-    return verbs
+    return [v.lower() for v in verbs]
 
 
 def _tokenizeFromStanfordNLP(sentence):
@@ -159,7 +164,7 @@ class Dialog():
             notDo = "don't "
 
             if object == ".":
-                notBe = " not"
+                notBe = " not "
         elif ans == "Yes, " or (ans == "" and score >= 0):
             ans = "Yes, "
             notDo = " "
@@ -223,7 +228,8 @@ class Dialog():
         tokens[0] = tokens[0].lower()
         score = self._getPosNegScore(tokens)
 
-        q = nltk.Text(tokens)
+        q = question
+        print("Question : " + str(q))
 
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
@@ -261,15 +267,21 @@ class Dialog():
             d = Definition()
             return d.answer(question)
         elif type == "Statement" or type == "Emphasis":
-            subject = q[0] + " "
+            subject = _getSubject(q, 0).lower()
+            print subject
             verbs = _getVerbs(q, subject)
-            object = _getObject(q, subject)
+            print verbs
+            object = _getObject(q, subject, verbs)
 
             sentence = ""
             if object == " you":
                 ending = [" more", " too", ""]
                 sentence = (subject + verbs[0] +
                             object + random.choice(ending) + ".")
+            else:
+                return self._makeYesNoAnswer(subject, verbs,
+                                             object, score, sentence)
+
             return sentence.capitalize()
 
         else:
