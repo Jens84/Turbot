@@ -21,22 +21,6 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 from nltk.corpus import wordnet as wn
 
 
-def _tokenizeFromStanfordNLP(sentence):
-    params = urllib.urlencode({'query': sentence})
-    req = urllib2.Request("http://nlp.stanford.edu:8080/parser/index.jsp")
-    response = urllib2.urlopen(req, params).read()
-    soup = bs4.BeautifulSoup(response)
-    parsed = soup.find('div', attrs={'class': 'parserOutputMonospace'})
-    sTags = []
-    for c in parsed.children:
-        if c.name != "div" or c.string == "None":
-            continue
-        print c.string
-        e = c.string.strip().split('/')
-        sTags.append((e[0], e[1]))
-    return sTags
-
-
 def _getSubject(question, ind):
     subject = ""
     qTags = _tokenizeFromStanfordNLP(question)
@@ -85,6 +69,19 @@ def _getVerbs(question, subject):
         verbs[0] = 'am'
 
     return verbs
+
+
+def _tokenizeFromStanfordNLP(sentence):
+    params = urllib.urlencode({'query': sentence})
+    req = urllib2.Request("http://nlp.stanford.edu:8080/parser/index.jsp")
+    response = urllib2.urlopen(req, params).read()
+    soup = bs4.BeautifulSoup(response)
+    parsed = soup.find('div', attrs={'class': 'parserOutputMonospace'})
+    sTags = []
+    for d in parsed.find_all('div'):
+        e = d.string.strip().split('/')
+        sTags.append((e[0], e[1]))
+    return sTags
 
 
 def _nounify(verb_word):
