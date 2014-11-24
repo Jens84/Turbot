@@ -23,36 +23,47 @@ from nltk.corpus import wordnet as wn
 
 def _getSubject(question, ind):
     subject = ""
-    qTags = nltk.pos_tag(question)
-    if question[ind].lower() == 'you':
+    qTags = _tokenizeFromStanfordNLP(question)
+    if qTags[ind][0].lower() == 'you':
         subject = "I "
-    elif question[ind].lower() == 'i':
+    elif qTags[ind][0].lower() == 'i':
         subject = "you "
+    elif (qTags[ind][1] == 'DT'
+            and (qTags[ind + 1][1] not in
+                    ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD'])):
+        subject = qTags[ind][0] + " " + qTags[ind + 1][0] + " "
     elif qTags[ind][1] == 'DT':
-        subject = question[ind] + " " + question[ind + 1] + " "
+        subject = qTags[ind][0] + " "
     elif qTags[ind][1] in ['NNP', 'NNPS']:
         i = ind
         while (qTags[i][1] in ['NNP', 'NNPS']):
-            subject += question[i] + " "
+            subject += qTags[i][0] + " "
             i += 1
     else:
-        subject = question[ind] + " "
+        subject = qTags[ind][0] + " "
 
     return subject
 
 
-def _getObject(question, subject, verbs):
+def _getObject(question, subject, verbs, isYesNoQuestion):
     object = ""
-    qTags = nltk.pos_tag(question)
+    qTags = _tokenizeFromStanfordNLP(question)
+    print qTags
     # Find the sentence's object
     for word, tag in qTags:
         # This is the subject
         if(word in subject.replace(" ", "") or
-           word in verbs):
+           word in verbs or
+           word.lower() in ["does", "do"]):
             continue
-        # TODO : add PRP without take care of the subject
-        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS']):
-            object += ' ' + word
+        if (word == "you" and subject == "I "or
+           word == "I" and subject == "you ") and isYesNoQuestion:
+            continue
+        if(tag in ['DT', 'IN', 'JJ', 'NN', 'NNS', 'NNP', 'NNPS', 'RB', 'PRP']):
+            if word.lower() == "me":
+                object += ' you'
+            else:
+                object += ' ' + word
         else:
             if(object != ""):
                 break
@@ -61,14 +72,19 @@ def _getObject(question, subject, verbs):
 
 
 def _getVerbs(question, subject):
-    qTags = nltk.pos_tag(question)
+    qTags = _tokenizeFromStanfordNLP(question)
     verbs = [word for word, tag in qTags
              if (tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD'] and
                  word != subject.replace(' ', ''))]
     if verbs[0].lower() == 'are' and subject == 'I ':
         verbs[0] = 'am'
+    elif verbs[0].lower() == 'am' and subject == 'you ':
+        verbs[0] = 'are'
+    elif (subject.lower() in ["he ", "she ", "it "]
+          and verbs[0][len(verbs[0]) - 1] != 's'):
+        verbs[0] += "s"
 
-    return verbs
+    return [v.lower() for v in verbs]
 
 
 def _tokenizeFromStanfordNLP(sentence):
@@ -94,7 +110,7 @@ def _nounify(verb_word):
 
     # Get all verb lemmas of the word
     verb_lemmas = [l for s in verb_synsets
-                   for l in s.lemmas() if s.name().split('.')[1] == 'v']
+                   for l in s.lemmas if s.name.split('.')[1] == 'v']
 
     # Get related forms
     derivationally_related_forms = [(l, l.derivationally_related_forms())
@@ -103,10 +119,10 @@ def _nounify(verb_word):
     # filter only the nouns
     related_noun_lemmas = [l for drf in derivationally_related_forms
                            for l in drf[1]
-                           if l.synset().name().split('.')[1] == 'n']
+                           if l.synset.name.split('.')[1] == 'n']
 
     # Extract the words from the lemmas
-    words = [l.name() for l in related_noun_lemmas]
+    words = [l.name for l in related_noun_lemmas]
     len_words = len(words)
 
     # Build the result in the form of
@@ -159,7 +175,7 @@ class Dialog():
             notDo = "don't "
 
             if object == ".":
-                notBe = " not"
+                notBe = " not "
         elif ans == "Yes, " or (ans == "" and score >= 0):
             ans = "Yes, "
             notDo = " "
@@ -223,9 +239,8 @@ class Dialog():
         tokens[0] = tokens[0].lower()
         score = self._getPosNegScore(tokens)
 
-        q = nltk.Text(tokens)
-        qTags = nltk.pos_tag(q)
-        print qTags
+        q = question
+        print("Question : " + str(q))
 
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
@@ -241,7 +256,7 @@ class Dialog():
             verbs = _getVerbs(q, subject)
 
             # Get the object
-            object = _getObject(q, subject, verbs)
+            object = _getObject(q, subject, verbs, True)
             object += "."
             print subject
             print verbs
@@ -268,19 +283,50 @@ class Dialog():
             d = Definition()
             return d.answer(question, whType)
         elif type == "Statement" or type == "Emphasis":
-            subject = q[0] + " "
+            if q.split()[0].lower() in ["i"]:
+                subject = q.split()[0] + " "
+            else:
+                subject = _getSubject(q, 0)
             verbs = _getVerbs(q, subject)
-            object = _getObject(q, subject)
+            object = _getObject(q, subject, verbs, False)
 
             sentence = ""
-            if object == " you":
-                ending = [" more", " too", ""]
+            print subject
+            print verbs
+            print object
+            if object == " you" and subject == "I ":
+                ending = [" more", " too"]
                 sentence = (subject + verbs[0] +
                             object + random.choice(ending) + ".")
+            else:
+
+                return self._makeYesNoAnswer(subject, verbs,
+                                             object, score, sentence)
+            checkers = ["Really?", "Are you sure?", "Since when?"
+                        "Is it real?", "Do you know what it means?"]
+            # TODO Remenber previous questions.
             return sentence.capitalize()
 
         else:
             return "I don't know what you mean."
+
+    def classifyWhQuestion(self, question):
+
+        whType = self._classifierWhQ.classify(
+            learn.dialog.dialogue_act_features(question))
+        if whType == "DescriptionOther":
+            descriptionType = self._classifierDescOtherQ.classify(
+                learn.dialog.dialogue_act_features(question))
+            return descriptionType
+        if whType == "DescriptionH":
+            descriptionType = self._classifierDescHQ.classify(
+                learn.dialog.dialogue_act_features(question))
+            return descriptionType
+        if whType == "DescriptionWh":
+            descriptionType = self._classifierDescWhQ.classify(
+                learn.dialog.dialogue_act_features(question))
+            return descriptionType
+        return whType
 
 
 class Definition():
