@@ -245,7 +245,6 @@ class Dialog():
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
         print "Type => " + type
-        
         '''
         if type == "whQuestion":
             whAnswerType = self.classifyWhQuestion(question)
@@ -299,19 +298,16 @@ class Dialog():
                                              object, score, sentence)
             checkers = ["Really?", "Are you sure?", "Since when?"
                         "Is it real?", "Do you know what it means?"]
-            #TODO Remenber previous questions.
+            # TODO Remenber previous questions.
             return sentence.capitalize()
 
         else:
             return "I don't know what you mean."
-    
-    
-    
-    
+
     def classifyWhQuestion(self, question):
-        
+
         whType = self._classifierWhQ.classify(
-                learn.dialog.dialogue_act_features(question))
+            learn.dialog.dialogue_act_features(question))
         if whType == "DescriptionOther":
             descriptionType = self._classifierDescOtherQ.classify(
                 learn.dialog.dialogue_act_features(question))
@@ -325,8 +321,6 @@ class Dialog():
                 learn.dialog.dialogue_act_features(question))
             return descriptionType
         return whType
-        
-
 
 
 class Definition():
