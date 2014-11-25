@@ -92,7 +92,7 @@ def _tokenizeFromStanfordNLP(sentence):
     req = urllib2.Request("http://nlp.stanford.edu:8080/parser/index.jsp")
     response = urllib2.urlopen(req, params).read()
     soup = bs4.BeautifulSoup(response)
-    parsed = soup.find('div', attrs={'class': 'parserOutputMonospace'})
+    parsed = soup.find('h3', text='Tagging').find_next('div')
     sTags = []
     for d in parsed.find_all('div'):
         e = d.string.strip().split('/')
@@ -245,11 +245,6 @@ class Dialog():
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
         print "Type => " + type
-        '''
-        if type == "whQuestion":
-            whAnswerType = self.classifyWhQuestion(question)
-            return whAnswerType
-        '''
 
         if type == "ynQuestion":
             ans = ""
@@ -273,9 +268,20 @@ class Dialog():
 
             return self._makeYesNoAnswer(subject, verbs, object, score, ans)
         elif type == "whQuestion":
+            whType = self._classifierWhQ.classify(
+                learn.dialog.dialogue_act_features(question))
+            if whType == "DescriptionOther":
+                whType = self._classifierDescOtherQ.classify(
+                    learn.dialog.dialogue_act_features(question))
+            elif whType == "DescriptionH":
+                whType = self._classifierDescHQ.classify(
+                    learn.dialog.dialogue_act_features(question))
+            elif whType == "DescriptionWh":
+                whType = self._classifierDescWhQ.classify(
+                    learn.dialog.dialogue_act_features(question))
 
             d = Definition()
-            return d.answer(question)
+            return d.answer(question, whType)
         elif type == "Statement" or type == "Emphasis":
             if q.split()[0].lower() in ["i"]:
                 subject = q.split()[0] + " "
@@ -329,37 +335,10 @@ class Definition():
         self._sparql = SPARQLWrapper("http://dbpedia.org/sparql")
         self._sparql.setReturnFormat(JSON)
 
-        req = urllib2.Request(
-            "http://dbpedia.org/ontology/data/definitions.jsonld")
-        f = urllib2.urlopen(req)
-        response = f.read()
-        f.close()
-        data = json.loads(response)
-        result = [row["http://open.vocab.org/terms/defines"]
-                  for row in data["@graph"]
-                  if row["@id"] == "http://dbpedia.org/ontology/"][0]
-        self._properties = [p[28:] for p in result]
-
-    def answer(self, sentence):
-        keywords = {'where': ['place', 'city', 'country'],
-                    'when': ['date', 'time'],
-                    'what': ['thing'],
-                    'which': ['thing'],
-                    'who': ['person'],
-                    'how': ['way', 'means'],
-                    'why': ['reason']
-                    }
-
+    def answer(self, sentence, whType=None):
         # Word tokenizer using Stanford NLP Parser (better than NLTK)
         sTags = _tokenizeFromStanfordNLP(sentence)
         print sTags
-
-        # Get the wh? word from the sentence
-        whWord = ""
-        for word, tag in sTags:
-            if "W" in tag:
-                whWord = word.lower()
-                break
 
         # Get the object and verb of the sentence
         obj = ' '.join([w[0] for w in sTags if 'NN' in w[1]])
@@ -370,6 +349,7 @@ class Definition():
             elif t == 'VB':
                 vb = w
                 break
+
         # TODO Probability not really good (first element not always the best)
         noun = _nounify(vb)[1][0]
         print noun
@@ -380,41 +360,105 @@ class Definition():
                                    'MaxHints': 1})
         url = "http://lookup.dbpedia.org/api/search/KeywordSearch?" + params
         req = urllib2.Request(url, headers={"Accept": "application/json"})
-        response = urllib2.urlopen(req).read()
-        # print response
-        uri = json.loads(response)["results"][0]["uri"]
-        print uri
+        response = json.loads(urllib2.urlopen(req).read())
 
-        # Choose the property regarding the wh? word
-        keyword = noun
+        # If we found a resource to analyze
+        if len(response["results"]) > 0:
+            uri = response["results"][0]["uri"]
+            print uri
 
-        if whWord == 'where' or whWord == 'when':
-            keyword += keywords[whWord][0]
+            # Get the list of properties for this resoruce
+            self._sparql.setQuery("""
+                SELECT DISTINCT ?p
+                WHERE { <%s> ?p ?o . }""" % uri)
+            props = self._sparql.query().convert()["results"]["bindings"]
 
-        properties = difflib.get_close_matches(keyword, self._properties)
-        print properties
-        pname = 'dbo:' + properties[0]
-        filters = ""
-        # filters = 'FILTER (langMatches(lang(?pname), "EN"))'
-        self._sparql.setQuery("""
-            PREFIX dbo: <http://dbpedia.org/ontology/>
-            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-            SELECT ?pname
-            WHERE { <%s> %s ?pname %s }""" % (uri, pname, filters))
-        results = self._sparql.query().convert()
-        print results
-        answer = results["results"]["bindings"][0]['pname']['value']
-        print answer
-        # TODO Check for None
-        return answer
+            # Generate a dictionary of properties
+            properties = {}
+            for p in props:
+                puri = p['p']["value"]
+                pname = puri.split('/')[-1].split('#')[-1]
+                properties[pname] = puri
 
-        '''
-        search = wikipedia.search(obj.strip())
-        print search
-        page = wikipedia.page(search[0])
-        summary = wikipedia.summary(search[0], sentences=1)
-        print summary
-        '''
+            # Choose property regarding the wh? word (ontology, property, rdf)
+            keyword = ""
+            print whType
+
+            if whType == "Entity":
+                keyword = "comment"
+            elif whType == "Place":
+                keyword += noun + 'place'
+            elif whType == "Reason":
+                keyword = noun
+            elif whType == "Time":
+                keyword += noun + 'date'
+            elif whType == "Manner":
+                keyword = noun
+            elif whType == "Dimension":
+                keyword = noun
+            elif whType == "LookAndShape":
+                keyword = noun
+            elif whType == "Composition":
+                keyword = noun
+            elif whType == "Meaning":
+                keyword = noun
+            elif whType == "Abbreviation":
+                keyword = noun
+            elif whType == "Duration":
+                keyword = "duration"
+            elif whType == "Age":
+                keyword = "age"
+            elif whType == "Quantity":
+                keyword = noun
+            elif whType == "Frequency":
+                keyword = noun
+
+            print keyword
+
+            # Find close matches for our keyword and the properties available
+            matches = difflib.get_close_matches(keyword,
+                                                properties.keys(),
+                                                15)
+            # Pick the best match and query the database for the value
+            pname = properties[matches[0]]
+            query = """
+                PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                PREFIX dc: <http://purl.org/dc/elements/1.1/>
+                PREFIX : <http://dbpedia.org/resource/>
+                PREFIX dbpedia2: <http://dbpedia.org/property/>
+                PREFIX dbpedia: <http://dbpedia.org/>
+                PREFIX dbo: <http://dbpedia.org/ontology/>
+                PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+                SELECT ?pname
+                WHERE { <%s> <%s> ?pname }""" % (uri, pname)
+            self._sparql.setQuery(query)
+            results = self._sparql.query().convert()["results"]["bindings"]
+
+            # If there is a result (supposed to) then return the value
+            if len(results) > 0:
+                for r in results:
+                    if ("xml:lang" not in r["pname"] or
+                       r["pname"]["xml:lang"] == "en"):
+                        # Retrieve the name/label/abstract from db if needed
+                        if r["pname"]["type"] == "uri":
+                            uri = r["pname"]["value"]
+                            query = """
+                           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                           SELECT ?pname
+                           WHERE { <%s> rdfs:label ?pname }""" % uri
+                            self._sparql.setQuery(query)
+                            results = (self._sparql.query().convert()
+                                       ["results"]["bindings"])
+                            answer = results[0]["pname"]["value"]
+                        else:
+                            answer = r["pname"]["value"]
+
+                        print answer
+                        return answer
 
         # If no result (return) until here, perform a search on answers.com
         params = urllib.urlencode({'q': sentence})
