@@ -7,7 +7,6 @@ __author__ = 'JBO, JES, JRG'
 __author_email__ = 'jeremy.rombourg@gmail.com'
 
 import nltk
-import random
 import urllib
 import urllib2
 import bs4
@@ -15,6 +14,7 @@ import json
 import en
 import wikipedia
 import learn
+from learn import markov
 import re
 import difflib
 from SPARQLWrapper import SPARQLWrapper, JSON
@@ -138,6 +138,8 @@ class Dialog():
     _classifierTypeQ = None
     _classifierWhQ = None
     _posNegWords = None
+    _markovChains = None
+    _markov = None
 
     def __init__(self):
         self._posNegWords = learn.dialog.getPosNegWords()
@@ -152,6 +154,9 @@ class Dialog():
                                   load_object('classifierDescHQ.pkl'))
         self._classifierDescWhQ = (learn.pickleHandler.
                                    load_object('classifierDescWhQ.pkl'))
+        self._markovChains = (learn.pickleHandler.
+                              load_object('markovSentences.pkl'))
+        self._markov = markov.Markov(self._markovChains)
         # self._classifierWhQ = learn.dialog.trainWhQuestion()
         # self._classifierTypeQ = learn.dialog.trainTypeQuestion(1)
         # self._classifierDescOtherQ = learn.dialog.trainWhQuestion(2)
@@ -290,10 +295,10 @@ class Dialog():
             verbs = _getVerbs(q, subject)
             object = _getObject(q, subject, verbs, False)
 
-            sentence = ""
             print subject
             print verbs
             print object
+            '''
             if object == " you" and subject == "I ":
                 ending = [" more", " too"]
                 sentence = (subject + verbs[0] +
@@ -302,10 +307,8 @@ class Dialog():
 
                 return self._makeYesNoAnswer(subject, verbs,
                                              object, score, sentence)
-            checkers = ["Really?", "Are you sure?", "Since when?"
-                        "Is it real?", "Do you know what it means?"]
-            # TODO Remenber previous questions.
-            return sentence.capitalize()
+            '''
+            return self._markov.output(subject, verbs, object)
 
         else:
             return "I don't know what you mean."

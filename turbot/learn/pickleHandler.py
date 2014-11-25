@@ -5,6 +5,7 @@
 import cPickle as pickle
 import os
 import dialog
+import markov
 
 
 def save_object(obj, filename):
@@ -52,6 +53,7 @@ def update_classifiers():
     trainDescOtherQuestionClassifier = dialog.trainWhQuestion(2)
     trainDescHQuestionClassifier = dialog.trainWhQuestion(3)
     trainDescWhQuestionClassifier = dialog.trainWhQuestion(4)
+    trainSentencesMarkov = markov.Markov()
 
     # Save classifier that determines the general type of question
     save_object(trainTypeQClassifier, 'classifierTypeQ.pkl')
@@ -63,6 +65,8 @@ def update_classifiers():
     save_object(trainDescHQuestionClassifier, 'classifierDescHQ.pkl')
     # Save classifier that determines the type of "DescriptionWh"
     save_object(trainDescWhQuestionClassifier, 'classifierDescWhQ.pkl')
+    # Save markov chains from sentenes dataset
+    save_object(trainSentencesMarkov.getMarkov(), 'markovSentences.pkl')
 
 # Call function update_classifiers to update the classifier files
-#update_classifiers()
+# update_classifiers()
