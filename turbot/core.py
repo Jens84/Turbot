@@ -250,17 +250,11 @@ class Dialog():
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
         print "Type => " + type
-<<<<<<< Updated upstream
-=======
-        
         
         if type == "whQuestion":
             whAnswerType = self._classifyWhQuestion(question)
             return whAnswerType
-        
->>>>>>> Stashed changes
-
-        if type == "ynQuestion":
+        elif type == "ynQuestion":
             ans = ""
 
             # Get the subject
@@ -321,18 +315,9 @@ class Dialog():
 
         else:
             return "I don't know what you mean."
-<<<<<<< Updated upstream
-
-    def classifyWhQuestion(self, question):
-
-=======
-    
-    
-    
     
     def _classifyWhQuestion(self, question):
         
->>>>>>> Stashed changes
         whType = self._classifierWhQ.classify(
             learn.dialog.dialogue_act_features(question))
         if whType == "DescriptionOther":
@@ -356,9 +341,7 @@ class Definition():
         self._sparql = SPARQLWrapper("http://dbpedia.org/sparql")
         self._sparql.setReturnFormat(JSON)
 
-<<<<<<< Updated upstream
     def answer(self, sentence, whType=None):
-=======
         req = urllib2.Request(
             "http://dbpedia.org/ontology/data/definitions.jsonld")
         f = urllib2.urlopen(req)
