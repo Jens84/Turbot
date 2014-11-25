@@ -112,8 +112,4 @@ def test_trainWhQuestion5():
     assert(d.answer("What is the form of a chain?")
            == """"This question is of type wh and its category
                   is: DescriptionOther""")
-<<<<<<< Updated upstream
-=======
-'''
 
->>>>>>> Stashed changes
