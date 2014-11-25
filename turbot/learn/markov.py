@@ -1,4 +1,5 @@
 from random import randrange
+from random import choice
 import glob
 import os
 import re
@@ -70,6 +71,11 @@ class Markov():
             if (w1.lower().replace(" ", "") == subject.lower().replace(" ", "")
                     and w2.lower() in verbs):
                 return (w1, w2)
+
+        (w1, w2) = choice(self._markovChains.keys())
+        while not w1[0].isupper():
+            (w1, w2) = choice(self._markovChains.keys())
+        return (w1, w2)
 
     def input(self, sentence):
         split = self._splitSentence(sentence)

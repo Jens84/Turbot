@@ -252,7 +252,10 @@ class Dialog():
             learn.dialog.dialogue_act_features(question))
         print "Type => " + type
 
-        if type == "ynQuestion":
+        if type == "whQuestion":
+            whAnswerType = self._classifyWhQuestion(question)
+            return whAnswerType
+        elif type == "ynQuestion":
             ans = ""
 
             # Get the subject
