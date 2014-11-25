@@ -252,10 +252,7 @@ class Dialog():
             learn.dialog.dialogue_act_features(question))
         print "Type => " + type
 
-        if type == "whQuestion":
-            whAnswerType = self._classifyWhQuestion(question)
-            return whAnswerType
-        elif type == "ynQuestion":
+        if type == "ynQuestion":
             ans = ""
 
             # Get the subject
@@ -640,18 +637,17 @@ class Definition():
             nouns.append(noun)
             
             # Find property that best matches what the sentence asks for
-            pname = self._getPropertyName(nouns, whType,properties.keys()) # nouns has to be a list!
+            prop = self._getPropertyName(nouns, whType,properties.keys()) # nouns has to be a list!
             
-            print "Temp: I am going to use this property: ",pname
+            print "Temp: I am going to use this property: ",prop
             
-            '''
             # Find close matches for our keyword and the properties available
-            matches = difflib.get_close_matches(keyword,
+            matches = difflib.get_close_matches(prop,
                                                 properties.keys(),
                                                 15)
             # Pick the best match
             pname = properties[matches[0]]
-            '''
+            print "Temp: This is the one I am going to use: ",prop
             
             
             # query the database for the best property value
@@ -701,6 +697,7 @@ class Definition():
         soup = bs4.BeautifulSoup(response)
         results = soup.findAll('div', attrs={'class': 'answer_text'})
         if len(results) > 0:
+            print "Temp: Used wiki answers."
             return results[0].text.strip()
         else:
             return "I don't know"
