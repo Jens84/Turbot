@@ -48,10 +48,10 @@ def test_whYesNo_wikipedia():
     assert(d.answer("Is London in United Kingdom?")
            == "Yes, London is in United Kingdom.")
 
-
+'''
 def test_trainWhQuestion1():
     d = turbot.Dialog()
-    assert(d.answer("When was the ww2?")
+    assert(d.("When was the ww2?")
            == "This question is of type wh and its category is: Time")
     assert(d.answer("When was the the world trade center bombed?")
            == "This question is of type wh and its category is: Time")
@@ -112,3 +112,8 @@ def test_trainWhQuestion5():
     assert(d.answer("What is the form of a chain?")
            == """"This question is of type wh and its category
                   is: DescriptionOther""")
+<<<<<<< Updated upstream
+=======
+'''
+
+>>>>>>> Stashed changes

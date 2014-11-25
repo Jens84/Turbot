@@ -19,7 +19,7 @@ import re
 import difflib
 from SPARQLWrapper import SPARQLWrapper, JSON
 from nltk.corpus import wordnet as wn
-
+import operator
 
 def _getSubject(question, ind):
     subject = ""
@@ -250,6 +250,15 @@ class Dialog():
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
         print "Type => " + type
+<<<<<<< Updated upstream
+=======
+        
+        
+        if type == "whQuestion":
+            whAnswerType = self._classifyWhQuestion(question)
+            return whAnswerType
+        
+>>>>>>> Stashed changes
 
         if type == "ynQuestion":
             ans = ""
@@ -312,9 +321,18 @@ class Dialog():
 
         else:
             return "I don't know what you mean."
+<<<<<<< Updated upstream
 
     def classifyWhQuestion(self, question):
 
+=======
+    
+    
+    
+    
+    def _classifyWhQuestion(self, question):
+        
+>>>>>>> Stashed changes
         whType = self._classifierWhQ.classify(
             learn.dialog.dialogue_act_features(question))
         if whType == "DescriptionOther":
@@ -338,7 +356,217 @@ class Definition():
         self._sparql = SPARQLWrapper("http://dbpedia.org/sparql")
         self._sparql.setReturnFormat(JSON)
 
+<<<<<<< Updated upstream
     def answer(self, sentence, whType=None):
+=======
+        req = urllib2.Request(
+            "http://dbpedia.org/ontology/data/definitions.jsonld")
+        f = urllib2.urlopen(req)
+        response = f.read()
+        f.close()
+        data = json.loads(response)
+        result = [row["http://open.vocab.org/terms/defines"]
+                  for row in data["@graph"]
+                  if row["@id"] == "http://dbpedia.org/ontology/"][0]
+        self._properties = [p[28:] for p in result]
+
+
+
+    def _getKeywordsFromQuestionType(self, typeOfQuestion):
+        #TODO do this method
+        return typeOfQuestion
+
+    def _getConcatenationCombinations(self, nouns, additionalKeywords, mode):
+        combinations = []
+        if mode == 1:
+            for i in nouns:
+                for j in nouns:
+                    if i==j:
+                        continue
+                    combinations.append( i + j )
+        elif mode == 2:
+            for i in nouns:
+                for j in additionalKeywords:
+                    if i==j:
+                        continue
+                    combinations.append( i + j )
+                    combinations.append( j + i )
+        return combinations
+        
+        
+    def _getOverlappingProperty(self, possibleProperties):
+        matches = []
+        for possibleProperty in possibleProperties:
+            closeMatches = difflib.get_close_matches(possibleProperty, self._properties,10)
+            for match in closeMatches:
+                for i in possibleProperties:
+                    if i.lower() == match.lower():
+                        matches.append(match)
+        if matches == []:
+            return None
+        else:
+            return matches
+
+
+    def _getPropertyName(self, nouns, typeOfQuestion):
+        
+        nounsMatches = []
+        nounsMatches = self._getOverlappingProperty(nouns)
+        print "Temp: Matching nouns: ", nounsMatches
+        
+        concatenations = []
+        concatenations = self._getConcatenationCombinations(nouns, None, 1)
+        
+        nounsConcatenationsMatches = [] 
+        nounsConcatenationsMatches = self._getOverlappingProperty(concatenations)
+        print "Temp: Matching nouns concatenations: ", nounsConcatenationsMatches
+        
+#        if nounsConcatenationsMatches is not None:
+#            return nounsConcatenationsMatches
+        
+        additionalKeywords = self._getKeywordsFromQuestionType(typeOfQuestion)
+        
+        concatenations = []
+        concatenations = self._getConcatenationCombinations(nouns, additionalKeywords, 2)
+        
+        nounsKeywordsConcatenationsMatches = [] 
+        nounsKeywordsConcatenationsMatches = self._getOverlappingProperty(concatenations)
+        
+        print "Temp: Matching nouns+keywords concatenations: ", nounsKeywordsConcatenationsMatches
+#        if nounsKeywordsConcatenationsMatches is not None:
+#            return nounsKeywordsConcatenationsMatches
+#        elif nounsMatches is not None:
+#            return nounsMatches
+        
+        
+        ############### test the code before this
+        print "Didn't find any match yet."
+        print "Plan B: find synonyms and best match available."
+        
+        listOfKeywords = []
+        listOfKeywords = self._getConcatenationCombinations(nouns, additionalKeywords, 2)
+        
+        listOfKeywords += nouns
+        listOfKeywords += additionalKeywords
+        
+        
+        w=0
+        properties = []
+        for word in listOfKeywords:
+            w+=1
+            print "Step: ",w
+            print "The properties which are close matches for ",word, " are:"
+            print difflib.get_close_matches(word, self._properties,10)
+
+            properties.extend(difflib.get_close_matches(word, self._properties,10))
+            #TODO change the input properties in the get_close_matches method
+            
+        "The list of all properties is:"
+        print properties
+        print "----------------------------"
+        
+        listOfProperties = properties
+        properties = {}
+        for proprty in listOfProperties:
+            if proprty not in properties:
+                properties[proprty] = 0
+            properties[proprty] += 1
+        
+        
+        # order properties by order of most occurrences
+        sorted_x = sorted(properties.items(), key=operator.itemgetter(1),reverse=True)
+        i=0
+        listOfProperties = []
+        for key, value in sorted_x:
+            i+=1
+            if i>10:
+                break
+            print "Property: >",key,"< with ",value, " occurrences"
+            listOfProperties.append(key)
+        return listOfProperties
+            
+        
+        
+        
+        
+        '''
+        #searching for synonyms. It doesn't work well at all
+        synonyms = []
+        w=0
+        print "List of keywords: ",listOfKeywords
+        for keyword in listOfKeywords:
+            w+=1
+            print "Syn of word number:",w
+            for i,j in enumerate(wn.synsets(keyword)):
+                print "Synonyms of word ",keyword,":", ", ".join(j.lemma_names)
+                synonyms += j.lemma_names
+                print "Now the list of synonyms looks like: ",synonyms
+                if i == 0:
+                    break
+        print "\n----------..-----...----.------\n\n"
+        listOfKeywords += synonyms
+        
+        
+        print listOfKeywords
+        
+        w=0
+        properties = []
+        for word in listOfKeywords:
+            w+=1
+            print "Step: ",w
+            
+            print "The properties which are close matches for ",word, " are:"
+            
+            print difflib.get_close_matches(word, self._properties,10)
+
+            properties.extend(difflib.get_close_matches(word, self._properties,10))
+            
+            #TODO change the input properties in the get_close_matches method
+        "The list of all properties is:"
+        print properties
+        print "----------------------------"
+        
+        listOfProperties = properties
+        properties = {}
+        for proprty in listOfProperties:
+            if proprty not in properties:
+                properties[proprty] = 0
+            properties[proprty] += 1
+        
+        
+        # order properties by order of most occurrences
+        sorted_x = sorted(properties.items(), key=operator.itemgetter(1),reverse=True)
+        i=0
+        for key, value in sorted_x:
+            i+=1
+            if i>10:
+                break
+            print "Property: >",key,"< with ",value, " occurrences"
+            
+        return properties
+        '''
+
+
+        
+
+
+
+
+
+
+
+
+    def answer(self, sentence):
+        keywords = {'where': ['place', 'city', 'country'],
+                    'when': ['date', 'time'],
+                    'what': ['thing'],
+                    'which': ['thing'],
+                    'who': ['person'],
+                    'how': ['way', 'means'],
+                    'why': ['reason']
+                    }
+
+>>>>>>> Stashed changes
         # Word tokenizer using Stanford NLP Parser (better than NLTK)
         sTags = _tokenizeFromStanfordNLP(sentence)
         print sTags

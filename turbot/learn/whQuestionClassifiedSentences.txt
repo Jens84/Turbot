@@ -1,6 +1,7 @@
 # Training question to classify whQuestions
-# Labels: Entity, Place, Reason, Time, Manner, Object, Idea, Action, 
-# 		Choice, Description (Dimension, Shape, Duration, Quantity, Frequency, Age, Meaning, Abbreviation)
+# Labels: Entity, Place, Reason, Time, Manner,
+# 		Description (Dimension, Shape, Duration, Quantity, Frequency, Age, Meaning, Abbreviation)
+# (Choice label is not implemented)
 
 # A Entity can be a Person, a group of People (such as a Band), an animal, a character,
 # a nickname, the name of something (such as a beverage, job)
