@@ -250,15 +250,6 @@ class Dialog():
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
         print "Type => " + type
-<<<<<<< Updated upstream
-=======
-        
-        
-        if type == "whQuestion":
-            whAnswerType = self._classifyWhQuestion(question)
-            return whAnswerType
-        
->>>>>>> Stashed changes
 
         if type == "ynQuestion":
             ans = ""
@@ -282,18 +273,8 @@ class Dialog():
 
             return self._makeYesNoAnswer(subject, verbs, object, score, ans)
         elif type == "whQuestion":
-            whType = self._classifierWhQ.classify(
-                learn.dialog.dialogue_act_features(question))
-            if whType == "DescriptionOther":
-                whType = self._classifierDescOtherQ.classify(
-                    learn.dialog.dialogue_act_features(question))
-            elif whType == "DescriptionH":
-                whType = self._classifierDescHQ.classify(
-                    learn.dialog.dialogue_act_features(question))
-            elif whType == "DescriptionWh":
-                whType = self._classifierDescWhQ.classify(
-                    learn.dialog.dialogue_act_features(question))
-
+            whType = self._classifyWhQuestion(question)
+            
             d = Definition()
             return d.answer(question, whType)
         elif type == "Statement" or type == "Emphasis":
@@ -321,18 +302,9 @@ class Dialog():
 
         else:
             return "I don't know what you mean."
-<<<<<<< Updated upstream
-
-    def classifyWhQuestion(self, question):
-
-=======
-    
-    
     
     
     def _classifyWhQuestion(self, question):
-        
->>>>>>> Stashed changes
         whType = self._classifierWhQ.classify(
             learn.dialog.dialogue_act_features(question))
         if whType == "DescriptionOther":
@@ -356,9 +328,8 @@ class Definition():
         self._sparql = SPARQLWrapper("http://dbpedia.org/sparql")
         self._sparql.setReturnFormat(JSON)
 
-<<<<<<< Updated upstream
+    '''
     def answer(self, sentence, whType=None):
-=======
         req = urllib2.Request(
             "http://dbpedia.org/ontology/data/definitions.jsonld")
         f = urllib2.urlopen(req)
@@ -369,12 +340,46 @@ class Definition():
                   for row in data["@graph"]
                   if row["@id"] == "http://dbpedia.org/ontology/"][0]
         self._properties = [p[28:] for p in result]
-
+    '''
 
 
     def _getKeywordsFromQuestionType(self, typeOfQuestion):
-        #TODO do this method
-        return typeOfQuestion
+        keywords = []
+        if typeOfQuestion == "Entity":
+            keywords.append("comment")
+        elif typeOfQuestion == "Place":
+            keywords.append("place")
+            keywords.append("placeOf")
+            keywords.append("spot")
+        elif typeOfQuestion == "Reason":
+            keywords.append("reason")
+        elif typeOfQuestion == "Time":
+            keywords.append("date")
+        elif typeOfQuestion == "Manner":
+            keywords.append("transport")
+        elif typeOfQuestion == "Dimension":
+            pass
+        elif typeOfQuestion == "LookAndShape":
+            pass
+        elif typeOfQuestion == "Composition":
+            pass
+        elif typeOfQuestion == "Meaning":
+            pass
+        elif typeOfQuestion == "Abbreviation":
+            pass
+        elif typeOfQuestion == "Duration":
+            keywords.append("duration")
+        elif typeOfQuestion == "Age":
+            keywords.append("age")
+        elif typeOfQuestion == "Quantity":
+            pass
+        elif typeOfQuestion == "Frequency":
+            keywords.append("frequency")
+            
+        if keywords == []:
+            return None
+        else:
+            return keywords
 
     def _getConcatenationCombinations(self, nouns, additionalKeywords, mode):
         combinations = []
@@ -394,10 +399,10 @@ class Definition():
         return combinations
         
         
-    def _getOverlappingProperty(self, possibleProperties):
+    def _getOverlappingProperty(self, possibleProperties,propertiesOfSubject):
         matches = []
         for possibleProperty in possibleProperties:
-            closeMatches = difflib.get_close_matches(possibleProperty, self._properties,10)
+            closeMatches = difflib.get_close_matches(possibleProperty, propertiesOfSubject,10)
             for match in closeMatches:
                 for i in possibleProperties:
                     if i.lower() == match.lower():
@@ -408,46 +413,57 @@ class Definition():
             return matches
 
 
-    def _getPropertyName(self, nouns, typeOfQuestion):
+    def _getPropertyName(self, nouns, typeOfQuestion,propertiesOfSubject):
         
         nounsMatches = []
-        nounsMatches = self._getOverlappingProperty(nouns)
+        nounsMatches = self._getOverlappingProperty(nouns,propertiesOfSubject)
         print "Temp: Matching nouns: ", nounsMatches
         
         concatenations = []
         concatenations = self._getConcatenationCombinations(nouns, None, 1)
         
         nounsConcatenationsMatches = [] 
-        nounsConcatenationsMatches = self._getOverlappingProperty(concatenations)
+        nounsConcatenationsMatches = self._getOverlappingProperty(concatenations,propertiesOfSubject)
         print "Temp: Matching nouns concatenations: ", nounsConcatenationsMatches
         
-#        if nounsConcatenationsMatches is not None:
-#            return nounsConcatenationsMatches
+        if nounsConcatenationsMatches is not None:
+            if len(nounsConcatenationsMatches)>1:
+                print "Temp: LOOK: Several Matches1: ",nounsConcatenationsMatches
+                return nounsConcatenationsMatches[0]
+            return nounsConcatenationsMatches
         
+        additionalKeywords = []
         additionalKeywords = self._getKeywordsFromQuestionType(typeOfQuestion)
         
         concatenations = []
         concatenations = self._getConcatenationCombinations(nouns, additionalKeywords, 2)
         
         nounsKeywordsConcatenationsMatches = [] 
-        nounsKeywordsConcatenationsMatches = self._getOverlappingProperty(concatenations)
+        nounsKeywordsConcatenationsMatches = self._getOverlappingProperty(concatenations,propertiesOfSubject)
         
         print "Temp: Matching nouns+keywords concatenations: ", nounsKeywordsConcatenationsMatches
-#        if nounsKeywordsConcatenationsMatches is not None:
-#            return nounsKeywordsConcatenationsMatches
-#        elif nounsMatches is not None:
-#            return nounsMatches
+        if nounsKeywordsConcatenationsMatches is not None:
+            if len(nounsKeywordsConcatenationsMatches)>1:
+                print "Temp: LOOK: Several Matches2: ",nounsKeywordsConcatenationsMatches
+                return nounsKeywordsConcatenationsMatches[0]
+            return nounsKeywordsConcatenationsMatches
+        elif nounsMatches is not None:
+            if len(nounsMatches)>1:
+                print "Temp: LOOK: Several Matches3: ",nounsMatches
+                return nounsMatches[0]
+
+            return nounsMatches
         
         
         ############### test the code before this
-        print "Didn't find any match yet."
-        print "Plan B: find synonyms and best match available."
+        print "Temp: Didn't find any match yet."
+        print "Temp: Plan B: find closest match."
         
         listOfKeywords = []
         listOfKeywords = self._getConcatenationCombinations(nouns, additionalKeywords, 2)
         
-        listOfKeywords += nouns
-        listOfKeywords += additionalKeywords
+        listOfKeywords.extend(nouns)
+        listOfKeywords.extend(additionalKeywords)
         
         
         w=0
@@ -456,10 +472,9 @@ class Definition():
             w+=1
             print "Step: ",w
             print "The properties which are close matches for ",word, " are:"
-            print difflib.get_close_matches(word, self._properties,10)
+            print difflib.get_close_matches(word, propertiesOfSubject,10)
 
-            properties.extend(difflib.get_close_matches(word, self._properties,10))
-            #TODO change the input properties in the get_close_matches method
+            properties.extend(difflib.get_close_matches(word, propertiesOfSubject,10))
             
         "The list of all properties is:"
         print properties
@@ -483,7 +498,7 @@ class Definition():
                 break
             print "Property: >",key,"< with ",value, " occurrences"
             listOfProperties.append(key)
-        return listOfProperties
+        return listOfProperties[0]
             
         
         
@@ -517,9 +532,9 @@ class Definition():
             
             print "The properties which are close matches for ",word, " are:"
             
-            print difflib.get_close_matches(word, self._properties,10)
+            print difflib.get_close_matches(word, propertiesOfSubject,10)
 
-            properties.extend(difflib.get_close_matches(word, self._properties,10))
+            properties.extend(difflib.get_close_matches(word, propertiesOfSubject,10))
             
             #TODO change the input properties in the get_close_matches method
         "The list of all properties is:"
@@ -556,7 +571,7 @@ class Definition():
 
 
 
-    def answer(self, sentence):
+    def answer(self, sentence, whType):
         keywords = {'where': ['place', 'city', 'country'],
                     'when': ['date', 'time'],
                     'what': ['thing'],
@@ -566,7 +581,6 @@ class Definition():
                     'why': ['reason']
                     }
 
->>>>>>> Stashed changes
         # Word tokenizer using Stanford NLP Parser (better than NLTK)
         sTags = _tokenizeFromStanfordNLP(sentence)
         print sTags
@@ -611,47 +625,29 @@ class Definition():
                 pname = puri.split('/')[-1].split('#')[-1]
                 properties[pname] = puri
 
-            # Choose property regarding the wh? word (ontology, property, rdf)
-            keyword = ""
+            # Choose property regarding the wh? word (ontology, property, rdf) ????
             print whType
 
-            if whType == "Entity":
-                keyword = "comment"
-            elif whType == "Place":
-                keyword += noun + 'place'
-            elif whType == "Reason":
-                keyword = noun
-            elif whType == "Time":
-                keyword += noun + 'date'
-            elif whType == "Manner":
-                keyword = noun
-            elif whType == "Dimension":
-                keyword = noun
-            elif whType == "LookAndShape":
-                keyword = noun
-            elif whType == "Composition":
-                keyword = noun
-            elif whType == "Meaning":
-                keyword = noun
-            elif whType == "Abbreviation":
-                keyword = noun
-            elif whType == "Duration":
-                keyword = "duration"
-            elif whType == "Age":
-                keyword = "age"
-            elif whType == "Quantity":
-                keyword = noun
-            elif whType == "Frequency":
-                keyword = noun
-
-            print keyword
-
+            #TODO what about multiple nouns? such as "year" and "birth" in "What is the year when Justin Bieber was born?"
+            nouns = []
+            nouns.append(noun)
+            
+            # Find property that best matches what the sentence asks for
+            pname = self._getPropertyName(nouns, whType,properties.keys()) # nouns has to be a list!
+            
+            print "Temp: I am going to use this property: ",pname
+            
+            '''
             # Find close matches for our keyword and the properties available
             matches = difflib.get_close_matches(keyword,
                                                 properties.keys(),
                                                 15)
-            # Pick the best match and query the database for the value
+            # Pick the best match
             pname = properties[matches[0]]
+            '''
+            
+            
+            # query the database for the best property value
             query = """
                 PREFIX owl: <http://www.w3.org/2002/07/owl#>
                 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
