@@ -21,6 +21,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 from nltk.corpus import wordnet as wn
 import operator
 
+
 def _getSubject(question, ind):
     subject = ""
     qTags = _tokenizeFromStanfordNLP(question)
@@ -273,10 +274,9 @@ class Dialog():
 
             return self._makeYesNoAnswer(subject, verbs, object, score, ans)
         elif type == "whQuestion":
-            whType = self._classifyWhQuestion(question)
-            
+            whAnswerType = self._classifyWhQuestion(question)
             d = Definition()
-            return d.answer(question, whType)
+            return d.answer(question, whAnswerType)
         elif type == "Statement" or type == "Emphasis":
             if q.split()[0].lower() in ["i"]:
                 subject = q.split()[0] + " "
@@ -302,8 +302,9 @@ class Dialog():
 
         else:
             return "I don't know what you mean."
-    
-    
+
+
+
     def _classifyWhQuestion(self, question):
         whType = self._classifierWhQ.classify(
             learn.dialog.dialogue_act_features(question))
@@ -381,21 +382,22 @@ class Definition():
         else:
             return keywords
 
+
     def _getConcatenationCombinations(self, nouns, additionalKeywords, mode):
         combinations = []
         if mode == 1:
             for i in nouns:
                 for j in nouns:
-                    if i==j:
+                    if i == j:
                         continue
-                    combinations.append( i + j )
+                    combinations.append(i + j)
         elif mode == 2:
             for i in nouns:
                 for j in additionalKeywords:
-                    if i==j:
+                    if i == j:
                         continue
-                    combinations.append( i + j )
-                    combinations.append( j + i )
+                    combinations.append(i + j)
+                    combinations.append(j + i)
         return combinations
         
         
@@ -418,7 +420,7 @@ class Definition():
         nounsMatches = []
         nounsMatches = self._getOverlappingProperty(nouns,propertiesOfSubject)
         print "Temp: Matching nouns: ", nounsMatches
-        
+
         concatenations = []
         concatenations = self._getConcatenationCombinations(nouns, None, 1)
         
@@ -434,7 +436,7 @@ class Definition():
         
         additionalKeywords = []
         additionalKeywords = self._getKeywordsFromQuestionType(typeOfQuestion)
-        
+
         concatenations = []
         concatenations = self._getConcatenationCombinations(nouns, additionalKeywords, 2)
         
@@ -476,34 +478,34 @@ class Definition():
 
             properties.extend(difflib.get_close_matches(word, propertiesOfSubject,10))
             
+            
         "The list of all properties is:"
         print properties
         print "----------------------------"
-        
+
         listOfProperties = properties
         properties = {}
         for proprty in listOfProperties:
             if proprty not in properties:
                 properties[proprty] = 0
             properties[proprty] += 1
-        
-        
+
         # order properties by order of most occurrences
-        sorted_x = sorted(properties.items(), key=operator.itemgetter(1),reverse=True)
-        i=0
+        sorted_x = sorted(properties.items(),
+                          key=operator.itemgetter(1),
+                          reverse=True)
+        i = 0
         listOfProperties = []
         for key, value in sorted_x:
-            i+=1
-            if i>10:
+            i += 1
+            if i > 10:
                 break
-            print "Property: >",key,"< with ",value, " occurrences"
+            print "Property: >", key, "< with ", value, " occurrences"
             listOfProperties.append(key)
         return listOfProperties[0]
             
         
-        
-        
-        
+
         '''
         #searching for synonyms. It doesn't work well at all
         synonyms = []
@@ -520,44 +522,43 @@ class Definition():
                     break
         print "\n----------..-----...----.------\n\n"
         listOfKeywords += synonyms
-        
-        
+
         print listOfKeywords
-        
+
         w=0
         properties = []
         for word in listOfKeywords:
             w+=1
             print "Step: ",w
-            
+
             print "The properties which are close matches for ",word, " are:"
             
             print difflib.get_close_matches(word, propertiesOfSubject,10)
 
             properties.extend(difflib.get_close_matches(word, propertiesOfSubject,10))
             
-            #TODO change the input properties in the get_close_matches method
         "The list of all properties is:"
         print properties
         print "----------------------------"
-        
+
         listOfProperties = properties
         properties = {}
         for proprty in listOfProperties:
             if proprty not in properties:
                 properties[proprty] = 0
             properties[proprty] += 1
-        
-        
+
         # order properties by order of most occurrences
-        sorted_x = sorted(properties.items(), key=operator.itemgetter(1),reverse=True)
+        sorted_x = sorted(properties.items(),
+                          key=operator.itemgetter(1),
+                          reverse=True)
         i=0
         for key, value in sorted_x:
             i+=1
             if i>10:
                 break
             print "Property: >",key,"< with ",value, " occurrences"
-            
+
         return properties
         '''
 
@@ -569,8 +570,8 @@ class Definition():
 
 
 
-
-
+    #TODO should I take this off???
+    '''
     def answer(self, sentence, whType):
         keywords = {'where': ['place', 'city', 'country'],
                     'when': ['date', 'time'],
@@ -580,7 +581,10 @@ class Definition():
                     'how': ['way', 'means'],
                     'why': ['reason']
                     }
-
+    '''
+    
+    def answer(self, sentence, whType):
+        
         # Word tokenizer using Stanford NLP Parser (better than NLTK)
         sTags = _tokenizeFromStanfordNLP(sentence)
         print sTags
