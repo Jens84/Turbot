@@ -348,6 +348,9 @@ class Definition():
         keywords = []
         if typeOfQuestion == "Entity":
             keywords.append("comment")
+            keywords.append("name")
+            keywords.append("description")
+            keywords.append("abstract")
         elif typeOfQuestion == "Place":
             keywords.append("place")
             keywords.append("placeOf")
