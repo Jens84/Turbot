@@ -8,7 +8,6 @@ Created on Mon Nov 24 16:11:14 2014
 import core
 from nltk.corpus import wordnet as wn
 
-
 '''
 #d = core.Dialog()
 defin = core.Definition()
@@ -27,46 +26,35 @@ print synonyms
 
 '''
 
-noun = "hi"
-nouns = []
-nouns.append(noun)
-for n in nouns:
-    print n
-print noun
+#sentence = "What is the name of Justin Bieber's associated bands?"
+sentence = "What is the year when Justin Bieber was born?"
+sTags = core._tokenizeFromStanfordNLP(sentence)
+print sTags
 
-print "----"
-nouns.append("comment")
-additionalKeywords = ["ahh"]
-combinations = []
-for i in nouns:
-    for j in additionalKeywords:
-        if i==j:
-            continue
-        combinations.append( i + j )
-        combinations.append( j + i )
-        
-print combinations
-nouns = []
-nouns.append("birth")
-nouns.append("year")
-nouns.append("time")
-nouns.append("time2")
+# Get the object and verb of the sentence
+obj = ' '.join([w[0] for w in sTags if 'NNP' in w[1]])
+nouns = [w[0] for w in sTags if w[1]=='NN' or w[1]=='NNS']
+adjectives = [w[0] for w in sTags if 'JJ' in w[1]]
 
+
+print obj
 print nouns
-print "birth == ",nouns[0]
-nouns=["birth","year","time","time"]
-print "len: ",len(nouns)
+print adjectives
 
-'''
-keywords=["time"]
-print "going to method getPropertyName"
-listOfProperties = core.Definition._getPropertyName(defin, nouns, keywords)
+string1 = "ola"
+string2 = unicode("ola")
+print string1, string2
 
-print listOfProperties
+s = []
+s.append(string1)
+s.append(string2)
 
-
-'''
-
+print s
+aa = s[0]
+bb = s[1]
+print "<>"
+print aa
+print bb
 
 
 

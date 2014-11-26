@@ -365,9 +365,14 @@ class Definition():
         elif typeOfQuestion == "Composition":
             pass
         elif typeOfQuestion == "Meaning":
-            pass
+            keywords.append("meaning")
+            keywords.append("synonyms")
+            keywords.append("synonym")
+            keywords.append("abstract")
         elif typeOfQuestion == "Abbreviation":
-            pass
+            keywords.append("meaning")
+            keywords.append("synonyms")
+            keywords.append("synonym")
         elif typeOfQuestion == "Duration":
             keywords.append("duration")
         elif typeOfQuestion == "Age":
@@ -377,10 +382,7 @@ class Definition():
         elif typeOfQuestion == "Frequency":
             keywords.append("frequency")
             
-        if keywords == []:
-            return None
-        else:
-            return keywords
+        return keywords
 
 
     def _getConcatenationCombinations(self, nouns, additionalKeywords, mode):
@@ -404,7 +406,7 @@ class Definition():
     def _getOverlappingProperty(self, possibleProperties,propertiesOfSubject):
         matches = []
         for possibleProperty in possibleProperties:
-            closeMatches = difflib.get_close_matches(possibleProperty, propertiesOfSubject,10)
+            closeMatches = difflib.get_close_matches(possibleProperty, propertiesOfSubject,5)
             for match in closeMatches:
                 for i in possibleProperties:
                     if i.lower() == match.lower():
@@ -415,7 +417,11 @@ class Definition():
             return matches
 
 
-    def _getPropertyName(self, nouns, typeOfQuestion,propertiesOfSubject):
+    def _getPropertyName(self, nouns, additionalWords, typeOfQuestion, propertiesOfSubject):
+        
+        listOfKeywords = []        
+        listOfKeywords.extend(nouns)
+
         
         nounsMatches = []
         nounsMatches = self._getOverlappingProperty(nouns,propertiesOfSubject)
@@ -423,51 +429,58 @@ class Definition():
 
         concatenations = []
         concatenations = self._getConcatenationCombinations(nouns, None, 1)
+        print "noun combinations: ", concatenations
+        listOfKeywords.extend(concatenations)
         
-        nounsConcatenationsMatches = [] 
+        nounsConcatenationsMatches = []
         nounsConcatenationsMatches = self._getOverlappingProperty(concatenations,propertiesOfSubject)
         print "Temp: Matching nouns concatenations: ", nounsConcatenationsMatches
         
         if nounsConcatenationsMatches is not None:
+            print "Temp: Chose property in 1"
             if len(nounsConcatenationsMatches)>1:
                 print "Temp: LOOK: Several Matches1: ",nounsConcatenationsMatches
                 return nounsConcatenationsMatches[0]
-            return nounsConcatenationsMatches
+            return nounsConcatenationsMatches[0]
         
         additionalKeywords = []
         additionalKeywords = self._getKeywordsFromQuestionType(typeOfQuestion)
+        additionalKeywords.extend(additionalWords)
+        listOfKeywords.extend(additionalKeywords)
 
         concatenations = []
         concatenations = self._getConcatenationCombinations(nouns, additionalKeywords, 2)
+        print "noun+keywords combinations: ", concatenations
+        listOfKeywords.extend(concatenations)
         
         nounsKeywordsConcatenationsMatches = [] 
         nounsKeywordsConcatenationsMatches = self._getOverlappingProperty(concatenations,propertiesOfSubject)
         
         print "Temp: Matching nouns+keywords concatenations: ", nounsKeywordsConcatenationsMatches
         if nounsKeywordsConcatenationsMatches is not None:
+            print "Temp: Chose property in 2"
             if len(nounsKeywordsConcatenationsMatches)>1:
                 print "Temp: LOOK: Several Matches2: ",nounsKeywordsConcatenationsMatches
                 return nounsKeywordsConcatenationsMatches[0]
-            return nounsKeywordsConcatenationsMatches
+            return nounsKeywordsConcatenationsMatches[0]
         elif nounsMatches is not None:
+            print "Temp: Chose property in 3"
             if len(nounsMatches)>1:
                 print "Temp: LOOK: Several Matches3: ",nounsMatches
                 return nounsMatches[0]
 
-            return nounsMatches
+            return nounsMatches[0]
         
         
-        ############### test the code before this
+
         print "Temp: Didn't find any match yet."
         print "Temp: Plan B: find closest match."
         
-        listOfKeywords = []
-        listOfKeywords = self._getConcatenationCombinations(nouns, additionalKeywords, 2)
         
-        listOfKeywords.extend(nouns)
-        listOfKeywords.extend(additionalKeywords)
-        
-        
+        # If a match wasn't found yet, a list of all the word combinations will
+        # be iterated. Each word will try to be matched with properties. The 
+        # property that occur the most is chosen
+        print "List of all combinations: ",listOfKeywords
         w=0
         properties = []
         for word in listOfKeywords:
@@ -502,7 +515,10 @@ class Definition():
                 break
             print "Property: >", key, "< with ", value, " occurrences"
             listOfProperties.append(key)
-        return listOfProperties[0]
+        if listOfProperties == []:
+            return listOfProperties
+        else:
+            return listOfProperties[0]
             
         
 
@@ -585,12 +601,22 @@ class Definition():
     
     def answer(self, sentence, whType):
         
+        print "Temp: Type of this question: ",whType
+        
+        
         # Word tokenizer using Stanford NLP Parser (better than NLTK)
         sTags = _tokenizeFromStanfordNLP(sentence)
         print sTags
 
         # Get the object and verb of the sentence
-        obj = ' '.join([w[0] for w in sTags if 'NN' in w[1]])
+        obj = ' '.join([w[0] for w in sTags if 'NNP' in w[1]])
+        
+        print "Temp: >Object of sentence: ", obj
+        
+        # temporary code
+        if obj == []:
+            print "Temp: For now, I only answer stuff about known people."
+        
         vb = None
         for w, t in sTags:
             if 'VB' in t and t != 'VB':
@@ -602,6 +628,20 @@ class Definition():
         # TODO Probability not really good (first element not always the best)
         noun = _nounify(vb)[1][0]
         print noun
+        
+        # Getting additional information from the sentence: nouns and ajectives
+        nouns = []
+        adjectives = []
+        nouns = [w[0] for w in sTags if w[1]=='NN' or w[1]=='NNS']
+        adjectives = [w[0] for w in sTags if 'JJ' in w[1]]
+        
+        # Adding the information to the proper lists
+        additionalWords = []
+        additionalWords.extend(adjectives)
+        nouns.append(noun)
+        
+        print "Temp: >Nouns of sentence: ", nouns
+        print "Temp: >Adjectives of sentence: ", adjectives
 
         # Perform a search on DBPedia to find the concerned resource
         params = urllib.urlencode({'QueryString': obj,
@@ -610,7 +650,7 @@ class Definition():
         url = "http://lookup.dbpedia.org/api/search/KeywordSearch?" + params
         req = urllib2.Request(url, headers={"Accept": "application/json"})
         response = json.loads(urllib2.urlopen(req).read())
-
+        
         # If we found a resource to analyze
         if len(response["results"]) > 0:
             uri = response["results"][0]["uri"]
@@ -630,65 +670,66 @@ class Definition():
                 properties[pname] = puri
 
             # Choose property regarding the wh? word (ontology, property, rdf) ????
-            print whType
 
-            #TODO what about multiple nouns? such as "year" and "birth" in "What is the year when Justin Bieber was born?"
-            nouns = []
-            nouns.append(noun)
             
             # Find property that best matches what the sentence asks for
-            prop = self._getPropertyName(nouns, whType,properties.keys()) # nouns has to be a list!
+            proprty = self._getPropertyName(nouns, additionalWords, whType, properties.keys()) # nouns has to be a list!
             
-            print "Temp: I am going to use this property: ",prop
+            # Converting list prop unicode single entry to plain string proprty
+            # check if this breaks! is there any problem with unicode and encodings??
+            type(proprty)
+            print "Temp: I am going to use this property: ",proprty
             
-            # Find close matches for our keyword and the properties available
-            matches = difflib.get_close_matches(prop,
-                                                properties.keys(),
-                                                15)
-            # Pick the best match
-            pname = properties[matches[0]]
-            print "Temp: This is the one I am going to use: ",prop
+            # if found a property match
+            if len(proprty) > 0:
             
-            
-            # query the database for the best property value
-            query = """
-                PREFIX owl: <http://www.w3.org/2002/07/owl#>
-                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                PREFIX dc: <http://purl.org/dc/elements/1.1/>
-                PREFIX : <http://dbpedia.org/resource/>
-                PREFIX dbpedia2: <http://dbpedia.org/property/>
-                PREFIX dbpedia: <http://dbpedia.org/>
-                PREFIX dbo: <http://dbpedia.org/ontology/>
-                PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-                SELECT ?pname
-                WHERE { <%s> <%s> ?pname }""" % (uri, pname)
-            self._sparql.setQuery(query)
-            results = self._sparql.query().convert()["results"]["bindings"]
-
-            # If there is a result (supposed to) then return the value
-            if len(results) > 0:
-                for r in results:
-                    if ("xml:lang" not in r["pname"] or
-                       r["pname"]["xml:lang"] == "en"):
-                        # Retrieve the name/label/abstract from db if needed
-                        if r["pname"]["type"] == "uri":
-                            uri = r["pname"]["value"]
-                            query = """
-                           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                           SELECT ?pname
-                           WHERE { <%s> rdfs:label ?pname }""" % uri
-                            self._sparql.setQuery(query)
-                            results = (self._sparql.query().convert()
-                                       ["results"]["bindings"])
-                            answer = results[0]["pname"]["value"]
-                        else:
-                            answer = r["pname"]["value"]
-
-                        print answer
-                        return answer
+                # Find close matches for our keyword and the properties available
+                matches = difflib.get_close_matches(proprty,
+                                                    properties.keys(),
+                                                    3)
+                # Pick the best match
+                pname = properties[matches[0]]
+                
+                
+                # query the database for the best property value
+                query = """
+                    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                    PREFIX dc: <http://purl.org/dc/elements/1.1/>
+                    PREFIX : <http://dbpedia.org/resource/>
+                    PREFIX dbpedia2: <http://dbpedia.org/property/>
+                    PREFIX dbpedia: <http://dbpedia.org/>
+                    PREFIX dbo: <http://dbpedia.org/ontology/>
+                    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+                    SELECT ?pname
+                    WHERE { <%s> <%s> ?pname }""" % (uri, pname)
+                self._sparql.setQuery(query)
+                results = self._sparql.query().convert()["results"]["bindings"]
+    
+                # If there is a result (supposed to) then return the value
+                if len(results) > 0:
+                    for r in results:
+                        if ("xml:lang" not in r["pname"] or
+                           r["pname"]["xml:lang"] == "en"):
+                            # Retrieve the name/label/abstract from db if needed
+                            if r["pname"]["type"] == "uri":
+                                uri = r["pname"]["value"]
+                                query = """
+                               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                               SELECT ?pname
+                               WHERE { <%s> rdfs:label ?pname }""" % uri
+                                self._sparql.setQuery(query)
+                                results = (self._sparql.query().convert()
+                                           ["results"]["bindings"])
+                                answer = results[0]["pname"]["value"]
+                            else:
+                                answer = r["pname"]["value"]
+    
+                            print answer
+                            return answer
 
         # If no result (return) until here, perform a search on answers.com
         params = urllib.urlencode({'q': sentence})
