@@ -111,8 +111,8 @@ def _nounify(verb_word):
 
     # Get all verb lemmas of the word
     verb_lemmas = [l for s in verb_synsets
+                   # for l in s.lemmas() if s.name().split('.')[1] == 'v']
                    for l in s.lemmas if s.name.split('.')[1] == 'v']
-    #              for l in s.lemmas() if s.name().split('.')[1] == 'v']
 
     # Get related forms
     derivationally_related_forms = [(l, l.derivationally_related_forms())
@@ -121,8 +121,8 @@ def _nounify(verb_word):
     # filter only the nouns
     related_noun_lemmas = [l for drf in derivationally_related_forms
                            for l in drf[1]
+                           # if l.synset().name().split('.')[1] == 'n']
                            if l.synset.name.split('.')[1] == 'n']
-    #                      if l.synset().name().split('.')[1] == 'n']
 
     # Extract the words from the lemmas
     words = [l.name for l in related_noun_lemmas]
@@ -425,7 +425,8 @@ class Definition():
         nounsConcatenationsMatches = []
         nounsConcatenationsMatches = self._getOverlappingProperty(
             concatenations, propertiesOfSubject)
-        print "Temp: Matching nouns concatenations: " + (
+
+        print "Temp: Matching nouns concatenations: ", (
             nounsConcatenationsMatches)
 
         if nounsConcatenationsMatches is not None:
@@ -452,8 +453,9 @@ class Definition():
         nounsKeywordsConcatenationsMatches = self._getOverlappingProperty(
             concatenations, propertiesOfSubject)
 
-        print "Temp: Matching nouns+keywords concatenations: " + (
+        print "Temp: Matching nouns+keywords concatenations: ", (
             nounsKeywordsConcatenationsMatches)
+
         if nounsKeywordsConcatenationsMatches is not None:
             print "Temp: Chose property in 2"
             if len(nounsKeywordsConcatenationsMatches) > 1:
@@ -474,12 +476,12 @@ class Definition():
         # If a match wasn't found yet, a list of all the word combinations will
         # be iterated. Each word will try to be matched with properties. The
         # property that occur the most is chosen
-        print "List of all combinations: " + listOfKeywords
+        print "List of all combinations: ", listOfKeywords
         w = 0
         properties = []
         for word in listOfKeywords:
             w += 1
-            print "Step: " + w
+            print "Step: %i" % w
             print "The properties which are close matches for " + (
                 word + " are:")
             print difflib.get_close_matches(word, propertiesOfSubject, 10)
