@@ -644,7 +644,6 @@ class Definition():
                 prep + " " +
                 answer + " ".join(cmpl)) + "."
 
-
     def answer(self, sentence, whType):
         print "Temp: Type of this question: " + whType
 
@@ -671,8 +670,8 @@ class Definition():
 
         # TODO Probability not really good (first element not always the best)
         noun = _nounify(vb)[1][0]
-        print "Noun from nounify: >",noun, "< that got from ",vb
-        
+        print "Noun from nounify: >", noun, "< that got from ", vb
+
         # Getting additional information from the sentence: nouns and ajectives
         nouns = []
         adjectives = []
