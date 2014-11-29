@@ -111,6 +111,7 @@ def _nounify(verb_word):
 
     # Get all verb lemmas of the word
     verb_lemmas = [l for s in verb_synsets
+                   # for l in s.lemmas() if s.name().split('.')[1] == 'v']
                    for l in s.lemmas if s.name.split('.')[1] == 'v']
 
     # Get related forms
@@ -120,10 +121,12 @@ def _nounify(verb_word):
     # filter only the nouns
     related_noun_lemmas = [l for drf in derivationally_related_forms
                            for l in drf[1]
+                           # if l.synset().name().split('.')[1] == 'n']
                            if l.synset.name.split('.')[1] == 'n']
 
     # Extract the words from the lemmas
     words = [l.name for l in related_noun_lemmas]
+    # words = [l.name() for l in related_noun_lemmas]
     len_words = len(words)
 
     # Build the result in the form of
@@ -303,8 +306,6 @@ class Dialog():
         else:
             return "I don't know what you mean."
 
-
-
     def _classifyWhQuestion(self, question):
         whType = self._classifierWhQ.classify(
             learn.dialog.dialogue_act_features(question))
@@ -324,25 +325,12 @@ class Dialog():
 
 
 class Definition():
+    _sentence = None
+    _sTags = []
 
     def __init__(self):
         self._sparql = SPARQLWrapper("http://dbpedia.org/sparql")
         self._sparql.setReturnFormat(JSON)
-
-    '''
-    def answer(self, sentence, whType=None):
-        req = urllib2.Request(
-            "http://dbpedia.org/ontology/data/definitions.jsonld")
-        f = urllib2.urlopen(req)
-        response = f.read()
-        f.close()
-        data = json.loads(response)
-        result = [row["http://open.vocab.org/terms/defines"]
-                  for row in data["@graph"]
-                  if row["@id"] == "http://dbpedia.org/ontology/"][0]
-        self._properties = [p[28:] for p in result]
-    '''
-
 
     def _getKeywordsFromQuestionType(self, typeOfQuestion):
         keywords = []
@@ -384,9 +372,8 @@ class Definition():
             pass
         elif typeOfQuestion == "Frequency":
             keywords.append("frequency")
-            
-        return keywords
 
+        return keywords
 
     def _getConcatenationCombinations(self, nouns, additionalKeywords, mode):
         combinations = []
@@ -404,12 +391,13 @@ class Definition():
                     combinations.append(i + j)
                     combinations.append(j + i)
         return combinations
-        
-        
-    def _getOverlappingProperty(self, possibleProperties,propertiesOfSubject):
+
+    def _getOverlappingProperty(self, possibleProperties, propertiesOfSubject):
         matches = []
         for possibleProperty in possibleProperties:
-            closeMatches = difflib.get_close_matches(possibleProperty, propertiesOfSubject,5)
+            closeMatches = difflib.get_close_matches(possibleProperty,
+                                                     propertiesOfSubject,
+                                                     5)
             for match in closeMatches:
                 for i in possibleProperties:
                     if i.lower() == match.lower():
@@ -419,82 +407,89 @@ class Definition():
         else:
             return matches
 
+    def _getPropertyName(self, nouns, additionalWords, typeOfQuestion,
+                         propertiesOfSubject):
 
-    def _getPropertyName(self, nouns, additionalWords, typeOfQuestion, propertiesOfSubject):
-        
-        listOfKeywords = []        
+        listOfKeywords = []
         listOfKeywords.extend(nouns)
 
-        
         nounsMatches = []
-        nounsMatches = self._getOverlappingProperty(nouns,propertiesOfSubject)
+        nounsMatches = self._getOverlappingProperty(nouns, propertiesOfSubject)
         print "Temp: Matching nouns: ", nounsMatches
 
         concatenations = []
         concatenations = self._getConcatenationCombinations(nouns, None, 1)
         print "noun combinations: ", concatenations
         listOfKeywords.extend(concatenations)
-        
+
         nounsConcatenationsMatches = []
-        nounsConcatenationsMatches = self._getOverlappingProperty(concatenations,propertiesOfSubject)
-        print "Temp: Matching nouns concatenations: ", nounsConcatenationsMatches
-        
+        nounsConcatenationsMatches = self._getOverlappingProperty(
+            concatenations, propertiesOfSubject)
+
+        print "Temp: Matching nouns concatenations: ", (
+            nounsConcatenationsMatches)
+
         if nounsConcatenationsMatches is not None:
             print "Temp: Chose property in 1"
-            if len(nounsConcatenationsMatches)>1:
-                print "Temp: LOOK: Several Matches1: ",nounsConcatenationsMatches
+            if len(nounsConcatenationsMatches) > 1:
+                print "Temp: LOOK: Several Matches1: " + (
+                    nounsConcatenationsMatches)
                 return nounsConcatenationsMatches[0]
             return nounsConcatenationsMatches[0]
-        
+
         additionalKeywords = []
         additionalKeywords = self._getKeywordsFromQuestionType(typeOfQuestion)
         additionalKeywords.extend(additionalWords)
         listOfKeywords.extend(additionalKeywords)
 
         concatenations = []
-        concatenations = self._getConcatenationCombinations(nouns, additionalKeywords, 2)
+        concatenations = self._getConcatenationCombinations(nouns,
+                                                            additionalKeywords,
+                                                            2)
         print "noun+keywords combinations: ", concatenations
         listOfKeywords.extend(concatenations)
-        
-        nounsKeywordsConcatenationsMatches = [] 
-        nounsKeywordsConcatenationsMatches = self._getOverlappingProperty(concatenations,propertiesOfSubject)
-        
-        print "Temp: Matching nouns+keywords concatenations: ", nounsKeywordsConcatenationsMatches
+
+        nounsKeywordsConcatenationsMatches = []
+        nounsKeywordsConcatenationsMatches = self._getOverlappingProperty(
+            concatenations, propertiesOfSubject)
+
+        print "Temp: Matching nouns+keywords concatenations: ", (
+            nounsKeywordsConcatenationsMatches)
+
         if nounsKeywordsConcatenationsMatches is not None:
             print "Temp: Chose property in 2"
-            if len(nounsKeywordsConcatenationsMatches)>1:
-                print "Temp: LOOK: Several Matches2: ",nounsKeywordsConcatenationsMatches
+            if len(nounsKeywordsConcatenationsMatches) > 1:
+                print "Temp: LOOK: Several Matches2: " + (
+                    nounsKeywordsConcatenationsMatches)
                 return nounsKeywordsConcatenationsMatches[0]
             return nounsKeywordsConcatenationsMatches[0]
         elif nounsMatches is not None:
             print "Temp: Chose property in 3"
-            if len(nounsMatches)>1:
-                print "Temp: LOOK: Several Matches3: ",nounsMatches
+            if len(nounsMatches) > 1:
+                print "Temp: LOOK: Several Matches3: ", nounsMatches
                 return nounsMatches[0]
-
             return nounsMatches[0]
-        
-        
 
         print "Temp: Didn't find any match yet."
         print "Temp: Plan B: find closest match."
-        
-        
+
         # If a match wasn't found yet, a list of all the word combinations will
-        # be iterated. Each word will try to be matched with properties. The 
+        # be iterated. Each word will try to be matched with properties. The
         # property that occur the most is chosen
-        print "List of all combinations: ",listOfKeywords
-        w=0
+        print "List of all combinations: ", listOfKeywords
+        w = 0
         properties = []
         for word in listOfKeywords:
-            w+=1
-            print "Step: ",w
-            print "The properties which are close matches for ",word, " are:"
-            print difflib.get_close_matches(word, propertiesOfSubject,10)
+            w += 1
+            print "Step: %i" % w
+            print "The properties which are close matches for " + (
+                word + " are:")
+            print difflib.get_close_matches(word, propertiesOfSubject, 10)
 
-            properties.extend(difflib.get_close_matches(word, propertiesOfSubject,10))
-            
-            
+            properties.extend(difflib.get_close_matches(word,
+                                                        propertiesOfSubject,
+                                                        10))
+
         "The list of all properties is:"
         print properties
         print "----------------------------"
@@ -522,8 +517,6 @@ class Definition():
             return listOfProperties
         else:
             return listOfProperties[0]
-            
-        
 
         '''
         #searching for synonyms. It doesn't work well at all
@@ -551,11 +544,11 @@ class Definition():
             print "Step: ",w
 
             print "The properties which are close matches for ",word, " are:"
-            
             print difflib.get_close_matches(word, propertiesOfSubject,10)
 
-            properties.extend(difflib.get_close_matches(word, propertiesOfSubject,10))
-            
+            properties.extend(difflib.get_close_matches(word,
+                                                        propertiesOfSubject,
+                                                        10))
         "The list of all properties is:"
         print properties
         print "----------------------------"
@@ -581,47 +574,94 @@ class Definition():
         return properties
         '''
 
+    def _questionToAssertion(self, answer):
+        prepositions = {"when": ["on the", "at", "in"],
+                        "where": ["in", "at"],
+                        "how": ["by"],
+                        "who": ["a", "the"],
+                        "which": ["the"],
+                        "whereby": ["by"],
+                        "wherein": ["in"],
+                        "whereof": ["of"],
+                        "what": ["", "a", "the"]
+                        }
 
-        
+        prep = None
+        hasAux = False
+        vb = None
+        subj = None
+        cmpl = None
+
+        i = 0
+        while 'W' not in self._sTags[i][1]:
+            i += 1
+        prep = prepositions[self._sTags[i][0].lower()][0]  # First element here
+        i += 1
+        print "Prep: %s" % prep
+
+        vb = []
+        while 'VB' not in self._sTags[i][1]:
+            i += 1
+
+        vb.append(self._sTags[i][0])
+        i += 1
+
+        if len([w for w, t in self._sTags if "VB" in t]) > 1:
+            hasAux = True
+
+        subj = []
+        cmpl = []
+        if hasAux:
+            while 'VB' not in self._sTags[i][1]:
+                subj.append(self._sTags[i][0])
+                i += 1
+            print "Subj: %s" % " ".join(subj)
+            vb.append(self._sTags[i][0])
+            i += 1
+            print "Verb: %s" % " ".join(vb)
+
+            while i < len(self._sTags) - 1:
+                cmpl.append(self._sTags[i][0])
+                i += 1
+            print "Cmpl: %s" % " ".join(cmpl)
+        else:
+            while i < len(self._sTags) - 1:
+                subj.append(self._sTags[i][0])
+                i += 1
+            print "Subj: %s" % " ".join(subj)
+
+        if en.verb.infinitive(vb[0]) == "do":
+            if "past" in en.verb.tense(vb[0]):
+                vb[1] = en.verb.past(vb[1])
+            elif "present" in en.verb.tense(vb[0]):
+                vb[1] = en.verb.present(vb[1])
+            vb.remove(vb[0])
+
+        return (" ".join(subj) + " " +
+                " ".join(vb) + " " +
+                prep + " " +
+                answer + " " +
+                " ".join(cmpl))
 
 
-
-
-
-
-    #TODO should I take this off??? I don't know what this is
-    '''
     def answer(self, sentence, whType):
-        keywords = {'where': ['place', 'city', 'country'],
-                    'when': ['date', 'time'],
-                    'what': ['thing'],
-                    'which': ['thing'],
-                    'who': ['person'],
-                    'how': ['way', 'means'],
-                    'why': ['reason']
-                    }
-    '''
-    
-    def answer(self, sentence, whType):
-        
-        print "Temp: Type of this question: ",whType
-        
-        
+        print "Temp: Type of this question: " + whType
+
         # Word tokenizer using Stanford NLP Parser (better than NLTK)
-        sTags = _tokenizeFromStanfordNLP(sentence)
-        print sTags
+        self._sTags = _tokenizeFromStanfordNLP(sentence)
+        print self._sTags
 
         # Get the object and verb of the sentence
-        obj = ' '.join([w[0] for w in sTags if 'NNP' in w[1]])
-        
+        obj = ' '.join([w[0] for w in self._sTags if 'NNP' in w[1]])
+
         print "Temp: >Object of sentence: ", obj
-        
+
         # temporary code
         if obj == []:
             print "Temp: For now, I only answer stuff about known people."
-        
+
         vb = None
-        for w, t in sTags:
+        for w, t in self._sTags:
             if 'VB' in t and t != 'VB':
                 vb = w
             elif t == 'VB':
@@ -635,14 +675,15 @@ class Definition():
         # Getting additional information from the sentence: nouns and ajectives
         nouns = []
         adjectives = []
-        nouns = [w[0] for w in sTags if w[1]=='NN' or w[1]=='NNS']
-        adjectives = [w[0] for w in sTags if 'JJ' in w[1]]
-        
+        nouns = [w[0] for w in self._sTags if w[1] == 'NN' or w[1] == 'NNS']
+        adjectives = [w[0] for w in self._sTags if 'JJ' in w[1]]
+
         # Adding the information to the proper lists
         additionalWords = []
         additionalWords.extend(adjectives)
-        nouns.append(noun)
-        
+        if not(noun == "having" or noun == "being"):
+            nouns.append(noun)
+
         print "Temp: >Nouns of sentence: ", nouns
         print "Temp: >Adjectives of sentence: ", adjectives
 
@@ -653,7 +694,7 @@ class Definition():
         url = "http://lookup.dbpedia.org/api/search/KeywordSearch?" + params
         req = urllib2.Request(url, headers={"Accept": "application/json"})
         response = json.loads(urllib2.urlopen(req).read())
-        
+
         # If we found a resource to analyze
         if len(response["results"]) > 0:
             uri = response["results"][0]["uri"]
@@ -672,28 +713,28 @@ class Definition():
                 pname = puri.split('/')[-1].split('#')[-1]
                 properties[pname] = puri
 
-            # Choose property regarding the wh? word (ontology, property, rdf) ????
+            # Choose property regarding the wh? word (ontology, property, rdf)
 
-            
             # Find property that best matches what the sentence asks for
-            proprty = self._getPropertyName(nouns, additionalWords, whType, properties.keys()) # nouns has to be a list!
-            
+            proprty = self._getPropertyName(nouns,  # has to be a list
+                                            additionalWords,
+                                            whType,
+                                            properties.keys())
+
             # Converting list prop unicode single entry to plain string proprty
-            # check if this breaks! is there any problem with unicode and encodings??
+            # check if it breaks! any problem with unicode and encodings??
             type(proprty)
-            print "Temp: I am going to use this property: ",proprty
-            
+            print "Temp: I am going to use this property: " + proprty
+
             # if found a property match
             if len(proprty) > 0:
-            
-                # Find close matches for our keyword and the properties available
+                # Find close matches for our keyword and available properties
                 matches = difflib.get_close_matches(proprty,
                                                     properties.keys(),
                                                     3)
                 # Pick the best match
                 pname = properties[matches[0]]
-                
-                
+
                 # query the database for the best property value
                 query = """
                     PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -711,28 +752,45 @@ class Definition():
                     WHERE { <%s> <%s> ?pname }""" % (uri, pname)
                 self._sparql.setQuery(query)
                 results = self._sparql.query().convert()["results"]["bindings"]
-    
+
                 # If there is a result (supposed to) then return the value
                 if len(results) > 0:
                     for r in results:
                         if ("xml:lang" not in r["pname"] or
                            r["pname"]["xml:lang"] == "en"):
-                            # Retrieve the name/label/abstract from db if needed
+                            # Retrieve name/label/abstract from db if needed
                             if r["pname"]["type"] == "uri":
                                 uri = r["pname"]["value"]
                                 query = """
-                               PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                               SELECT ?pname
-                               WHERE { <%s> rdfs:label ?pname }""" % uri
+                           PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                           SELECT ?pname
+                           WHERE { <%s> rdfs:label ?pname }""" % uri
                                 self._sparql.setQuery(query)
                                 results = (self._sparql.query().convert()
                                            ["results"]["bindings"])
                                 answer = results[0]["pname"]["value"]
                             else:
                                 answer = r["pname"]["value"]
-    
+
                             print answer
-                            return answer
+
+                            newObject = ([o for o, tag in self._sTags
+                                          if tag not in ['DT', 'IN',
+                                                         'WDT', 'WP',
+                                                         'WP$', 'WRB']])
+                            newObject = newObject[:-1]
+                            print ("NO: " + " ".join(newObject))
+
+                            sentences = re.findall(r"([^.]*\.)", answer)
+                            for sentence in sentences:
+                                if all(word in sentence for word in newObject):
+                                    answer = sentence
+                                    break
+
+                            if "comment" not in pname:
+                                return self._questionToAssertion(answer)
+                            else:
+                                return answer
 
         # If no result (return) until here, perform a search on answers.com
         params = urllib.urlencode({'q': sentence})
