@@ -1042,6 +1042,11 @@ When was the last time you went swimming? | Time
 When was the last time you played at a friend's house? | Time
 When did you go on your last vacation? | Time
 When was the last time you went out to dinner? | Time
+What is Obama's date of birth? | Time
+What is Madonna's birthday? | Time
+What was Caetano Veloso's birthday? | Time
+What was Nelson Mandela's birthday? | Time
+What is Jesus Christ's birthday? | Time
 
 # ----------------------------------------------------------------------------------------
 
@@ -1138,6 +1143,9 @@ What's the meaning of mad? | DescriptionWh
 What's the meaning of slut? | DescriptionWh
 What's the meaning of badass? | DescriptionWh
 
+What is an Eucalyptus tree? | DescriptionWh
+What is an Eastpak bag? | DescriptionWh
+What is a king? | Meaning
 What is a duck? | DescriptionWh
 What is a chicken? | DescriptionWh
 What is a pen? | DescriptionWh

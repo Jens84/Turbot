@@ -589,7 +589,7 @@ class Definition():
 
 
 
-    #TODO should I take this off???
+    #TODO should I take this off??? I don't know what this is
     '''
     def answer(self, sentence, whType):
         keywords = {'where': ['place', 'city', 'country'],
@@ -630,7 +630,7 @@ class Definition():
 
         # TODO Probability not really good (first element not always the best)
         noun = _nounify(vb)[1][0]
-        print noun
+        print "Noun from nounify: >",noun, "< that got from ",vb
         
         # Getting additional information from the sentence: nouns and ajectives
         nouns = []
