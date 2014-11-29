@@ -610,7 +610,7 @@ class Definition():
             hasAux = True
 
         subj = []
-        cmpl = []
+        cmpl = [""]
         if hasAux:
             while 'VB' not in self._sTags[i][1]:
                 subj.append(self._sTags[i][0])
@@ -637,11 +637,12 @@ class Definition():
                 vb[1] = en.verb.present(vb[1])
             vb.remove(vb[0])
 
+        subj[0] = subj[0].capitalize()
+
         return (" ".join(subj) + " " +
                 " ".join(vb) + " " +
                 prep + " " +
-                answer + " " +
-                " ".join(cmpl))
+                answer + " ".join(cmpl)) + "."
 
 
     def answer(self, sentence, whType):
