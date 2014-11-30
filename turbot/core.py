@@ -249,11 +249,11 @@ class Dialog():
         score = self._getPosNegScore(tokens)
 
         q = question
-        print("Question : " + str(q))
+        print("Question : ", str(q))
 
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
-        print "Type => " + type
+        print "Type => ", type
 
         if type == "ynQuestion":
             ans = ""
@@ -345,16 +345,27 @@ class Definition():
             keywords.append("spot")
         elif typeOfQuestion == "Reason":
             keywords.append("reason")
-        elif typeOfQuestion == "Time":
+        elif typeOfQuestion == "TimeWhat":
+            keywords.append("date")
+        elif typeOfQuestion == "TimeWhen":
             keywords.append("date")
         elif typeOfQuestion == "Manner":
             keywords.append("transport")
         elif typeOfQuestion == "Dimension":
-            pass
+            keywords.append("size")
+            keywords.append("unit")
+            keywords.append("length")
+            keywords.append("height")
+            keywords.append("volume")
+            keywords.append("distance")
         elif typeOfQuestion == "LookAndShape":
-            pass
+            keywords.append("shape")
+            keywords.append("aspet")
+            keywords.append("look")
         elif typeOfQuestion == "Composition":
-            pass
+            keywords.append("composition")
+            keywords.append("content")
+            keywords.append("constitution")
         elif typeOfQuestion == "Meaning":
             keywords.append("meaning")
             keywords.append("synonyms")
@@ -369,7 +380,9 @@ class Definition():
         elif typeOfQuestion == "Age":
             keywords.append("age")
         elif typeOfQuestion == "Quantity":
-            pass
+            keywords.append("number")
+            keywords.append("amount")
+            keywords.append("capacity")
         elif typeOfQuestion == "Frequency":
             keywords.append("frequency")
 
@@ -432,7 +445,7 @@ class Definition():
         if nounsConcatenationsMatches is not None:
             print "Temp: Chose property in 1"
             if len(nounsConcatenationsMatches) > 1:
-                print "Temp: LOOK: Several Matches1: " + (
+                print "Temp: LOOK: Several Matches1: ", (
                     nounsConcatenationsMatches)
                 return nounsConcatenationsMatches[0]
             return nounsConcatenationsMatches[0]
@@ -459,8 +472,8 @@ class Definition():
         if nounsKeywordsConcatenationsMatches is not None:
             print "Temp: Chose property in 2"
             if len(nounsKeywordsConcatenationsMatches) > 1:
-                print "Temp: LOOK: Several Matches2: " + (
-                    nounsKeywordsConcatenationsMatches)
+                print "Temp: LOOK: Several Matches2: ",
+                nounsKeywordsConcatenationsMatches
                 return nounsKeywordsConcatenationsMatches[0]
             return nounsKeywordsConcatenationsMatches[0]
         elif nounsMatches is not None:
@@ -482,13 +495,13 @@ class Definition():
         for word in listOfKeywords:
             w += 1
             print "Step: %i" % w
-            print "The properties which are close matches for " + (
+            print "The properties which are close matches for ",(
                 word + " are:")
             print difflib.get_close_matches(word, propertiesOfSubject, 10)
 
             properties.extend(difflib.get_close_matches(word,
                                                         propertiesOfSubject,
-                                                        10))
+                                                        2))
 
         "The list of all properties is:"
         print properties
@@ -574,6 +587,41 @@ class Definition():
         return properties
         '''
 
+    def _getSimpleWords(self, listOfStrings):
+
+        substrings = ["day", "date", "place", "name"]
+
+        print "list of strings inside getsimplewords: ", listOfStrings
+
+        # searching for common substrings in nouns that are combinations
+        # of two words and splits them
+        for string in listOfStrings:
+            if type(string) is str or type(string) is unicode:
+                # search for every common substring in the string
+                for substring in substrings:
+                    if (string.lower().find(substring) != -1 and
+                            string is not substring):
+                        newStrings = string.lower().split(substring)
+                        # check if newStrings is one string or a list of
+                        # strings
+                        if (type(newStrings) is str or
+                                type(newStrings) is unicode):
+                            listOfStrings.append(newStrings)
+                        else:
+                            for newString in newStrings:
+                                # only adds non empty strings
+                                if (newString is not '' and
+                                        newString is not unicode('')):
+                                    listOfStrings.append(newString)
+                        # we also add the substring found
+                        listOfStrings.append(substring)
+                    else:
+                        pass
+            # if is not a string
+            else:
+                pass
+        return listOfStrings
+
     def _questionToAssertion(self, answer):
         prepositions = {"when": ["on the", "at", "in"],
                         "where": ["in", "at"],
@@ -645,7 +693,7 @@ class Definition():
                 answer + " ".join(cmpl)) + "."
 
     def answer(self, sentence, whType):
-        print "Temp: Type of this question: " + whType
+        print "Temp: Type of this question: ", whType, " <<<\n"
 
         # Word tokenizer using Stanford NLP Parser (better than NLTK)
         self._sTags = _tokenizeFromStanfordNLP(sentence)
@@ -667,10 +715,18 @@ class Definition():
             elif t == 'VB':
                 vb = w
                 break
+        print vb
+        
 
-        # TODO Probability not really good (first element not always the best)
-        noun = _nounify(vb)[1][0]
-        print "Noun from nounify: >", noun, "< that got from ", vb
+        if vb is not None:
+            # TODO verb 's can be either is or has
+            if vb == "'s":
+                print "Gotcha!"
+                vb="is"
+            # TODO Probability not really good (first element not always the best)
+            noun = _nounify(vb)[1][0]
+        print "Noun from nounify: >", noun, "< that was transformed from > ",
+        vb, " <"
 
         # Getting additional information from the sentence: nouns and ajectives
         nouns = []
@@ -683,6 +739,10 @@ class Definition():
         additionalWords.extend(adjectives)
         if not(noun == "having" or noun == "being"):
             nouns.append(noun)
+
+        print "------------- NEW FUNCTION: nouns: ", nouns
+        nouns = self._getSimpleWords(nouns)
+        print "------------- AFTER NEW FUNCTION: nouns: ", nouns
 
         print "Temp: >Nouns of sentence: ", nouns
         print "Temp: >Adjectives of sentence: ", adjectives
@@ -724,7 +784,7 @@ class Definition():
             # Converting list prop unicode single entry to plain string proprty
             # check if it breaks! any problem with unicode and encodings??
             type(proprty)
-            print "Temp: I am going to use this property: " + proprty
+            print "Temp: I am going to use this property: ", proprty
 
             # if found a property match
             if len(proprty) > 0:
@@ -779,7 +839,7 @@ class Definition():
                                                          'WDT', 'WP',
                                                          'WP$', 'WRB']])
                             newObject = newObject[:-1]
-                            print ("NO: " + " ".join(newObject))
+                            print ("NO: ", " ".join(newObject))
 
                             sentences = re.findall(r"([^.]*\.)", answer)
                             for sentence in sentences:

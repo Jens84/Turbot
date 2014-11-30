@@ -137,6 +137,11 @@ How many dogs did John have? | Quantity
 How many prisoners are there in Albatroz? | Quantity
 How many owls appear in the movie? | Quantity
 How many trains is it needed to have a proper station? | Quantity
+How many band members does Rolling Stones have? | Quantity
+How many bottles does a bar have? | Quantity
+How many liters of water does a human being have? | Quantity
+How many arms did Napoleon have? | Quantity
+How many legs do spiders have? | Quantity
 How much water does it take to fill the bottle? | Quantity
 How much oil can your deposit handle? | Quantity
 How much money does he earn? | Quantity

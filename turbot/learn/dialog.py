@@ -45,8 +45,9 @@ def trainTypeQuestion():
     featuresets2 = labeledSentencesFileParser(filename)
     featuresets+=featuresets2
 
-    size = int(len(featuresets) * 0.1)
-    train_set, test_set = featuresets[size:], featuresets[:size]
+#    size = int(len(featuresets) * 0.1)
+#    train_set, test_set = featuresets[size:], featuresets[:size]
+    train_set = featuresets
     return nltk.NaiveBayesClassifier.train(train_set)
 
 
@@ -114,8 +115,9 @@ def trainWhQuestion(mode):
 
     featuresets = labeledSentencesFileParser(file)
 
-    size = int(len(featuresets) * 0.05)
-    train_set, test_set = featuresets[size:], featuresets[:size]
+#    size = int(len(featuresets) * 0.05)
+#    train_set, test_set = featuresets[size:], featuresets[:size]
+    train_set = featuresets
     classifier = nltk.NaiveBayesClassifier.train(train_set)
     return classifier
 

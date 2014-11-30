@@ -950,103 +950,163 @@ Why do children go to school? | Reason
 # It is related to a certain time, year, month or season.
 # It is not related to duration or age.
 
-When is your birthday?
-When is my date of birth?
-When am I going to turn 20?
-When am I going to die?
-What is the year in which I was born?
-In which year were you born?
-At what time were you born?
-At what time was I born?
-When were you born?
-In which day was Hanna born?
-In which day was Jacqueline born?
-When was Claudio born?
-When is his birthday? | Time
-When is her birthday? | Time
-When did he die? | Time
-When is his death date? | Time
-When are they going to die? | Time
-When are you going out? | Time
-When did you plan to meet? | Time
-When did you think about it? | Time
-When did this happen? | Time
-When did the war take place? | Time
-When did the submarines arrive? | Time
-When is the bus leaving? | Time
-When am I going to be ready? | Time
-When are they planning to travel? | Time
-When is it going to rain? | Time
-When is it going to be sunny? | Time
-When will it rain? | Time
-When will the clouds disappear? | Time
-When were you going to tell me? | Time
-When are you planning to take this course? | Time
-When is the exam date? | Time
-When did the professor leave? | Time
-When could you have this ready? | Time
-When did the apple fall on Newton's head? | Time
+#TimeWhat
 
-How early are they leaving? | Time
-How early did you meet? | Time
-How early are you thinking of going out? | Time
-How late are you coming home? | Time
-How late did you go to bed? | Time
-How late is your flight? | Time
-How early is your class tomorrow? | Time
+What is the year in which I was born? | TimeWhat
+At what time were you born? | TimeWhat
+At what time was I born? | TimeWhat
+In which year were you born? | TimeWhat
+In which day was Hanna born? | TimeWhat
+In which day was Jacqueline born? | TimeWhat
+What is his date of death? | TimeWhat
+What is the due date? | TimeWhat
+What is the project's due date? | TimeWhat
+What is the deadline for this assignment? | TimeWhat
+What is the last date to deliver? | TimeWhat
+What is the date to deliver this task? | TimeWhat
 
-What is his date of death? | Time
-What is the due date? | Time
-What is the project's due date? | Time
-What is the deadline for this assignment? | Time
-What is the last date to deliver? | Time
-What is the date to deliver this task? | Time
+At what time is the meeting? | TimeWhat
+At what time did you plan to go? | TimeWhat
+At what time do you start working? | TimeWhat
+At what time did you drink the last beer? | TimeWhat
+At what time do you do your homework? | TimeWhat
+At what time was Jen born? | TimeWhat
+At what time is his surgery? | TimeWhat
+At which time is the meeting being held? | TimeWhat
+At which time is he planning to meet her? | TimeWhat
+At which time does the bell ring? | TimeWhat
+In which months does it rain in Siberia? | TimeWhat
+In which months does the sun rise before 4pm? | TimeWhat
+In which year was Bob born? | TimeWhat
+In which months is a bear awake? | TimeWhat
+On which month did you start school? | TimeWhat
+On which month did the baby start to walk? | TimeWhat
+In which month did she throw him out of the house? | TimeWhat
+At what time of the year should I visit Greece? | TimeWhat
+What is the best time of the year to sightsee Europe? | TimeWhat
+What is the best time of the year to run? | TimeWhat
+What is the most suitable time for you to meet? | TimeWhat
+What is Obama's date of birth? | TimeWhat
+What is Justin Timberlake's birthday ? | TimeWhat
+What is Madonna's birthday ? | TimeWhat
+What was Caetano Veloso's birthday ? | TimeWhat
+What was Nelson Mandela's birthday ? | TimeWhat
+What is the birthday of Guilherme ? | TimeWhat
+What is the birthday of Pedro ? | TimeWhat
+What is the birthday of Juan ? | TimeWhat
+What is the birthday of Carlos ? | TimeWhat
+What is the birthday of Carol ? | TimeWhat
+What is the birthday of Barbara ? | TimeWhat
+What's the birthday of Sigmund Freud? | TimeWhat
+What is Jesus Christ's birthday ? | TimeWhat
+What is Einstein's birthday ? | TimeWhat
+What's is Jose's birthday ? | TimeWhat
+What's Keysha's birthday ? | TimeWhat
+What's Cavaco Silva's birthday ? | TimeWhat
+What's Kanye West birthday ? | TimeWhat
+What's Beyonce birthday ? | TimeWhat
+What's Taylor Swift's birthday ? | TimeWhat
+What's Gwen Stefani's birthday ? | TimeWhat
+What's Jimmy Kimmel birthday ? | TimeWhat
+What is Einstein's birthday ? | TimeWhat
+What is Einstein's birthday ? | TimeWhat
+In which day were you born ? | TimeWhat
 
-At what time is the meeting? | Time
-At what time did you plan to go? | Time
-At what time do you start working? | Time
-At what time did you drink the last beer? | Time
-At what time do you do your homework? | Time
-At what time was Jen born? | Time
-At what time is his surgery? | Time
-At which time is the meeting being held? | Time
-At which time is he planning to meet her? | Time
-At which time does the bell ring? | Time
-In which months does it rain in Siberia? | Time
-In which months does the sun rise before 4pm? | Time
-In which year was Bob born? | Time
-In which months is a bear awake? | Time
-On which month did you start school? | Time
-On which month did the baby start to walk? | Time
-In which month did she throw him out of the house? | Time
-When is the pear season? | Time
-When is the season to ski? | Time
-When does it start to snow in Germany? | Time
-At what time of the year should I visit Greece? | Time
-What is the best time of the year to sightsee Europe? | Time
-What is the best time of the year to run? | Time
-What is the most suitable time for you to meet? | Time
 
-When do we sleep? | Time
-When do we eat breakfast? | Time
-When do we take a bath? | Time
-When do we wear sunglasses? | Time
-When do we put on a bandaid? | Time
-When do we use an umbrella? | Time
-When do we need to wear a coat? | Time
-When do we wear a swimming suit? | Time
-When do we wear a seatbelt? | Time
-When do we turn on a flashlight? | Time
-When did you last see a doctor? | Time
-When was the last time you went swimming? | Time
-When was the last time you played at a friend's house? | Time
-When did you go on your last vacation? | Time
-When was the last time you went out to dinner? | Time
-What is Obama's date of birth? | Time
-What is Madonna's birthday? | Time
-What was Caetano Veloso's birthday? | Time
-What was Nelson Mandela's birthday? | Time
-What is Jesus Christ's birthday? | Time
+#TimeWhen
+
+When is your birthday ? | TimeWhen
+When is my date of birth? | TimeWhen
+When am I going to turn 20? | TimeWhen
+When am I going to die? | TimeWhen
+When were you born? | TimeWhen
+When was Claudio born? | TimeWhen
+When is his birthday ? | TimeWhen
+When is her birthday ? | TimeWhen
+When did he die? | TimeWhen
+When is his death date? | TimeWhen
+When are they going to die? | TimeWhen
+When are you going out? | TimeWhen
+When did you plan to meet? | TimeWhen
+When did you think about it? | TimeWhen
+When did this happen? | TimeWhen
+When did the war take place? | TimeWhen
+When did the submarines arrive? | TimeWhen
+When is the bus leaving? | TimeWhen
+When am I going to be ready? | TimeWhen
+When are they planning to travel? | TimeWhen
+When is it going to rain? | TimeWhen
+When is it going to be sunny? | TimeWhen
+When will it rain? | TimeWhen
+When will the clouds disappear? | TimeWhen
+When were you going to tell me? | TimeWhen
+When are you planning to take this course? | TimeWhen
+When is the exam date? | TimeWhen
+When did the professor leave? | TimeWhen
+When could you have this ready? | TimeWhen
+When did the apple fall on Newton's head? | TimeWhen
+When was the laser invented? | TimeWhen
+When were planes invented? | TimeWhen
+When was the atom discovered? | TimeWhen
+When was the wheel discovered? | TimeWhen
+
+How early are they leaving? | TimeWhen
+How early did you meet? | TimeWhen
+How early are you thinking of going out? | TimeWhen
+How late are you coming home? | TimeWhen
+How late did you go to bed? | TimeWhen
+How late is your flight? | TimeWhen
+How early is your class tomorrow? | TimeWhen
+
+When is the pear season? | TimeWhen
+When is the season to ski? | TimeWhen
+When does it start to snow in Germany? | TimeWhen
+
+When do we sleep? | TimeWhen
+When do we eat breakfast? | TimeWhen
+When do we take a bath? | TimeWhen
+When do we wear sunglasses? | TimeWhen
+When do we put on a bandaid? | TimeWhen
+When do we use an umbrella? | TimeWhen
+When do we need to wear a coat? | TimeWhen
+When do we wear a swimming suit? | TimeWhen
+When do we wear a seatbelt? | TimeWhen
+When do we turn on a flashlight? | TimeWhen
+When did you last see a doctor? | TimeWhen
+When was the last time you went swimming? | TimeWhen
+When was the last time you played at a friend's house? | TimeWhen
+When did you go on your last vacation? | TimeWhen
+When was the last time you went out to dinner? | TimeWhen
+When is Cavaco Silva's birthday ? | TimeWhen
+When is Kanye West birthday ? | TimeWhen
+When is Beyonce birthday ? | TimeWhen
+When is Taylor Swift's birthday ? | TimeWhen
+When is Gwen Stefani's birthday ? | TimeWhen
+When is Jimmy Kimmel birthday ? | TimeWhen
+When is Isla Fischer birthday ? | TimeWhen
+When is Pharrel Williams' birthday ? | TimeWhen
+When is Hugh Hefner birthday ? | TimeWhen
+When is Jayden's birthday ? | TimeWhen
+When is Mel birthday ? | TimeWhen
+When is Cavaco Silva's birthday ? | TimeWhen
+When is Jose Mourinho's birthday ? | TimeWhen
+When was Cristovao Colombo's birthday ? | TimeWhen
+When was Diogo Cao's birthday ? | TimeWhen
+When's Marylin's birthday ? | TimeWhen
+When's Jose's birthday ? | TimeWhen
+When's Keysha's birthday ? | TimeWhen
+When was Johanna born? | TimeWhen
+When is Madonna's birthday ? | TimeWhen
+When was Caetano Veloso's birthday ? | TimeWhen
+When was Nelson Mandela's birthday ? | TimeWhen
+When is the birthday of Guilherme ? | TimeWhen
+When is the birthday of Pedro ? | TimeWhen
+When is the birthday of Juan ? | TimeWhen
+When is the birthday of Carlos ? | TimeWhen
+When is the birthday of Carol ? | TimeWhen
+When is the birthday of Barbara ? | TimeWhen
+When's the birthday of Sigmund Freud? | TimeWhen
+When is Jesus Christ's birthday ? | TimeWhen
 
 # ----------------------------------------------------------------------------------------
 
@@ -1095,7 +1155,7 @@ What is the Sun made of? | DescriptionWh
 What is the Earth made of? | DescriptionWh
 What are the buses made of? | DescriptionWh
 What are the bicycles made of? | DescriptionWh
-What are the b made of? | DescriptionWh
+What are the blenders made of? | DescriptionWh
 What are the buses made of? | DescriptionWh
 What is my paper made of? | DescriptionWh
 What is your bag made of? | DescriptionWh
@@ -1226,8 +1286,6 @@ How old do you have to be in order to be allowed to drink? | DescriptionH
 How old is your brother? | DescriptionH
 How many years have you lived? | DescriptionH
 How long have you lived? | DescriptionH
-When is your birthday? | DescriptionH
-In which day were you born? | DescriptionH
 
 Which is the best age to move out? | DescriptionH
 Which is the best age to live by yourself? | DescriptionH
@@ -1341,6 +1399,11 @@ How many dogs did John have? | DescriptionH
 How many prisoners are there in Albatroz? | DescriptionH
 How many owls appear in the movie? | DescriptionH
 How many trains is it needed to have a proper station? | DescriptionH
+How many band members does Rolling Stones have? | DescriptionH
+How many bottles does a bar have? | DescriptionH
+How many liters of water does a human being have? | DescriptionH
+How many arms did Napoleon have? | DescriptionH
+How many legs do spiders have? | DescriptionH
 How much water does it take to fill the bottle? | DescriptionH
 How much oil can your deposit handle? | DescriptionH
 How much money does he earn? | DescriptionH
