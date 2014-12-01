@@ -21,6 +21,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 from nltk.corpus import wordnet as wn
 import operator
 
+# TODO change names of variables called object, type
 
 def _getSubject(question, ind):
     subject = ""
