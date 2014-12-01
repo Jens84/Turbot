@@ -307,6 +307,19 @@ class Dialog():
             return "I don't know what you mean."
 
     def _classifyWhQuestion(self, question):
+        """Return type of question previously labeled as whQuestion.
+
+        Classifies the given question using previously trained Naive Bayes
+        classifiers.
+
+        Arguments:
+        question -- string containing a question to be classified
+
+        Return values:
+        "Entity", "Place", "Reason", "TimeWhen", "TimeWhat", "Manner",
+        "Composition", "Meaning", "Abbreviation", "Age", "Duration",
+        "Quantity", "Frequency", "Dimension", "LookAndShape"
+        """
         whType = self._classifierWhQ.classify(
             learn.dialog.dialogue_act_features(question))
         if whType == "DescriptionOther":
@@ -341,10 +354,6 @@ class Definition():
         Return values:
         List of strings where each element is a word related to the given
         question label
-
-        Restrictions:
-        nouns has to be a list of strings
-        additionalWords has to be a list of strings
         """
         keywords = []
         if typeOfQuestion == "Entity":
