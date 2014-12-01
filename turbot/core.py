@@ -333,12 +333,26 @@ class Definition():
         self._sparql.setReturnFormat(JSON)
 
     def _getKeywordsFromQuestionType(self, typeOfQuestion):
+        """Return a list of keywords related to a question label.
+
+        Argument:
+        typeOfQuestion -- label of a question
+
+        Return values:
+        List of strings where each element is a word related to the given
+        question label
+
+        Restrictions:
+        nouns has to be a list of strings
+        additionalWords has to be a list of strings
+        """
         keywords = []
         if typeOfQuestion == "Entity":
             keywords.append("comment")
             keywords.append("name")
             keywords.append("description")
             keywords.append("abstract")
+            keywords.append("title")
         elif typeOfQuestion == "Place":
             keywords.append("place")
             keywords.append("placeOf")
@@ -389,6 +403,23 @@ class Definition():
         return keywords
 
     def _getConcatenationCombinations(self, nouns, additionalKeywords, mode):
+        """Return a list of combination of words.
+
+        Return a list of combination of nouns if mode == 1.
+        Return a list of combination of nouns with other words if mode ==2.
+
+        Arguments:
+        nouns -- list of words
+        additionalKeywords -- list of words
+
+        Return values:
+        List of strings where each element is a combination of words given as
+        arguments
+
+        Restrictions:
+        nouns has to be a list of strings
+        additionalWords has to be a list of strings
+        """
         combinations = []
         if mode == 1:
             for i in nouns:
@@ -406,6 +437,23 @@ class Definition():
         return combinations
 
     def _getOverlappingProperty(self, possibleProperties, propertiesOfSubject):
+        """
+        Return a list of strings that match an element on list of properties.
+
+        Return a list of properties that match an extensive list of DBpedia
+        properties.
+
+        Arguments:
+        possibleProperties -- list of properties
+        propertiesOfSubject -- list of DBpedia properties
+
+        Return values:
+        List of properties that have a match
+
+        Restrictions:
+        possibleProperties has to be a list of strings
+        propertiesOfSubject has to be a list of strings
+        """
         matches = []
         for possibleProperty in possibleProperties:
             closeMatches = difflib.get_close_matches(possibleProperty,
@@ -422,7 +470,25 @@ class Definition():
 
     def _getPropertyName(self, nouns, additionalWords, typeOfQuestion,
                          propertiesOfSubject):
+        """Return the DBpedia property name that best fits given arguments.
 
+        Return one property from the list of properties given that is the best
+        fit for all the words given and the type of the question.
+
+        Arguments:
+        nouns -- list of nouns from a sentence
+        additionalWords -- list of additional words from a sentence
+        typeOfQuestion -- a question label
+        propertiesOfSubjectlistOfStrings -- list of properties from a DBpedia
+                page
+
+        Return values:
+        List of original words and additional related words
+
+        Restrictions:
+        nouns has to be a list of strings
+        additionalWords has to be a list of strings
+        """
         listOfKeywords = []
         listOfKeywords.extend(nouns)
 
@@ -495,7 +561,7 @@ class Definition():
         for word in listOfKeywords:
             w += 1
             print "Step: %i" % w
-            print "The properties which are close matches for ",(
+            print "The properties which are close matches for ", (
                 word + " are:")
             print difflib.get_close_matches(word, propertiesOfSubject, 10)
 
@@ -531,95 +597,87 @@ class Definition():
         else:
             return listOfProperties[0]
 
-        '''
-        #searching for synonyms. It doesn't work well at all
+    def _getSimpleWords(self, listOfStrings, mode=2):
+        """Return a list containing words related to the ones given.
+
+        Return a list containing the original list of words and also their
+        synonyms. If mode is set to 1, words are split if they are recognized
+        as common english compound words.
+
+        Arguments:
+        listOfStrings -- list of elements of type str
+        mode -- mode takes value 1 if listOfStrings is a list of nouns,
+                mode takes value 2 if listOfStrings is a list of adjectives
+                (default 2)
+
+        Return values:
+        List of original words and additional related words
+
+        Restrictions:
+        listOfStrings hast to be a list of strings
+        mode should have value 1 or 2
+        """
+        # listOfStrings is a list of nouns
+        if mode == 1:
+            substrings = ["day", "date", "place", "name"]
+
+            print "list of strings inside getsimplewords: ", listOfStrings
+
+            # searching for common substrings in nouns that are combinations
+            # of two words and splits them
+            for string in listOfStrings:
+                if type(string) is str or type(string) is unicode:
+                    # search for every common substring in the string
+                    for substring in substrings:
+                        if (string.lower().find(substring) != -1 and
+                                string is not substring):
+                            newStrings = string.lower().split(substring)
+                            # check if newStrings is one string or a list of
+                            # strings
+                            if (type(newStrings) is str or
+                                    type(newStrings) is unicode):
+                                listOfStrings.append(newStrings)
+                            else:
+                                for newString in newStrings:
+                                    # only adds non empty strings
+                                    if (newString is not '' and
+                                            newString is not unicode('')):
+                                        listOfStrings.append(newString)
+                            # we also add the substring found
+                            listOfStrings.append(substring)
+                        else:
+                            pass
+                # if is not a string
+                else:
+                    pass
+
+        # listOfStrings is a list of adjectives
+        elif mode == 2:
+            pass
+
+        # Searching synonyms of the words in listOfStrings
         synonyms = []
-        w=0
-        print "List of keywords: ",listOfKeywords
-        for keyword in listOfKeywords:
-            w+=1
-            print "Syn of word number:",w
-            for i,j in enumerate(wn.synsets(keyword)):
-                print "Synonyms of word ",keyword,":", ", ".join(j.lemma_names)
-                synonyms += j.lemma_names
-                print "Now the list of synonyms looks like: ",synonyms
+        print "List of words: ", listOfStrings
+        for word in listOfStrings:
+            for i, j in enumerate(wn.synsets(word)):
+                # print "Synonyms of word ",word,":", ", ".join(j.lemma_names)
+                w = 0
+                for synonym in j.lemma_names:
+                    w += 1
+                    if word.lower() != synonym.lower():
+                        synonyms.append(synonym)
+                    if w > 2:
+                        break
+                print "Now the list of synonyms looks like: ", synonyms
+                # Allows only sysnonyms for one meaning of the word
                 if i == 0:
                     break
-        print "\n----------..-----...----.------\n\n"
-        listOfKeywords += synonyms
+            # Special case: it is important the synonym leader for "president"
+            # in DBpedia
+            if word.lower().find("president") != -1:
+                synonyms.append("leader")
 
-        print listOfKeywords
-
-        w=0
-        properties = []
-        for word in listOfKeywords:
-            w+=1
-            print "Step: ",w
-
-            print "The properties which are close matches for ",word, " are:"
-            print difflib.get_close_matches(word, propertiesOfSubject,10)
-
-            properties.extend(difflib.get_close_matches(word,
-                                                        propertiesOfSubject,
-                                                        10))
-        "The list of all properties is:"
-        print properties
-        print "----------------------------"
-
-        listOfProperties = properties
-        properties = {}
-        for proprty in listOfProperties:
-            if proprty not in properties:
-                properties[proprty] = 0
-            properties[proprty] += 1
-
-        # order properties by order of most occurrences
-        sorted_x = sorted(properties.items(),
-                          key=operator.itemgetter(1),
-                          reverse=True)
-        i=0
-        for key, value in sorted_x:
-            i+=1
-            if i>10:
-                break
-            print "Property: >",key,"< with ",value, " occurrences"
-
-        return properties
-        '''
-
-    def _getSimpleWords(self, listOfStrings):
-
-        substrings = ["day", "date", "place", "name"]
-
-        print "list of strings inside getsimplewords: ", listOfStrings
-
-        # searching for common substrings in nouns that are combinations
-        # of two words and splits them
-        for string in listOfStrings:
-            if type(string) is str or type(string) is unicode:
-                # search for every common substring in the string
-                for substring in substrings:
-                    if (string.lower().find(substring) != -1 and
-                            string is not substring):
-                        newStrings = string.lower().split(substring)
-                        # check if newStrings is one string or a list of
-                        # strings
-                        if (type(newStrings) is str or
-                                type(newStrings) is unicode):
-                            listOfStrings.append(newStrings)
-                        else:
-                            for newString in newStrings:
-                                # only adds non empty strings
-                                if (newString is not '' and
-                                        newString is not unicode('')):
-                                    listOfStrings.append(newString)
-                        # we also add the substring found
-                        listOfStrings.append(substring)
-                    else:
-                        pass
-            # if is not a string
-            else:
-                pass
+        listOfStrings += synonyms
         return listOfStrings
 
     def _questionToAssertion(self, answer):
@@ -716,14 +774,13 @@ class Definition():
                 vb = w
                 break
         print vb
-        
 
         if vb is not None:
             # TODO verb 's can be either is or has
             if vb == "'s":
                 print "Gotcha!"
-                vb="is"
-            # TODO Probability not really good (first element not always the best)
+                vb = "is"
+            # TODO Probably not really good (first element not always the best)
             noun = _nounify(vb)[1][0]
         print "Noun from nounify: >", noun, "< that was transformed from > ",
         vb, " <"
@@ -736,13 +793,15 @@ class Definition():
 
         # Adding the information to the proper lists
         additionalWords = []
-        additionalWords.extend(adjectives)
         if not(noun == "having" or noun == "being"):
             nouns.append(noun)
 
         print "------------- NEW FUNCTION: nouns: ", nouns
-        nouns = self._getSimpleWords(nouns)
+        nouns = self._getSimpleWords(nouns, 1)
         print "------------- AFTER NEW FUNCTION: nouns: ", nouns
+
+        adjectives = self._getSimpleWords(adjectives, 2)
+        additionalWords.extend(adjectives)
 
         print "Temp: >Nouns of sentence: ", nouns
         print "Temp: >Adjectives of sentence: ", adjectives
@@ -852,6 +911,8 @@ class Definition():
                             else:
                                 return answer
 
+        else:
+            print "I am only prepared to answer about well known matters."
         # If no result (return) until here, perform a search on answers.com
         params = urllib.urlencode({'q': sentence})
         req = urllib2.Request("http://wiki.answers.com/search?" + params)

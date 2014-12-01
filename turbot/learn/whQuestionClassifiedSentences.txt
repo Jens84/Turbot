@@ -622,6 +622,15 @@ Who said , "I shall return." during World War Two ? | Entity
 Who portrayed Etta Place , companion to Butch Cassidey and the Sundance Kid ? | Entity
 Who was the Charlie perfume woman ? | Entity
 Who portrayed "Rosanne Rosanna-Dana" on the television show "Saturday Night Live"?  | Entity
+Who is the president of Brazil? | Entity
+Who is the responsible for Korea? | Entity
+Who is the president of Denmark? | Entity
+Who is the president of Uganda? | Entity
+Who is the leader of Chile? | Entity
+Who is the leader of Spain? | Entity
+Who is the Chief of State of the US? | Entity
+Who's the person in charge of Germany? | Entity
+Who is the prime minister of Slovenia? | Entity
 
 
 
@@ -1049,6 +1058,12 @@ When was the laser invented? | TimeWhen
 When were planes invented? | TimeWhen
 When was the atom discovered? | TimeWhen
 When was the wheel discovered? | TimeWhen
+When was Brazil discovered? | TimeWhen
+When was Portugal founded? | TimeWhen
+When was Spain founded? | TimeWhen
+When was Ceuta conquered? | TimeWhen
+When was India discovered? | TimeWhen
+When was discovered? | TimeWhen
 
 How early are they leaving? | TimeWhen
 How early did you meet? | TimeWhen
