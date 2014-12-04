@@ -37,8 +37,5 @@ class MainView():
         except:
             last_question = ""
 
-        context = {'last_question': last_question.content}
-        context = {'answer': answer}
-        print "==============="
-        print last_question.content
+        context = {'last_question': last_question.content, 'answer': answer}
         return render(request, 'basic_forms/index.html', context)
