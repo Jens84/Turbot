@@ -37,7 +37,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'basic_forms',
-    'twitter_bootstrap'
 )
 
 MIDDLEWARE_CLASSES = (
