@@ -105,7 +105,7 @@ def _tokenizeFromStanfordNLP(sentence):
 
 
 def _nounify(verb_word):
-    ''' Transform a verb to the closest noun: die -> death '''
+    """ Transform a verb to the closest noun: die -> death. """
     verb_synsets = wn.synsets(verb_word, pos="v")
 
     # Word not found
@@ -561,13 +561,17 @@ class Definition():
                 return nounsMatches[0]
             return nounsMatches[0]
 
+        synonyms = []
+        synonyms = self._getSynonyms(nouns)
+        listOfKeywords.extend(synonyms)
+
         # print "Temp: Didn't find any match yet."
         # print "Temp: Plan B: find closest match."
 
         # If a match wasn't found yet, a list of all the word combinations will
         # be iterated. Each word will try to be matched with properties. The
         # property that occurs the most is chosen
-        print "List of all combinations: ", listOfKeywords
+        # print "List of all combinations: ", listOfKeywords
         w = 0
         properties = []
         for word in listOfKeywords:
@@ -612,64 +616,56 @@ class Definition():
         else:
             return listOfProperties[0]
 
-    def _getSimpleWords(self, listOfStrings, mode=2):
+    def _getSimpleWords(self, listOfStrings):
         """Return a list containing words related to the ones given.
 
-        Return a list containing the original list of words and also their
-        synonyms. If mode is set to 1, words are split if they are recognized
-        as common english compound words.
+        Return a list containing the original list of words. Words are split if
+        they are recognized as common english compound words.
 
         Arguments:
         listOfStrings -- list of elements of type str
-        mode -- mode takes value 1 if listOfStrings is a list of nouns,
-                mode takes value 2 if listOfStrings is a list of adjectives
-                (default 2)
 
         Return values:
-        List of original words and additional related words
+        List of original words and additional split words
 
         Restrictions:
         listOfStrings hast to be a list of strings
-        mode should have value 1 or 2
         """
         # listOfStrings is a list of nouns
-        if mode == 1:
-            substrings = ["day", "date", "place", "name"]
+        substrings = ["day", "date", "place", "name"]
 
-            # print "list of strings inside getsimplewords: ", listOfStrings
+        # print "list of strings inside getsimplewords: ", listOfStrings
 
-            # searching for common substrings in nouns that are combinations
-            # of two words and splits them
-            for string in listOfStrings:
-                if type(string) is str or type(string) is unicode:
-                    # search for every common substring in the string
-                    for substring in substrings:
-                        if (string.lower().find(substring) != -1 and
-                                string is not substring):
-                            newStrings = string.lower().split(substring)
-                            # check if newStrings is one string or a list of
-                            # strings
-                            if (type(newStrings) is str or
-                                    type(newStrings) is unicode):
-                                listOfStrings.append(newStrings)
-                            else:
-                                for newString in newStrings:
-                                    # only adds non empty strings
-                                    if (newString is not '' and
-                                            newString is not unicode('')):
-                                        listOfStrings.append(newString)
-                            # we also add the substring found
-                            listOfStrings.append(substring)
+        # searching for common substrings in nouns that are combinations
+        # of two words and splits them
+        for string in listOfStrings:
+            if type(string) is str or type(string) is unicode:
+                # search for every common substring in the string
+                for substring in substrings:
+                    if (string.lower().find(substring) != -1 and
+                            string is not substring):
+                        newStrings = string.lower().split(substring)
+                        # check if newStrings is one string or a list of
+                        # strings
+                        if (type(newStrings) is str or
+                                type(newStrings) is unicode):
+                            listOfStrings.append(newStrings)
                         else:
-                            pass
-                # if is not a string
-                else:
-                    pass
+                            for newString in newStrings:
+                                # only adds non empty strings
+                                if (newString is not '' and
+                                        newString is not unicode('')):
+                                    listOfStrings.append(newString)
+                        # we also add the substring found
+                        listOfStrings.append(substring)
+                    else:
+                        pass
+            # if string is not of type str or unicode
+            else:
+                pass
+        return listOfStrings
 
-        # listOfStrings is a list of adjectives
-        elif mode == 2:
-            pass
-
+    def _getSynonyms(self, listOfStrings):
         # Searching synonyms of the words in listOfStrings
         synonyms = []
         # print "List of words: ", listOfStrings
@@ -797,8 +793,6 @@ class Definition():
                 vb = "is"
             # TODO Probably not really good (first element not always the best)
             noun = _nounify(vb)[1][0]
-        # print "Noun from nounify: >", noun, "< that was transformed from > ",
-        # vb, " <"
 
         # Getting additional information from the sentence: nouns and ajectives
         nouns = []
@@ -812,10 +806,9 @@ class Definition():
             nouns.append(noun)
 
         # print "------------- NEW FUNCTION: nouns: ", nouns
-        nouns = self._getSimpleWords(nouns, 1)
+        nouns = self._getSimpleWords(nouns)
         # print "------------- AFTER NEW FUNCTION: nouns: ", nouns
 
-        adjectives = self._getSimpleWords(adjectives, 2)
         additionalWords.extend(adjectives)
 
         # print "Temp: >Nouns of sentence: ", nouns
@@ -855,9 +848,6 @@ class Definition():
                                             whType,
                                             properties.keys())
 
-            # Converting list prop unicode single entry to plain string proprty
-            # check if it breaks! any problem with unicode and encodings??
-            type(proprty)
             # print "Temp: I am going to use this property: ", proprty
 
             # if found a property match
