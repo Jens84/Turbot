@@ -150,7 +150,7 @@ class Dialog():
 
     def __init__(self):
         self._posNegWords = learn.pickleHandler.load_object('posNegWords.pkl')
-        # load classifiers from pickle file
+        # load classifiers from pickle files
         self._classifierWhQ = (learn.pickleHandler.
                                load_object('classifierWhQ.pkl'))
         self._classifierTypeQ = (learn.pickleHandler.
@@ -164,11 +164,6 @@ class Dialog():
         self._markovChains = (learn.pickleHandler.
                               load_object('markovSentences.pkl'))
         self._markov = markov.Markov(self._markovChains)
-        # self._classifierWhQ = learn.dialog.trainWhQuestion()
-        # self._classifierTypeQ = learn.dialog.trainTypeQuestion(1)
-        # self._classifierDescOtherQ = learn.dialog.trainWhQuestion(2)
-        # self._classifierDescHQ = learn.dialog.trainWhQuestion(3)
-        # self._classifierDescWhQ = learn.dialog.trainWhQuestion(4)
 
     def _getPosNegScore(self, tokens):
         # neutral score
@@ -252,11 +247,10 @@ class Dialog():
         score = self._getPosNegScore(tokens)
 
         q = question
-        # print("Question : ", str(q))
 
+        # Classify general type of the question
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
-        # print "Type => ", type
 
         if type == "ynQuestion":
             ans = ""
@@ -323,6 +317,7 @@ class Dialog():
         "Composition", "Meaning", "Abbreviation", "Age", "Duration",
         "Quantity", "Frequency", "Dimension", "LookAndShape"
         """
+        # Classify the subtype of the "wh" Question
         whType = self._classifierWhQ.classify(
             learn.dialog.dialogue_act_features(question))
         if whType == "DescriptionOther":
@@ -358,6 +353,8 @@ class Definition():
         List of strings where each element is a word related to the given
         question label
         """
+        # Depending on the type of question, different keywords will be
+        # associated with it
         keywords = []
         if typeOfQuestion == "Entity":
             keywords.append("comment")
@@ -438,12 +435,15 @@ class Definition():
                 for j in nouns:
                     if i == j:
                         continue
+                    # Adding concation of nouns to the list
                     combinations.append(i + j)
         elif mode == 2:
             for i in nouns:
                 for j in additionalKeywords:
                     if i == j:
                         continue
+                    # Adding concatenation of keywords before and after the
+                    # nouns to the list
                     combinations.append(i + j)
                     combinations.append(j + i)
         return combinations
@@ -468,11 +468,16 @@ class Definition():
         """
         matches = []
         for possibleProperty in possibleProperties:
+            # Getting close matches from a list of properties
             closeMatches = difflib.get_close_matches(possibleProperty,
                                                      propertiesOfSubject,
                                                      5)
+            # Checking if a candidate property matches exactly one property
+            # the list that was checked as being similar to it
             for match in closeMatches:
                 for i in possibleProperties:
+                    # Candidate property is added to the list if it is a
+                    # perfect match
                     if i.lower() == match.lower():
                         matches.append(match)
         if matches == []:
@@ -501,94 +506,86 @@ class Definition():
         nouns has to be a list of strings
         additionalWords has to be a list of strings
         """
+        # Elements are added to the listOfKeywords because they are meaningful
         listOfKeywords = []
         listOfKeywords.extend(nouns)
 
+        # Getting perfect matches of nouns
         nounsMatches = []
         nounsMatches = self._getOverlappingProperty(nouns, propertiesOfSubject)
-        # print "Temp: Matching nouns: ", nounsMatches
 
+        # Getting concatenations of nouns
         concatenations = []
         concatenations = self._getConcatenationCombinations(nouns, None, 1)
-        # print "noun combinations: ", concatenations
+        # Elements are added to the listOfKeywords because they are meaningful
         listOfKeywords.extend(concatenations)
 
+        # Getting perfect matches of nouns concatenations
         nounsConcatenationsMatches = []
         nounsConcatenationsMatches = self._getOverlappingProperty(
             concatenations, propertiesOfSubject)
 
-        # print "Temp: Matching nouns concatenations: ", (
-        #     nounsConcatenationsMatches)
-
         if nounsConcatenationsMatches is not None:
-            # print "Temp: Chose property in 1"
+            # TODO delete this if???
+            # First priority is given to perfect matches of nouns concatenation
             if len(nounsConcatenationsMatches) > 1:
-                # print "Temp: LOOK: Several Matches1: ", (
-                #     nounsConcatenationsMatches)
                 return nounsConcatenationsMatches[0]
             return nounsConcatenationsMatches[0]
 
+        # Getting keywords associated with the type of question
         additionalKeywords = []
         additionalKeywords = self._getKeywordsFromQuestionType(typeOfQuestion)
+        # List of adjectives is merged with list of type of question keywords
         additionalKeywords.extend(additionalWords)
+        # Elements are added to the listOfKeywords because they are meaningful
         listOfKeywords.extend(additionalKeywords)
 
+        # Getting concatenations of nouns with keywords
         concatenations = []
         concatenations = self._getConcatenationCombinations(nouns,
                                                             additionalKeywords,
                                                             2)
-        # print "noun+keywords combinations: ", concatenations
+        # Elements are added to the listOfKeywords because they are meaningful
         listOfKeywords.extend(concatenations)
 
+        # Getting perfect matches of concatenations of nouns with keywords
         nounsKeywordsConcatenationsMatches = []
         nounsKeywordsConcatenationsMatches = self._getOverlappingProperty(
             concatenations, propertiesOfSubject)
 
-        # print "Temp: Matching nouns+keywords concatenations: ", (
-        #     nounsKeywordsConcatenationsMatches)
-
         if nounsKeywordsConcatenationsMatches is not None:
-            # print "Temp: Chose property in 2"
+            # Second priority is given to perfect matches of concatenation of
+            # noun with keyword
+            # TODO delete if????
             if len(nounsKeywordsConcatenationsMatches) > 1:
-                # print "Temp: LOOK: Several Matches2: ",
                 nounsKeywordsConcatenationsMatches
                 return nounsKeywordsConcatenationsMatches[0]
             return nounsKeywordsConcatenationsMatches[0]
         elif nounsMatches is not None:
-            # print "Temp: Chose property in 3"
+            # Third priority is given to perfect matches of single nouns
+            # TODO delete if????
             if len(nounsMatches) > 1:
-                # print "Temp: LOOK: Several Matches3: ", nounsMatches
                 return nounsMatches[0]
             return nounsMatches[0]
 
+        # Getting synonyms of the nouns on the question, which may help
+        # getting the right property
         synonyms = []
         synonyms = self._getSynonyms(nouns)
         listOfKeywords.extend(synonyms)
 
-        # print "Temp: Didn't find any match yet."
-        # print "Temp: Plan B: find closest match."
-
-        # If a match wasn't found yet, a list of all the word combinations will
-        # be iterated. Each word will try to be matched with properties. The
-        # property that occurs the most is chosen
-        # print "List of all combinations: ", listOfKeywords
-        w = 0
+        # If a match was not found yet, a list of all the word combinations
+        # will be iterated. Each word will try to be matched with properties.
+        # The property that occurs the most is chosen.
         properties = []
         for word in listOfKeywords:
-            w += 1
-            # print "Step: %i" % w
-            # print "The properties which are close matches for ", (
-            #     word + " are:")
-            # print difflib.get_close_matches(word, propertiesOfSubject, 10)
-
             properties.extend(difflib.get_close_matches(word,
                                                         propertiesOfSubject,
                                                         2))
 
-        "The list of all properties is:"
-        # print properties
-        # print "----------------------------"
-
+        # It is created a dictionary in which each key is a property and the
+        # associated value is the number of times it was found as a possible
+        # match
         listOfProperties = properties
         properties = {}
         for proprty in listOfProperties:
@@ -600,13 +597,16 @@ class Definition():
         sorted_x = sorted(properties.items(),
                           key=operator.itemgetter(1),
                           reverse=True)
+
+        # Convert the sorted dictionary into a list and exclude the very common
+        # entry "abstract" if it was the one with most occurrences, but not the
+        # only one on the list
         i = 0
         listOfProperties = []
         for key, value in sorted_x:
             i += 1
             if i > 10:
                 break
-            # print "Property: >", key, "< with ", value, " occurrences"
             listOfProperties.append(key)
         if listOfProperties == []:
             return listOfProperties
@@ -619,8 +619,9 @@ class Definition():
     def _getSimpleWords(self, listOfStrings):
         """Return a list containing words related to the ones given.
 
-        Return a list containing the original list of words. Words are split if
-        they are recognized as common english compound words.
+        Return a list containing the original list of words and possibly
+        others. Words are split if they are recognized as common english
+        compound words.
 
         Arguments:
         listOfStrings -- list of elements of type str
@@ -634,44 +635,48 @@ class Definition():
         # listOfStrings is a list of nouns
         substrings = ["day", "date", "place", "name"]
 
-        # print "list of strings inside getsimplewords: ", listOfStrings
-
-        # searching for common substrings in nouns that are combinations
+        # Searching for common substrings in nouns that are combinations
         # of two words and splits them
         for string in listOfStrings:
             if type(string) is str or type(string) is unicode:
-                # search for every common substring in the string
+                # Search for every common substring in the string
                 for substring in substrings:
                     if (string.lower().find(substring) != -1 and
                             string is not substring):
                         newStrings = string.lower().split(substring)
-                        # check if newStrings is one string or a list of
+                        # Check if newStrings is one string or a list of
                         # strings
                         if (type(newStrings) is str or
                                 type(newStrings) is unicode):
                             listOfStrings.append(newStrings)
                         else:
                             for newString in newStrings:
-                                # only adds non empty strings
+                                # Only adds non empty strings
                                 if (newString is not '' and
                                         newString is not unicode('')):
                                     listOfStrings.append(newString)
-                        # we also add the substring found
+                        # We also add the substring found
                         listOfStrings.append(substring)
                     else:
                         pass
-            # if string is not of type str or unicode
+            # If string is not of type str or unicode
             else:
                 pass
         return listOfStrings
 
     def _getSynonyms(self, listOfStrings):
+        """Return a list containing original words and their synonyms.
+
+        Arguments:
+        listOfStrings -- list of elements of type str
+
+        Return values:
+        List of the original words and their synonyms
+        """
         # Searching synonyms of the words in listOfStrings
         synonyms = []
-        # print "List of words: ", listOfStrings
         for word in listOfStrings:
             for i, j in enumerate(wn.synsets(word)):
-                # print "Synonyms of word ",word,":", ", ".join(j.lemma_names)
                 w = 0
                 for synonym in j.lemma_names():
                     w += 1
@@ -679,7 +684,6 @@ class Definition():
                         synonyms.append(synonym)
                     if w > 2:
                         break
-                # print "Now the list of synonyms looks like: ", synonyms
                 # Allows only sysnonyms for one meaning of the word
                 if i == 0:
                     break
@@ -787,9 +791,8 @@ class Definition():
         # print vb
 
         if vb is not None:
-            # TODO verb 's can be either is or has
+            # verb 's is considered to be is
             if vb == "'s":
-                # print "Gotcha!"
                 vb = "is"
             # TODO Probably not really good (first element not always the best)
             noun = _nounify(vb)[1][0]
@@ -805,14 +808,9 @@ class Definition():
         if not(noun == "having" or noun == "being"):
             nouns.append(noun)
 
-        # print "------------- NEW FUNCTION: nouns: ", nouns
         nouns = self._getSimpleWords(nouns)
-        # print "------------- AFTER NEW FUNCTION: nouns: ", nouns
 
         additionalWords.extend(adjectives)
-
-        # print "Temp: >Nouns of sentence: ", nouns
-        # print "Temp: >Adjectives of sentence: ", adjectives
 
         # Perform a search on DBPedia to find the concerned resource
         params = urllib.urlencode({'QueryString': obj,
@@ -825,7 +823,6 @@ class Definition():
         # If we found a resource to analyze
         if len(response["results"]) > 0:
             uri = response["results"][0]["uri"]
-            # print uri
 
             # Get the list of properties for this resoruce
             self._sparql.setQuery("""
@@ -843,14 +840,12 @@ class Definition():
             # Choose property regarding the wh? word (ontology, property, rdf)
 
             # Find property that best matches what the sentence asks for
-            proprty = self._getPropertyName(nouns,  # has to be a list
+            proprty = self._getPropertyName(nouns,
                                             additionalWords,
                                             whType,
                                             properties.keys())
 
-            # print "Temp: I am going to use this property: ", proprty
-
-            # if found a property match
+            # If found a property match, we will find which one it is
             if len(proprty) > 0:
                 # Find close matches for our keyword and available properties
                 matches = difflib.get_close_matches(proprty,
@@ -859,7 +854,8 @@ class Definition():
                 # Pick the best match
                 pname = properties[matches[0]]
 
-                # query the database for the best property value
+                # query the database for the value of the property that had the
+                # best match
                 query = """
                     PREFIX owl: <http://www.w3.org/2002/07/owl#>
                     PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -877,7 +873,7 @@ class Definition():
                 self._sparql.setQuery(query)
                 results = self._sparql.query().convert()["results"]["bindings"]
 
-                # If there is a result (supposed to) then return the value
+                # If there is (supposed to be) a result, then return the value
                 if len(results) > 0:
                     for r in results:
                         if ("xml:lang" not in r["pname"] or
@@ -896,14 +892,11 @@ class Definition():
                             else:
                                 answer = r["pname"]["value"]
 
-                            # print answer
-
                             newObject = ([o for o, tag in self._sTags
                                           if tag not in ['DT', 'IN',
                                                          'WDT', 'WP',
                                                          'WP$', 'WRB']])
                             newObject = newObject[:-1]
-                            # print ("NO: ", " ".join(newObject))
 
                             sentences = re.findall(r"([^.]*\.)", answer)
                             for sentence in sentences:
@@ -916,9 +909,6 @@ class Definition():
                             else:
                                 return answer
 
-        # else:
-        # print "I am only prepared to answer about well known matters."
-
         # If no result (return) until here, perform a search on answers.com
         params = urllib.urlencode({'q': sentence})
         req = urllib2.Request("http://wiki.answers.com/search?" + params)
@@ -926,7 +916,7 @@ class Definition():
         soup = bs4.BeautifulSoup(response)
         results = soup.findAll('div', attrs={'class': 'answer_text'})
         if len(results) > 0:
-            # print "Temp: Used wiki answers."
             return results[0].text.strip()
         else:
+            # Answers.com could not return an answer either
             return "I don't know"
