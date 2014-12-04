@@ -564,7 +564,7 @@ class Definition():
 
         # If a match wasn't found yet, a list of all the word combinations will
         # be iterated. Each word will try to be matched with properties. The
-        # property that occur the most is chosen
+        # property that occurs the most is chosen
         print "List of all combinations: ", listOfKeywords
         w = 0
         properties = []
