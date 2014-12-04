@@ -9,9 +9,11 @@ def dialogue_act_features(post):
     post -- object of type nltk.util.LazySubsequence
 
     Return values:
-    Dictionary that represents a feature
+    Dictionary that represents a feature of a data set
     """
     features = {}
+    # converts a post into an object that can be used later to train a nltk
+    # classifier
     for word in nltk.word_tokenize(post):
         features['contains(%s)' % word.lower()] = True
     features['first_word'] = nltk.word_tokenize(post)[0].lower()
@@ -36,8 +38,10 @@ def trainTypeQuestion():
     Return values:
     Naive Bayes Classifier
     """
+    # Retrieve information from the nltk chat package
     posts = nltk.corpus.nps_chat.xml_posts()[:10000]
 
+    # Training set to be add to the rest of the data set
     haveBeQuestions = ['Have you been here?', 'Are you okay?',
                        'Are you alive?', 'Am I a dragon?',
                        'Have you any idea?', 'Has she a cat?',
@@ -65,8 +69,7 @@ def trainTypeQuestion():
     featuresets2 = labeledSentencesFileParser(current_dir + "/firstClassifierAdditionalSentences.txt")
     featuresets+=featuresets2
 
-    size = int(len(featuresets) * 0.1)
-    train_set, test_set = featuresets[size:], featuresets[:size]
+    train_set = featuresets
     classifier = nltk.NaiveBayesClassifier.train(train_set)
     return classifier
 
