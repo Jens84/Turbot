@@ -24,6 +24,7 @@ def save_object(obj, filename):
     Return values:
     -
     """
+    '''
     path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/"
     "Repository/turbot/learn/"
     path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/"
@@ -39,8 +40,9 @@ def save_object(obj, filename):
     else:
         print "Please insert the path to the folder the where object will be "
         "saved."
-
-    with open(filename, 'wb') as output:
+    '''
+    current_dir = os.getcwd()
+    with open(current_dir + filename, 'wb') as output:
         pickle.dump(obj, output)
 
 
@@ -53,6 +55,8 @@ def load_object(filename):
     Return values:
     pickle object
     """
+    current_dir = os.getcwd()
+    '''
     path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/"
     "Repository/turbot/learn/"
     path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/"
@@ -68,8 +72,8 @@ def load_object(filename):
     else:
         print "Please insert the path to the folder the where "
         "object will be loaded from."
-
-    with open(path, 'rb') as input:
+    '''
+    with open(current_dir + filename, 'rb') as input:
         return pickle.load(input)
 
 
@@ -104,4 +108,4 @@ def update_classifiers():
 
 # TODO delete these lines
 # Call function update_classifiers to update the classifier files
-# update_classifiers()
+#update_classifiers()

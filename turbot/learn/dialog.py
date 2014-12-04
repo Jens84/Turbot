@@ -50,6 +50,7 @@ def trainTypeQuestion():
 
     featuresets.extend([(dialogue_haveBe_features(q),
                          'ynQuestion') for q in haveBeQuestions])
+    '''
     path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/firstClassifierAdditionalSentences.txt"
     path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/firstClassifierAdditionalSentences.txt"
 
@@ -59,8 +60,9 @@ def trainTypeQuestion():
         filename = path2
     else:
         print "Please insert the path to file firstClassifierAdditionalSentences.txt"
-    
-    featuresets2 = labeledSentencesFileParser(filename)
+    '''
+    current_dir = os.getcwd()
+    featuresets2 = labeledSentencesFileParser(current_dir + "/firstClassifierAdditionalSentences.txt")
     featuresets+=featuresets2
 
     size = int(len(featuresets) * 0.1)
@@ -132,26 +134,41 @@ def trainWhQuestion(mode):
     Return values:
     Naive Bayes Classifier
     """
+
+    current_dir = os.getcwd()
     # Choose mode to train different classifiers
     if(mode == 1):
+        filename = current_dir + "/whQuestionClassifiedSentences.txt"
+        '''
         path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/whQuestionClassifiedSentences.txt"
         path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/whQuestionClassifiedSentences.txt"
+        '''
     elif(mode == 2):
+        filename = current_dir + "/classifierDescriptionOther.txt"
+        '''
         path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/classifierDescriptionOther.txt"
         path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/classifierDescriptionOther.txt"
+        '''
     elif(mode == 3):
+        filename = current_dir + "/classifierDescriptionH.txt"
+        '''
         path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/classifierDescriptionH.txt"
         path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/classifierDescriptionH.txt"
+        '''
     elif(mode == 4):
+        filename = current_dir + "/classifierDescriptionWh.txt"
+        '''
         path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/classifierDescriptionWh.txt"
         path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/classifierDescriptionWh.txt"
+        '''
         
+    '''
     if os.path.exists(path1):
         file = path1
     else:
         file = path2
-
-    featuresets = labeledSentencesFileParser(file)
+    '''
+    featuresets = labeledSentencesFileParser(filename)
 
 #    size = int(len(featuresets) * 0.05)
 #    train_set, test_set = featuresets[size:], featuresets[:size]
@@ -161,6 +178,8 @@ def trainWhQuestion(mode):
 
 
 def getPosNegWords():
+    current_dir = os.getcwd()
+    '''
     path1 = "/home/jens/Documents/DTU/Data Mining Using Python/Project/turbot/learn/SentiWordNet_3.0.0_20130122.txt"
     path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/SentiWordNet_3.0.0_20130122.txt"
     path3 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/SentiWordNet_3.0.0_20130122.txt"
@@ -171,9 +190,9 @@ def getPosNegWords():
         file = path2
     else:
         file = path3
-
+    '''
     words = dict()
-    with open(file, 'r') as f:
+    with open(current_dir + "SentiWordNet_3.0.0_20130122.txt", 'r') as f:
         lines = f.readlines()[1:-1]
         for line in lines:
             columns = line.split('\t')
