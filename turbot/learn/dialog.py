@@ -3,6 +3,14 @@ import os
 import re
 
 def dialogue_act_features(post):
+    """Return a feature from an object of type nltk.util.LazySubsequence.
+
+    Arguments:
+    post -- object of type nltk.util.LazySubsequence
+
+    Return values:
+    Dictionary that represents a feature
+    """
     features = {}
     for word in nltk.word_tokenize(post):
         features['contains(%s)' % word.lower()] = True
@@ -17,6 +25,17 @@ def dialogue_haveBe_features(question):
 
 
 def trainTypeQuestion():
+    """Return a Naive Bayes Classifier.
+    
+    The classifier is trained with two traininf sets: an nltk set and another
+    one with features that are parsed from a .txt file.
+
+    Arguments:
+    -
+
+    Return values:
+    Naive Bayes Classifier
+    """
     posts = nltk.corpus.nps_chat.xml_posts()[:10000]
 
     haveBeQuestions = ['Have you been here?', 'Are you okay?',
@@ -47,11 +66,21 @@ def trainTypeQuestion():
     size = int(len(featuresets) * 0.1)
     train_set, test_set = featuresets[size:], featuresets[:size]
     classifier = nltk.NaiveBayesClassifier.train(train_set)
-    return nltk.NaiveBayesClassifier.train(train_set)
+    return classifier
 
 
 def labeledSentencesFileParser(filename):
+    """Return a set of features extracted from a .txt file.
 
+    Arguments:
+    filename -- name of .txt file to be parsed
+
+    Return values:
+    Set of features to be used to train a classifier.
+
+    Restrictions:
+    Txt file should have a specific syntax: question | questionLabel
+    """
     # Open a file
     textFile = open(filename, "r")
 
@@ -92,7 +121,17 @@ def labeledSentencesFileParser(filename):
 
 
 def trainWhQuestion(mode):
-    
+    """Return a classifier trained with one of the training sets.
+
+    Arguments:
+    mode -- takes value 1 if classifier is trained to classify whQuestions
+            takes value 2 if classifier is trained to classify DescriptionOther
+            takes value 3 if classifier is trained to classify DescriptionH
+            takes value 4 if classifier is trained to classify DescriptionWh
+
+    Return values:
+    Naive Bayes Classifier
+    """
     # Choose mode to train different classifiers
     if(mode == 1):
         path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/whQuestionClassifiedSentences.txt"
@@ -114,8 +153,9 @@ def trainWhQuestion(mode):
 
     featuresets = labeledSentencesFileParser(file)
 
-    size = int(len(featuresets) * 0.05)
-    train_set, test_set = featuresets[size:], featuresets[:size]
+#    size = int(len(featuresets) * 0.05)
+#    train_set, test_set = featuresets[size:], featuresets[:size]
+    train_set = featuresets
     classifier = nltk.NaiveBayesClassifier.train(train_set)
     return classifier
 

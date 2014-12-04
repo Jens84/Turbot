@@ -16,6 +16,10 @@ Usage
 
 .. code:: python
 
-    >>> from turbot import Turbot
-    >>> Turbot("How are you?")
-    'Fine, and you?'
+    >>> import turbot
+    >>> d = turbot.Definition()
+    >>> d.answer("When was Bjarne Stroustrup born?")
+    'Bjarne Stroustrup was born on the 1950-12-30'
+    >>> d = turbot.Dialog()
+    >>> d.answer("Is the sky blue?")
+    'Yes, the sky is blue.'

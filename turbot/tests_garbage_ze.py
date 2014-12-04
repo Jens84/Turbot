@@ -7,7 +7,45 @@ Created on Mon Nov 24 16:11:14 2014
 
 import core
 from nltk.corpus import wordnet as wn
+import nltk.classify.util
 
+
+def dialogue_act_features(post):
+    """Return a feature from an object of type nltk.util.LazySubsequence.
+
+    Arguments:
+    post -- object of type nltk.util.LazySubsequence
+
+    Return values:
+    Dictionary that represents a feature
+    """
+
+    features = {}
+    for word in nltk.word_tokenize(post):
+        features['contains(%s)' % word.lower()] = True
+    features['first_word'] = nltk.word_tokenize(post)[0].lower()
+    return features
+
+
+posts = nltk.corpus.nps_chat.xml_posts()[:100]
+
+haveBeQuestions = ['Have you been here?', 'Are you okay?',
+                   'Are you alive?', 'Am I a dragon?',
+                   'Have you any idea?', 'Has she a cat?',
+                   'Are we greedy?', 'Is he tired?', 'Is she good?',
+                   'Are you sure?', 'Have you already done it?',
+                   'Has he eaten it?', 'Is tomato red?']
+
+
+featuresets = [(dialogue_act_features(post.text),
+                post.get('class'))for post in posts]
+print type(featuresets)
+
+
+g = dialogue_act_features(post.text)
+
+print type(g)
+print type(featuresets[0])
 '''
 #d = core.Dialog()
 defin = core.Definition()
@@ -24,7 +62,7 @@ for i,j in enumerate(wn.synsets(keyword)):
         break
 print synonyms
 
-'''
+
 
 #sentence = "What is the name of Justin Bieber's associated bands?"
 sentence = "What is the year when Justin Bieber was born?"
@@ -56,5 +94,5 @@ print "<>"
 print aa
 print bb
 
-
+'''
 
