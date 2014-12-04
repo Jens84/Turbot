@@ -23,6 +23,7 @@ import operator
 
 # TODO change names of variables called object, type
 
+
 def _getSubject(question, ind):
     subject = ""
     qTags = _tokenizeFromStanfordNLP(question)
@@ -147,7 +148,7 @@ class Dialog():
     _markov = None
 
     def __init__(self):
-        self._posNegWords = learn.dialog.getPosNegWords()
+        self._posNegWords = learn.pickleHandler.load_object('posNegWords.pkl')
         # load classifiers from pickle file
         self._classifierWhQ = (learn.pickleHandler.
                                load_object('classifierWhQ.pkl'))

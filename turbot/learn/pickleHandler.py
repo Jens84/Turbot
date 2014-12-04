@@ -42,7 +42,7 @@ def save_object(obj, filename):
         "saved."
     '''
     current_dir = os.getcwd()
-    with open(current_dir + filename, 'wb') as output:
+    with open(current_dir + "/" + filename, 'wb') as output:
         pickle.dump(obj, output)
 
 
@@ -73,7 +73,7 @@ def load_object(filename):
         print "Please insert the path to the folder the where "
         "object will be loaded from."
     '''
-    with open(current_dir + filename, 'rb') as input:
+    with open(current_dir + "/../turbot/learn/" + filename, 'rb') as input:
         return pickle.load(input)
 
 
@@ -91,6 +91,7 @@ def update_classifiers():
     trainDescOtherQuestionClassifier = dialog.trainWhQuestion(2)
     trainDescHQuestionClassifier = dialog.trainWhQuestion(3)
     trainDescWhQuestionClassifier = dialog.trainWhQuestion(4)
+    posNegWords = dialog.getPosNegWords()
     trainSentencesMarkov = markov.Markov()
 
     # Save classifier that determines the general type of question
@@ -105,7 +106,9 @@ def update_classifiers():
     save_object(trainDescWhQuestionClassifier, 'classifierDescWhQ.pkl')
     # Save markov chains from sentenes dataset
     save_object(trainSentencesMarkov.getMarkov(), 'markovSentences.pkl')
+    # Save pos/neg words
+    save_object(posNegWords, 'posNegWords.pkl')
 
 # TODO delete these lines
 # Call function update_classifiers to update the classifier files
-#update_classifiers()
+# update_classifiers()

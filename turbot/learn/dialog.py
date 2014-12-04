@@ -192,7 +192,7 @@ def getPosNegWords():
         file = path3
     '''
     words = dict()
-    with open(current_dir + "SentiWordNet_3.0.0_20130122.txt", 'r') as f:
+    with open(current_dir + "/SentiWordNet_3.0.0_20130122.txt", 'r') as f:
         lines = f.readlines()[1:-1]
         for line in lines:
             columns = line.split('\t')
