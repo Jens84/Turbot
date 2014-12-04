@@ -20,14 +20,10 @@ class MainView():
         answer = ""
         if request.method == 'POST':
             q = QuestionForm(request.POST)
-            print "================"
-            print q
             if q.is_valid():
-                print "SAVE"
                 q.save()
 
             last = Question.objects.latest('id')
-            print last.content
             if last.type == 'dialog':
                 answer = self._dialog.answer(last.content)
             elif last.type == 'definition':
@@ -41,6 +37,8 @@ class MainView():
         except:
             last_question = ""
 
-        context = {'last_question': last_question}
+        context = {'last_question': last_question.content}
         context = {'answer': answer}
+        print "==============="
+        print last_question.content
         return render(request, 'basic_forms/index.html', context)
