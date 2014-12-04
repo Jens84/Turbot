@@ -41,7 +41,7 @@ setup(
         'wikipedia',
         'SPARQLWrapper',
         'BeautifulSoup4',
-        'nltk'
+        'nltk>=3.0.0'
     ],
     cmdclass={'test': ToxTestCommand},
     tests_require=['tox'],

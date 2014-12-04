@@ -114,8 +114,8 @@ def _nounify(verb_word):
 
     # Get all verb lemmas of the word
     verb_lemmas = [l for s in verb_synsets
-                   for l in s.lemmas() if s.name().split('.')[1] == 'v']
                    # for l in s.lemmas if s.name.split('.')[1] == 'v']
+                   for l in s.lemmas() if s.name().split('.')[1] == 'v']
 
     # Get related forms
     derivationally_related_forms = [(l, l.derivationally_related_forms())
@@ -124,8 +124,8 @@ def _nounify(verb_word):
     # filter only the nouns
     related_noun_lemmas = [l for drf in derivationally_related_forms
                            for l in drf[1]
-                           if l.synset().name().split('.')[1] == 'n']
                            # if l.synset.name.split('.')[1] == 'n']
+                           if l.synset().name().split('.')[1] == 'n']
 
     # Extract the words from the lemmas
     # words = [l.name for l in related_noun_lemmas]
@@ -518,13 +518,13 @@ class Definition():
             concatenations, propertiesOfSubject)
 
         # print "Temp: Matching nouns concatenations: ", (
-        #    nounsConcatenationsMatches)
+        #     nounsConcatenationsMatches)
 
         if nounsConcatenationsMatches is not None:
             # print "Temp: Chose property in 1"
             if len(nounsConcatenationsMatches) > 1:
                 # print "Temp: LOOK: Several Matches1: ", (
-                #    nounsConcatenationsMatches)
+                #     nounsConcatenationsMatches)
                 return nounsConcatenationsMatches[0]
             return nounsConcatenationsMatches[0]
 
@@ -551,7 +551,7 @@ class Definition():
             # print "Temp: Chose property in 2"
             if len(nounsKeywordsConcatenationsMatches) > 1:
                 # print "Temp: LOOK: Several Matches2: ",
-                # nounsKeywordsConcatenationsMatches
+                nounsKeywordsConcatenationsMatches
                 return nounsKeywordsConcatenationsMatches[0]
             return nounsKeywordsConcatenationsMatches[0]
         elif nounsMatches is not None:
@@ -568,6 +568,7 @@ class Definition():
         # be iterated. Each word will try to be matched with properties. The
         # property that occur the most is chosen
         # print "List of all combinations: ", listOfKeywords
+
         w = 0
         properties = []
         for word in listOfKeywords:
@@ -606,6 +607,9 @@ class Definition():
             listOfProperties.append(key)
         if listOfProperties == []:
             return listOfProperties
+        elif listOfProperties[0] == "abstract" and (
+                len(listOfProperties) > 1 and sorted_x[1][1] > 1):
+            return listOfProperties[1]
         else:
             return listOfProperties[0]
 
@@ -674,7 +678,7 @@ class Definition():
             for i, j in enumerate(wn.synsets(word)):
                 # print "Synonyms of word ",word,":", ", ".join(j.lemma_names)
                 w = 0
-                for synonym in j.lemma_names:
+                for synonym in j.lemma_names():
                     w += 1
                     if word.lower() != synonym.lower():
                         synonyms.append(synonym)
