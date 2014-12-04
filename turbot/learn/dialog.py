@@ -9,11 +9,9 @@ def dialogue_act_features(post):
     post -- object of type nltk.util.LazySubsequence
 
     Return values:
-    Dictionary that represents a feature of a data set
+    Dictionary that represents a feature
     """
     features = {}
-    # converts a post into an object that can be used later to train a nltk
-    # classifier
     for word in nltk.word_tokenize(post):
         features['contains(%s)' % word.lower()] = True
     features['first_word'] = nltk.word_tokenize(post)[0].lower()
@@ -38,10 +36,8 @@ def trainTypeQuestion():
     Return values:
     Naive Bayes Classifier
     """
-    # Retrieve information from the nltk chat package
     posts = nltk.corpus.nps_chat.xml_posts()[:10000]
 
-    # Training set to be add to the rest of the data set
     haveBeQuestions = ['Have you been here?', 'Are you okay?',
                        'Are you alive?', 'Am I a dragon?',
                        'Have you any idea?', 'Has she a cat?',
@@ -49,11 +45,9 @@ def trainTypeQuestion():
                        'Are you sure?', 'Have you already done it?',
                        'Has he eaten it?', 'Is tomato red?']
 
-    # Create data set
     featuresets = [(dialogue_act_features(post.text),
                     post.get('class'))for post in posts]
 
-    # Extend data set with additional training set
     featuresets.extend([(dialogue_haveBe_features(q),
                          'ynQuestion') for q in haveBeQuestions])
     '''
@@ -67,13 +61,12 @@ def trainTypeQuestion():
     else:
         print "Please insert the path to file firstClassifierAdditionalSentences.txt"
     '''
-    # Extend data set with an additional training set from a txt file
     current_dir = os.getcwd()
     featuresets2 = labeledSentencesFileParser(current_dir + "/firstClassifierAdditionalSentences.txt")
     featuresets+=featuresets2
 
-    train_set = featuresets
-    # Train classifier
+    size = int(len(featuresets) * 0.1)
+    train_set, test_set = featuresets[size:], featuresets[:size]
     classifier = nltk.NaiveBayesClassifier.train(train_set)
     return classifier
 
@@ -105,32 +98,26 @@ def labeledSentencesFileParser(filename):
             each_sentence = []
             for word in words:
                 if word[0] == '#':
-                    # This line is a comment
+#                    print "This line is a comment"
                     break
                 if word == "|":
-                    # Detected a question type label
                     flag_label = 1
                     continue
                 if flag_label == 1:
-                    # Retrieve question type label
                     label = re.findall(r"[\w']+|[.,!?;]", word)
                     flag_label = 0
                     continue
                 each_word = re.findall(r"[\w']+|[.,!?;:]", word)
                 every_words += each_word
-                # Each word of the sentence is added 
                 each_sentence += each_word
             if each_sentence:
                 features = {}
                 featureSet = ()
-                # Each sentence is converted to the right syntax, in order to
-                # train the classifier
                 for word_ in each_sentence:
                     features['contains(%s)' % word_.lower()] = True
                 featureSet = (features, label[0])
-                # Add sentence feature to the data set
                 featureSets.append(featureSet)
-    # Close opened file
+    # Close opend file
     textFile.close()
     return featureSets
 
@@ -149,8 +136,7 @@ def trainWhQuestion(mode):
     """
 
     current_dir = os.getcwd()
-    # Choose mode to train different classifiers. Each mode corresponds to a
-    # specific classifier
+    # Choose mode to train different classifiers
     if(mode == 1):
         filename = current_dir + "/whQuestionClassifiedSentences.txt"
         '''
@@ -184,6 +170,8 @@ def trainWhQuestion(mode):
     '''
     featuresets = labeledSentencesFileParser(filename)
 
+#    size = int(len(featuresets) * 0.05)
+#    train_set, test_set = featuresets[size:], featuresets[:size]
     train_set = featuresets
     classifier = nltk.NaiveBayesClassifier.train(train_set)
     return classifier
