@@ -24,23 +24,11 @@ def save_object(obj, filename):
     Return values:
     -
     """
-    path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/"
-    "Repository/turbot/learn/"
-    path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/"
-    path3 = "/home/jens/Documents/DTU/Data Mining Using Python/Project/turbot/"
-    "learn/"
+    __location__ = os.path.realpath(
+        os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    path = os.path.join(__location__, filename)
 
-    if os.path.exists(path1):
-        filename = path1 + filename
-    elif os.path.exists(path2):
-        filename = path2 + filename
-    elif os.path.exists(path3):
-        filename = path3 + filename
-    else:
-        print "Please insert the path to the folder the where object will be "
-        "saved."
-
-    with open(filename, 'wb') as output:
+    with open(path, 'wb') as output:
         pickle.dump(obj, output)
 
 
@@ -53,21 +41,9 @@ def load_object(filename):
     Return values:
     pickle object
     """
-    path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/"
-    "Repository/turbot/learn/"
-    path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/"
-    path3 = "/home/jens/Documents/DTU/Data Mining Using Python/Project/turbot/"
-    "learn/"
-
-    if os.path.exists(path1):
-        path = path1 + filename
-    elif os.path.exists(path2):
-        path = path2 + filename
-    elif os.path.exists(path3):
-        path = path3 + filename
-    else:
-        print "Please insert the path to the folder the where "
-        "object will be loaded from."
+    __location__ = os.path.realpath(
+        os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    path = os.path.join(__location__, filename)
 
     with open(path, 'rb') as input:
         return pickle.load(input)
