@@ -36,7 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'basic_forms'
+    'basic_forms',
+    'twitter_bootstrap'
 )
 
 MIDDLEWARE_CLASSES = (

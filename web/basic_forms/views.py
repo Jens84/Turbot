@@ -20,11 +20,14 @@ class MainView():
         answer = ""
         if request.method == 'POST':
             q = QuestionForm(request.POST)
+            print "================"
+            print q
             if q.is_valid():
+                print "SAVE"
                 q.save()
 
             last = Question.objects.latest('id')
-
+            print last.content
             if last.type == 'dialog':
                 answer = self._dialog.answer(last.content)
             elif last.type == 'definition':
