@@ -63,6 +63,7 @@ def update_classifiers():
     trainDescOtherQuestionClassifier = dialog.trainWhQuestion(2)
     trainDescHQuestionClassifier = dialog.trainWhQuestion(3)
     trainDescWhQuestionClassifier = dialog.trainWhQuestion(4)
+    posNegWords = dialog.getPosNegWords()
     trainSentencesMarkov = markov.Markov()
 
     # Save classifier that determines the general type of question
@@ -77,6 +78,8 @@ def update_classifiers():
     save_object(trainDescWhQuestionClassifier, 'classifierDescWhQ.pkl')
     # Save markov chains from sentenes dataset
     save_object(trainSentencesMarkov.getMarkov(), 'markovSentences.pkl')
+    # Save pos/neg words
+    save_object(posNegWords, 'posNegWords.pkl')
 
 # TODO delete these lines
 # Call function update_classifiers to update the classifier files

@@ -24,6 +24,7 @@ import operator
 
 # TODO change names of variables called object, type
 
+
 def _getSubject(question, ind):
     subject = ""
     qTags = _tokenizeFromStanfordNLP(question)
@@ -113,8 +114,8 @@ def _nounify(verb_word):
 
     # Get all verb lemmas of the word
     verb_lemmas = [l for s in verb_synsets
-                   # for l in s.lemmas() if s.name().split('.')[1] == 'v']
-                   for l in s.lemmas if s.name.split('.')[1] == 'v']
+                   for l in s.lemmas() if s.name().split('.')[1] == 'v']
+                   # for l in s.lemmas if s.name.split('.')[1] == 'v']
 
     # Get related forms
     derivationally_related_forms = [(l, l.derivationally_related_forms())
@@ -123,12 +124,12 @@ def _nounify(verb_word):
     # filter only the nouns
     related_noun_lemmas = [l for drf in derivationally_related_forms
                            for l in drf[1]
-                           # if l.synset().name().split('.')[1] == 'n']
-                           if l.synset.name.split('.')[1] == 'n']
+                           if l.synset().name().split('.')[1] == 'n']
+                           # if l.synset.name.split('.')[1] == 'n']
 
     # Extract the words from the lemmas
-    words = [l.name for l in related_noun_lemmas]
-    # words = [l.name() for l in related_noun_lemmas]
+    # words = [l.name for l in related_noun_lemmas]
+    words = [l.name() for l in related_noun_lemmas]
     len_words = len(words)
 
     # Build the result in the form of
@@ -148,7 +149,7 @@ class Dialog():
     _markov = None
 
     def __init__(self):
-        self._posNegWords = learn.dialog.getPosNegWords()
+        self._posNegWords = learn.pickleHandler.load_object('posNegWords.pkl')
         # load classifiers from pickle file
         self._classifierWhQ = (learn.pickleHandler.
                                load_object('classifierWhQ.pkl'))
