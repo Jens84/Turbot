@@ -21,6 +21,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 from nltk.corpus import wordnet as wn
 import operator
 
+
 # TODO change names of variables called object, type
 
 
@@ -51,7 +52,7 @@ def _getSubject(question, ind):
 def _getObject(question, subject, verbs, isYesNoQuestion):
     object = ""
     qTags = _tokenizeFromStanfordNLP(question)
-    print qTags
+    # print qTags
     # Find the sentence's object
     for word, tag in qTags:
         # This is the subject
@@ -113,8 +114,8 @@ def _nounify(verb_word):
 
     # Get all verb lemmas of the word
     verb_lemmas = [l for s in verb_synsets
-                   # for l in s.lemmas() if s.name().split('.')[1] == 'v']
-                   for l in s.lemmas if s.name.split('.')[1] == 'v']
+                   # for l in s.lemmas if s.name.split('.')[1] == 'v']
+                   for l in s.lemmas() if s.name().split('.')[1] == 'v']
 
     # Get related forms
     derivationally_related_forms = [(l, l.derivationally_related_forms())
@@ -123,12 +124,12 @@ def _nounify(verb_word):
     # filter only the nouns
     related_noun_lemmas = [l for drf in derivationally_related_forms
                            for l in drf[1]
-                           # if l.synset().name().split('.')[1] == 'n']
-                           if l.synset.name.split('.')[1] == 'n']
+                           # if l.synset.name.split('.')[1] == 'n']
+                           if l.synset().name().split('.')[1] == 'n']
 
     # Extract the words from the lemmas
-    words = [l.name for l in related_noun_lemmas]
-    # words = [l.name() for l in related_noun_lemmas]
+    # words = [l.name for l in related_noun_lemmas]
+    words = [l.name() for l in related_noun_lemmas]
     len_words = len(words)
 
     # Build the result in the form of
@@ -251,11 +252,11 @@ class Dialog():
         score = self._getPosNegScore(tokens)
 
         q = question
-        print("Question : ", str(q))
+        # print("Question : ", str(q))
 
         type = self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
-        print "Type => ", type
+        # print "Type => ", type
 
         if type == "ynQuestion":
             ans = ""
@@ -269,9 +270,9 @@ class Dialog():
             # Get the object
             object = _getObject(q, subject, verbs, True)
             object += "."
-            print subject
-            print verbs
-            print object
+            # print subject
+            # print verbs
+            # print object
             # We need to check the answer : yes or no
             if subject not in ["I ", "you ", "we ",
                                "he ", "she ", "it ", "they "]:
@@ -290,9 +291,9 @@ class Dialog():
             verbs = _getVerbs(q, subject)
             object = _getObject(q, subject, verbs, False)
 
-            print subject
-            print verbs
-            print object
+            # print subject
+            # print verbs
+            # print object
             '''
             if object == " you" and subject == "I ":
                 ending = [" more", " too"]
@@ -505,25 +506,25 @@ class Definition():
 
         nounsMatches = []
         nounsMatches = self._getOverlappingProperty(nouns, propertiesOfSubject)
-        print "Temp: Matching nouns: ", nounsMatches
+        # print "Temp: Matching nouns: ", nounsMatches
 
         concatenations = []
         concatenations = self._getConcatenationCombinations(nouns, None, 1)
-        print "noun combinations: ", concatenations
+        # print "noun combinations: ", concatenations
         listOfKeywords.extend(concatenations)
 
         nounsConcatenationsMatches = []
         nounsConcatenationsMatches = self._getOverlappingProperty(
             concatenations, propertiesOfSubject)
 
-        print "Temp: Matching nouns concatenations: ", (
-            nounsConcatenationsMatches)
+        # print "Temp: Matching nouns concatenations: ", (
+        #     nounsConcatenationsMatches)
 
         if nounsConcatenationsMatches is not None:
-            print "Temp: Chose property in 1"
+            # print "Temp: Chose property in 1"
             if len(nounsConcatenationsMatches) > 1:
-                print "Temp: LOOK: Several Matches1: ", (
-                    nounsConcatenationsMatches)
+                # print "Temp: LOOK: Several Matches1: ", (
+                #     nounsConcatenationsMatches)
                 return nounsConcatenationsMatches[0]
             return nounsConcatenationsMatches[0]
 
@@ -536,32 +537,32 @@ class Definition():
         concatenations = self._getConcatenationCombinations(nouns,
                                                             additionalKeywords,
                                                             2)
-        print "noun+keywords combinations: ", concatenations
+        # print "noun+keywords combinations: ", concatenations
         listOfKeywords.extend(concatenations)
 
         nounsKeywordsConcatenationsMatches = []
         nounsKeywordsConcatenationsMatches = self._getOverlappingProperty(
             concatenations, propertiesOfSubject)
 
-        print "Temp: Matching nouns+keywords concatenations: ", (
-            nounsKeywordsConcatenationsMatches)
+        # print "Temp: Matching nouns+keywords concatenations: ", (
+        #     nounsKeywordsConcatenationsMatches)
 
         if nounsKeywordsConcatenationsMatches is not None:
-            print "Temp: Chose property in 2"
+            # print "Temp: Chose property in 2"
             if len(nounsKeywordsConcatenationsMatches) > 1:
-                print "Temp: LOOK: Several Matches2: ",
+                # print "Temp: LOOK: Several Matches2: ",
                 nounsKeywordsConcatenationsMatches
                 return nounsKeywordsConcatenationsMatches[0]
             return nounsKeywordsConcatenationsMatches[0]
         elif nounsMatches is not None:
-            print "Temp: Chose property in 3"
+            # print "Temp: Chose property in 3"
             if len(nounsMatches) > 1:
-                print "Temp: LOOK: Several Matches3: ", nounsMatches
+                # print "Temp: LOOK: Several Matches3: ", nounsMatches
                 return nounsMatches[0]
             return nounsMatches[0]
 
-        print "Temp: Didn't find any match yet."
-        print "Temp: Plan B: find closest match."
+        # print "Temp: Didn't find any match yet."
+        # print "Temp: Plan B: find closest match."
 
         # If a match wasn't found yet, a list of all the word combinations will
         # be iterated. Each word will try to be matched with properties. The
@@ -571,18 +572,18 @@ class Definition():
         properties = []
         for word in listOfKeywords:
             w += 1
-            print "Step: %i" % w
-            print "The properties which are close matches for ", (
-                word + " are:")
-            print difflib.get_close_matches(word, propertiesOfSubject, 10)
+            # print "Step: %i" % w
+            # print "The properties which are close matches for ", (
+            #     word + " are:")
+            # print difflib.get_close_matches(word, propertiesOfSubject, 10)
 
             properties.extend(difflib.get_close_matches(word,
                                                         propertiesOfSubject,
                                                         2))
 
         "The list of all properties is:"
-        print properties
-        print "----------------------------"
+        # print properties
+        # print "----------------------------"
 
         listOfProperties = properties
         properties = {}
@@ -601,10 +602,13 @@ class Definition():
             i += 1
             if i > 10:
                 break
-            print "Property: >", key, "< with ", value, " occurrences"
+            # print "Property: >", key, "< with ", value, " occurrences"
             listOfProperties.append(key)
         if listOfProperties == []:
             return listOfProperties
+        elif listOfProperties[0] == "abstract" and (
+                len(listOfProperties) > 1 and sorted_x[1][1] > 1):
+            return listOfProperties[1]
         else:
             return listOfProperties[0]
 
@@ -632,7 +636,7 @@ class Definition():
         if mode == 1:
             substrings = ["day", "date", "place", "name"]
 
-            print "list of strings inside getsimplewords: ", listOfStrings
+            # print "list of strings inside getsimplewords: ", listOfStrings
 
             # searching for common substrings in nouns that are combinations
             # of two words and splits them
@@ -668,18 +672,18 @@ class Definition():
 
         # Searching synonyms of the words in listOfStrings
         synonyms = []
-        print "List of words: ", listOfStrings
+        # print "List of words: ", listOfStrings
         for word in listOfStrings:
             for i, j in enumerate(wn.synsets(word)):
                 # print "Synonyms of word ",word,":", ", ".join(j.lemma_names)
                 w = 0
-                for synonym in j.lemma_names:
+                for synonym in j.lemma_names():
                     w += 1
                     if word.lower() != synonym.lower():
                         synonyms.append(synonym)
                     if w > 2:
                         break
-                print "Now the list of synonyms looks like: ", synonyms
+                # print "Now the list of synonyms looks like: ", synonyms
                 # Allows only sysnonyms for one meaning of the word
                 if i == 0:
                     break
@@ -714,7 +718,7 @@ class Definition():
             i += 1
         prep = prepositions[self._sTags[i][0].lower()][0]  # First element here
         i += 1
-        print "Prep: %s" % prep
+        # print "Prep: %s" % prep
 
         vb = []
         while 'VB' not in self._sTags[i][1]:
@@ -732,20 +736,20 @@ class Definition():
             while 'VB' not in self._sTags[i][1]:
                 subj.append(self._sTags[i][0])
                 i += 1
-            print "Subj: %s" % " ".join(subj)
+            # print "Subj: %s" % " ".join(subj)
             vb.append(self._sTags[i][0])
             i += 1
-            print "Verb: %s" % " ".join(vb)
+            # print "Verb: %s" % " ".join(vb)
 
             while i < len(self._sTags) - 1:
                 cmpl.append(self._sTags[i][0])
                 i += 1
-            print "Cmpl: %s" % " ".join(cmpl)
+            # print "Cmpl: %s" % " ".join(cmpl)
         else:
             while i < len(self._sTags) - 1:
                 subj.append(self._sTags[i][0])
                 i += 1
-            print "Subj: %s" % " ".join(subj)
+            # print "Subj: %s" % " ".join(subj)
 
         if en.verb.infinitive(vb[0]) == "do":
             if "past" in en.verb.tense(vb[0]):
@@ -762,20 +766,20 @@ class Definition():
                 answer + " ".join(cmpl)) + "."
 
     def answer(self, sentence, whType):
-        print "Temp: Type of this question: ", whType, " <<<\n"
+        # print "Temp: Type of this question: ", whType, " <<<\n"
 
         # Word tokenizer using Stanford NLP Parser (better than NLTK)
         self._sTags = _tokenizeFromStanfordNLP(sentence)
-        print self._sTags
+        # print self._sTags
 
         # Get the object and verb of the sentence
         obj = ' '.join([w[0] for w in self._sTags if 'NNP' in w[1]])
 
-        print "Temp: >Object of sentence: ", obj
+        # print "Temp: >Object of sentence: ", obj
 
         # temporary code
-        if obj == []:
-            print "Temp: For now, I only answer stuff about known people."
+        # if obj == []:
+        # print "Temp: For now, I only answer stuff about known people."
 
         vb = None
         for w, t in self._sTags:
@@ -784,17 +788,17 @@ class Definition():
             elif t == 'VB':
                 vb = w
                 break
-        print vb
+        # print vb
 
         if vb is not None:
             # TODO verb 's can be either is or has
             if vb == "'s":
-                print "Gotcha!"
+                # print "Gotcha!"
                 vb = "is"
             # TODO Probably not really good (first element not always the best)
             noun = _nounify(vb)[1][0]
-        print "Noun from nounify: >", noun, "< that was transformed from > ",
-        vb, " <"
+        # print "Noun from nounify: >", noun, "< that was transformed from > ",
+        # vb, " <"
 
         # Getting additional information from the sentence: nouns and ajectives
         nouns = []
@@ -807,15 +811,15 @@ class Definition():
         if not(noun == "having" or noun == "being"):
             nouns.append(noun)
 
-        print "------------- NEW FUNCTION: nouns: ", nouns
+        # print "------------- NEW FUNCTION: nouns: ", nouns
         nouns = self._getSimpleWords(nouns, 1)
-        print "------------- AFTER NEW FUNCTION: nouns: ", nouns
+        # print "------------- AFTER NEW FUNCTION: nouns: ", nouns
 
         adjectives = self._getSimpleWords(adjectives, 2)
         additionalWords.extend(adjectives)
 
-        print "Temp: >Nouns of sentence: ", nouns
-        print "Temp: >Adjectives of sentence: ", adjectives
+        # print "Temp: >Nouns of sentence: ", nouns
+        # print "Temp: >Adjectives of sentence: ", adjectives
 
         # Perform a search on DBPedia to find the concerned resource
         params = urllib.urlencode({'QueryString': obj,
@@ -828,7 +832,7 @@ class Definition():
         # If we found a resource to analyze
         if len(response["results"]) > 0:
             uri = response["results"][0]["uri"]
-            print uri
+            # print uri
 
             # Get the list of properties for this resoruce
             self._sparql.setQuery("""
@@ -854,7 +858,7 @@ class Definition():
             # Converting list prop unicode single entry to plain string proprty
             # check if it breaks! any problem with unicode and encodings??
             type(proprty)
-            print "Temp: I am going to use this property: ", proprty
+            # print "Temp: I am going to use this property: ", proprty
 
             # if found a property match
             if len(proprty) > 0:
@@ -902,14 +906,14 @@ class Definition():
                             else:
                                 answer = r["pname"]["value"]
 
-                            print answer
+                            # print answer
 
                             newObject = ([o for o, tag in self._sTags
                                           if tag not in ['DT', 'IN',
                                                          'WDT', 'WP',
                                                          'WP$', 'WRB']])
                             newObject = newObject[:-1]
-                            print ("NO: ", " ".join(newObject))
+                            # print ("NO: ", " ".join(newObject))
 
                             sentences = re.findall(r"([^.]*\.)", answer)
                             for sentence in sentences:
@@ -922,8 +926,9 @@ class Definition():
                             else:
                                 return answer
 
-        else:
-            print "I am only prepared to answer about well known matters."
+        # else:
+        # print "I am only prepared to answer about well known matters."
+
         # If no result (return) until here, perform a search on answers.com
         params = urllib.urlencode({'q': sentence})
         req = urllib2.Request("http://wiki.answers.com/search?" + params)
@@ -931,7 +936,7 @@ class Definition():
         soup = bs4.BeautifulSoup(response)
         results = soup.findAll('div', attrs={'class': 'answer_text'})
         if len(results) > 0:
-            print "Temp: Used wiki answers."
+            # print "Temp: Used wiki answers."
             return results[0].text.strip()
         else:
             return "I don't know"
