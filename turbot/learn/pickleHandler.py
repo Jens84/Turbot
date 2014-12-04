@@ -24,6 +24,7 @@ def save_object(obj, filename):
     Return values:
     -
     """
+    '''
     path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/"
     "Repository/turbot/learn/"
     path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/"
@@ -39,8 +40,9 @@ def save_object(obj, filename):
     else:
         print "Please insert the path to the folder the where object will be "
         "saved."
-
-    with open(filename, 'wb') as output:
+    '''
+    current_dir = os.getcwd()
+    with open(current_dir + "/" + filename, 'wb') as output:
         pickle.dump(obj, output)
 
 
@@ -53,6 +55,8 @@ def load_object(filename):
     Return values:
     pickle object
     """
+    current_dir = os.getcwd()
+    '''
     path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/"
     "Repository/turbot/learn/"
     path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/"
@@ -68,8 +72,8 @@ def load_object(filename):
     else:
         print "Please insert the path to the folder the where "
         "object will be loaded from."
-
-    with open(path, 'rb') as input:
+    '''
+    with open(current_dir + "/../turbot/learn/" + filename, 'rb') as input:
         return pickle.load(input)
 
 
@@ -87,6 +91,7 @@ def update_classifiers():
     trainDescOtherQuestionClassifier = dialog.trainWhQuestion(2)
     trainDescHQuestionClassifier = dialog.trainWhQuestion(3)
     trainDescWhQuestionClassifier = dialog.trainWhQuestion(4)
+    posNegWords = dialog.getPosNegWords()
     trainSentencesMarkov = markov.Markov()
 
     # Save classifier that determines the general type of question
@@ -101,6 +106,8 @@ def update_classifiers():
     save_object(trainDescWhQuestionClassifier, 'classifierDescWhQ.pkl')
     # Save markov chains from sentenes dataset
     save_object(trainSentencesMarkov.getMarkov(), 'markovSentences.pkl')
+    # Save pos/neg words
+    save_object(posNegWords, 'posNegWords.pkl')
 
 # TODO delete these lines
 # Call function update_classifiers to update the classifier files

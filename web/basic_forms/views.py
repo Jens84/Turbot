@@ -24,7 +24,6 @@ class MainView():
                 q.save()
 
             last = Question.objects.latest('id')
-
             if last.type == 'dialog':
                 answer = self._dialog.answer(last.content)
             elif last.type == 'definition':
@@ -38,6 +37,5 @@ class MainView():
         except:
             last_question = ""
 
-        context = {'last_question': last_question}
-        context = {'answer': answer}
+        context = {'last_question': last_question.content, 'answer': answer}
         return render(request, 'basic_forms/index.html', context)
