@@ -49,9 +49,11 @@ def trainTypeQuestion():
                        'Are you sure?', 'Have you already done it?',
                        'Has he eaten it?', 'Is tomato red?']
 
+    # Create data set
     featuresets = [(dialogue_act_features(post.text),
                     post.get('class'))for post in posts]
 
+    # Extend data set with additional training set
     featuresets.extend([(dialogue_haveBe_features(q),
                          'ynQuestion') for q in haveBeQuestions])
     '''
@@ -65,11 +67,13 @@ def trainTypeQuestion():
     else:
         print "Please insert the path to file firstClassifierAdditionalSentences.txt"
     '''
+    # Extend data set with an additional training set from a txt file
     current_dir = os.getcwd()
     featuresets2 = labeledSentencesFileParser(current_dir + "/firstClassifierAdditionalSentences.txt")
     featuresets+=featuresets2
 
     train_set = featuresets
+    # Train classifier
     classifier = nltk.NaiveBayesClassifier.train(train_set)
     return classifier
 
@@ -101,26 +105,32 @@ def labeledSentencesFileParser(filename):
             each_sentence = []
             for word in words:
                 if word[0] == '#':
-#                    print "This line is a comment"
+                    # This line is a comment
                     break
                 if word == "|":
+                    # Detected a question type label
                     flag_label = 1
                     continue
                 if flag_label == 1:
+                    # Retrieve question type label
                     label = re.findall(r"[\w']+|[.,!?;]", word)
                     flag_label = 0
                     continue
                 each_word = re.findall(r"[\w']+|[.,!?;:]", word)
                 every_words += each_word
+                # Each word of the sentence is added 
                 each_sentence += each_word
             if each_sentence:
                 features = {}
                 featureSet = ()
+                # Each sentence is converted to the right syntax, in order to
+                # train the classifier
                 for word_ in each_sentence:
                     features['contains(%s)' % word_.lower()] = True
                 featureSet = (features, label[0])
+                # Add sentence feature to the data set
                 featureSets.append(featureSet)
-    # Close opend file
+    # Close opened file
     textFile.close()
     return featureSets
 
@@ -139,7 +149,8 @@ def trainWhQuestion(mode):
     """
 
     current_dir = os.getcwd()
-    # Choose mode to train different classifiers
+    # Choose mode to train different classifiers. Each mode corresponds to a
+    # specific classifier
     if(mode == 1):
         filename = current_dir + "/whQuestionClassifiedSentences.txt"
         '''
@@ -173,8 +184,6 @@ def trainWhQuestion(mode):
     '''
     featuresets = labeledSentencesFileParser(filename)
 
-#    size = int(len(featuresets) * 0.05)
-#    train_set, test_set = featuresets[size:], featuresets[:size]
     train_set = featuresets
     classifier = nltk.NaiveBayesClassifier.train(train_set)
     return classifier
