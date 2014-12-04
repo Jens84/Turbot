@@ -24,12 +24,7 @@ class MainView():
                 q.save()
 
             last = Question.objects.latest('id')
-            if last.type == 'dialog':
-                answer = self._dialog.answer(last.content)
-            elif last.type == 'definition':
-                answer = self._definition.answer(last.content)
-            else:
-                answer = ""
+            answer = self._dialog.answer(last.content)
 
         try:
             last_question = Question.objects.latest('id')
