@@ -2,7 +2,6 @@ import nltk.classify.util
 import os
 import re
 
-
 def dialogue_act_features(post):
     features = {}
     for word in nltk.word_tokenize(post):
@@ -47,6 +46,7 @@ def trainTypeQuestion():
 
     size = int(len(featuresets) * 0.1)
     train_set, test_set = featuresets[size:], featuresets[:size]
+    classifier = nltk.NaiveBayesClassifier.train(train_set)
     return nltk.NaiveBayesClassifier.train(train_set)
 
 
