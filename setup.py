@@ -52,6 +52,6 @@ setup(
     ],
 )
 
-# if 'install' in sys.argv:
-# import nltk
-# nltk.download("wordnet")
+if 'install' in sys.argv:
+    import nltk
+    nltk.download("wordnet")
