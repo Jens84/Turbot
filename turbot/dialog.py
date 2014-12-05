@@ -1,3 +1,10 @@
+
+"""Module that ?.
+
+Classes:
+Dialog
+"""
+
 from .nlp import getSubject, getObject, getVerbs
 import nltk
 import learn
@@ -8,6 +15,14 @@ import wikipedia
 
 
 class Dialog():
+    """Contains methods related to answering yes/no questions.
+
+    Functions:
+    _getPosNegScore
+    _makeYesNoAnswer
+    _getAnswerFromWikipedia
+    answer
+    """
     _posNegWords = None
     _markovChains = None
     _markov = None
