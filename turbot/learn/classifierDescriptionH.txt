@@ -12,10 +12,14 @@ How old is my teacher? | Age
 How old are you? | Age
 How old am I? | Age
 How old is her? | Age
+How old is Erica? | Age
 How old is the guy on the movie "Harry Potter"? | Age
 How old was Jude when she got pregnant? | Age
 How old was your mother when she got you? | Age
 How old can someone be to have responsibilities? | Age
+How old can a girl be to get pregnant? | Age
+How old does a man have to be able to go to the gym? | Age
+How old is a man that drinks? | Age
 How old do I have to be to get a driver's license in the USA? | Age
 How old were you when you first punched a guy? | Age
 How old do you have to be in order to be allowed to drink? | Age
@@ -41,6 +45,7 @@ Which is the best time in your life to go to college? | Age
 
 # Duration
 
+How long does my teacher jog for? | Duration
 How long does milk take to expire? | Duration
 How long does rice take to expire? | Duration
 How long do grains take to expire? | Duration
@@ -122,14 +127,18 @@ What has been the average period of time to make this task? | Duration
 What is the period of time taken to do homework? | Duration
 What is the average period of time that takes to finish a meal? | Duration
 What is the period of time that a regular person takes to get a tattoo? | Duration
+How long did Erica take to complete the task? | Duration
+
 
 # Quantity
 
+How many brains does Erica have? | Quantity
 How many cells does a dog have? | Quantity
 How many questions does it take to get an answer? | Quantity
 How many right scores do I need? | Quantity
 How many peas did you get? | Quantity
 How many bills are you keeping? | Quantity
+How many minutes can my teacher stay awake? | Quantity
 How many secrets do you keep from me? | Quantity
 How many bugs have you seen in the museum? | Quantity
 How many pictures did you take? | Quantity
@@ -137,6 +146,18 @@ How many dogs did John have? | Quantity
 How many prisoners are there in Albatroz? | Quantity
 How many owls appear in the movie? | Quantity
 How many trains is it needed to have a proper station? | Quantity
+How many hours does a person walk in Belgium? | Quantity
+How many fish do men catch in Switzerland? | Quantity
+What is the average size of beaches in Oporto? | Quantity
+How much money does a trip from Ireland to Denmark cost? | Quantity
+How much money does a chocolate bar cost? | Quantity
+How expensive is it to move from one place to another? | Quantity
+How expensive is it to go to the Moon? | Quantity
+How expensive is it to heal my scar? | Quantity
+How expensive is it to a ticket to cirque du soleil show? | Quantity
+How expensive is it to go to school? | Quantity
+
+
 How many band members does Rolling Stones have? | Quantity
 How many bottles does a bar have? | Quantity
 How many liters of water does a human being have? | Quantity
@@ -151,27 +172,49 @@ How much paper can a tree provide? | Quantity
 How much hair does an ordinary bear have? | Quantity
 What is the amount of beans in that jar? | Quantity
 What is the amount of cereal in a corn field? | Quantity
-What is the amount of seats in the car? | Quantity
-What is the amount of air inside my lungs? | Quantity
+What is the maximum amount of chocolate you can eat? | Quantity
+What is the amount of blood in my body? | Quantity
+What is the amount of screams at night? | Quantity
+What is the amount surgery a doctor can perform? | Quantity
+What is the amount exams you can take? | Quantity
+What is the amount shouts in the morning? | Quantity
 What is the number of passenger seats of the train? | Quantity
+What is the number of seats in the car? | Quantity
+What is the number of possible lightnings at the same time? | Quantity
+What is the number of practises in one week? | Quantity
 What is the maximum number of persons allowed on the elevator? | Quantity
 What is the maximum weight that the escalator supports? | Quantity
+What is the maximum weight of poop? | Quantity
 What is the average amount of energy in a star? | Quantity
+What is the average amount of water in a computer? | Quantity
 What is the average number of white globes in blood? | Quantity
+What is the average number of students that go to college? | Quantity
+What is the average number of tall people? | Quantity
+What is the average number of people in Indonesia? | Quantity
+What is the average number of dogs in Malaysia? | Quantity
+What is the average number of juice in Germany? | Quantity
 What is the number of digits on a cell phone number? | Quantity
+What is the number of legs that Nelson Mandela has? | Quantity
+What is the number of arms that Obama has? | Quantity
+What is the number of eyes that Gandhi has? | Quantity
+What is the number of heads in Denmark? | Quantity
 What is the number of tools that a box supports? | Quantity
 What is the maximum number of people inside a car? | Quantity
 What is the usual number of people on top of a skateboard? | Quantity
-What is the usual number of animals taking an exam? | Quantity
+What is the usual number of tomatoes in a package? | Quantity
+What is the usual number of strikes when you go bowling? | Quantity
+What is the usual number of tsunamis every year? | Quantity
 
 # Frequency
 
+How frequently does Erica go to the doctor? | Frequency
 How often do you go bowling? | Frequency
 How often do you stay over? | Frequency
 How often have you gone fishing? | Frequency
 How often do you use make up? | Frequency
 How regular is our practice? | Frequency
 How regular are your heartbeats? | Frequency
+How regular is my teacher in grading? | Frequency
 With which frequency does something occur in space? | Frequency
 With which frequency can you hear lightning? | Frequency
 With which frequency can you hear screams at night? | Frequency
