@@ -1,3 +1,5 @@
+Pickle Handler
+***************
 # -*- coding: utf-8 -*-
 
 """Module that handles pickle objects.

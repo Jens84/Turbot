@@ -1,3 +1,14 @@
+Turbot
+*********
+"""
+.. module:: turbot
+   :platform: Unix
+   :synopsis: A useful chatterbot.
+
+.. moduleauthor:: JBO, JES, JRG
+
+
+"""
 from .definition import Definition
 from .dialog import Dialog
 from .nlp import Classify
@@ -21,7 +32,8 @@ class Turbot():
     def __init__(self):
         """Constructor of Turbot.
            We create all objects we need (Classifiers, Definition, Dialog)
-        """
+
+	"""
         self._c = Classify()
         self._de = Definition()
         self._di = Dialog()
