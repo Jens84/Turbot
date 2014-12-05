@@ -18,15 +18,17 @@ from nltk.corpus import wordnet as wn
 
 
 def getSubject(question, ind):
-    """Return the subject of a question.
+    """ Find subject in a question.
 
     Arguments:
-    question -- string
-    ind -- 
+    question -- string where we have to look for the subject.
+    ind -- index used to know where the search has to begin
+           according to the type of question.
 
     Return values:
-    Subject of the question.
+    string subject
     """
+
     subject = ""
     qTags = tokenizeFromStanfordNLP(question)
     if qTags[ind][0].lower() == 'you':
@@ -51,27 +53,27 @@ def getSubject(question, ind):
 
 
 def getObject(question, subject, verbs, isYesNoQuestion):
-    """Return the .
+    """ Find object in a question.
 
     Arguments:
-    question -- 
-    subject -- 
-    verbs -- 
-    isYesNoQuestion -- 
+    question -- string where we have to look for the subject.
+    subject -- string subject already found in the question.
+    verbs -- list verbs already found in the question.
+    isYesNoQuestion -- boolean to know what type of question it is.
 
     Return values:
-    ?
+    string object
     """
     object = ""
     qTags = tokenizeFromStanfordNLP(question)
-    # print qTags
     # Find the sentence's object
     for word, tag in qTags:
-        # This is the subject
+        # This is the subject or verbs
         if(word in subject.replace(" ", "") or
            word in verbs or
            word.lower() in ["does", "do"]):
             continue
+        # Change object according to subject
         if (word == "you" and subject == "I "or
            word == "I" and subject == "you ") and isYesNoQuestion:
             continue
@@ -88,19 +90,21 @@ def getObject(question, subject, verbs, isYesNoQuestion):
 
 
 def getVerbs(question, subject):
-    """Return the verbs of a question.
+    """ Find verbs in a question.
 
     Arguments:
-    question -- 
-    subject -- 
+    question -- string where we have to look for the subject.
+    subject -- string subject already found in the question.
 
     Return values:
-    ?
+    list verbs
     """
     qTags = tokenizeFromStanfordNLP(question)
+    # Get all verbs
     verbs = [word for word, tag in qTags
              if (tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD'] and
                  word != subject.replace(' ', ''))]
+    # Change verb according to suject
     if verbs[0].lower() == 'are' and subject == 'I ':
         verbs[0] = 'am'
     elif verbs[0].lower() == 'am' and subject == 'you ':
@@ -113,10 +117,20 @@ def getVerbs(question, subject):
 
 
 def tokenizeFromStanfordNLP(sentence):
+    """Tokenize a string from Stanford NLP.
+
+    Arguments:
+    sentence -- string to tokenize.
+
+    Return values:
+    list tags
+    """
+    # Request to the web service of Stanford
     params = urllib.urlencode({'query': sentence})
     req = urllib2.Request("http://nlp.stanford.edu:8080/parser/index.jsp")
     response = urllib2.urlopen(req, params).read()
     soup = bs4.BeautifulSoup(response)
+    # Parse the HTML page to get the result
     parsed = soup.find('h3', text='Tagging').find_next('div')
     sTags = []
     for d in parsed.find_all('div'):
@@ -126,7 +140,14 @@ def tokenizeFromStanfordNLP(sentence):
 
 
 def nounify(verb_word):
-    """ Transform a verb to the closest noun: die -> death. """
+    """ Transform a verb to the closest noun.
+
+    Arguments:
+    verb_word -- verb used to find the closest noun.
+
+    Return values:
+    string noun
+    """
     verb_synsets = wn.synsets(verb_word, pos="v")
 
     # Word not found
@@ -165,13 +186,13 @@ def nounify(verb_word):
 class Classify():
     """Contains methods to classify sentences.
 
-    Functions:
-    classifyTypeQuestion -- return question's general label
-    classifyWhType -- classify whQuestion
-    classifyWhQuestion -- return sublabel of label whQuestion
-    classifyDescOtherQ -- return sublabel of label DescriptionOther
-    classifyDescHQ -- return sublabel of label DescriptionH
-    classifyDescWhQ -- return sublabel of label DescriptionWh
+    Attributes:
+    _classifierTypeQ -- first level of classification : what, yes/no, statement
+    _classifierWhQ -- second level of classification in wh question
+    _classifierDescOtherQ -- classification of (Dimension, Look and Shape)
+    _classifierDescHQ -- classification of (Age, Duration, Quantity, Frequency)
+    _classifierDescWhQ -- classification of
+                          (Composition, Meaning, Abbreviation)
     """
     _classifierTypeQ = None
     _classifierWhQ = None
@@ -180,6 +201,8 @@ class Classify():
     _classifierDescWhQ = None
 
     def __init__(self):
+        """Loading every pkl objects of each classifier.
+        """
         self._posNegWords = learn.pickleHandler.load_object('posNegWords.pkl')
         # load classifiers from pickle files
         self._classifierTypeQ = (learn.pickleHandler.
@@ -194,12 +217,15 @@ class Classify():
                                    load_object('classifierDescWhQ.pkl'))
 
     def classifyTypeQuestion(self, question):
-        """Return the general type of the questquestion
+        """Return the general type of the questquestion.
+        
+        First level of classification.
+        
         Arguments:
-        question -- string
-    
+        question -- question to classify
+
         Return values:
-        String with question label.
+        classifier question type
         """
         return self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
@@ -231,44 +257,56 @@ class Classify():
 
     def classifyWhType(self, question):
         """Return the question sublabel of question of type whQuestion.
+        
+        Second level of classification.
+        
         Arguments:
-        question -- string
-    
+        question -- question to classify
+
         Return values:
-        String with question label.
+        classifier what type
         """
         return self._classifierWhQ.classify(
             learn.dialog.dialogue_act_features(question))
 
     def classifyDescOtherQ(self, question):
         """Return the question sublabel of question of type DescriptionOther.
+
+        Second level of classification.
+
         Arguments:
-        question -- string
-    
+        question -- question to classify
+
         Return values:
-        String with question label.
+        (Dimension, LookandShape)
         """
         return self._classifierDescOtherQ.classify(
             learn.dialog.dialogue_act_features(question))
 
     def classifyDescHQ(self, question):
         """Return the question sublabel of question of type DescriptionH.
+
+        Second level of classification.
+
         Arguments:
-        question -- string
-    
+        question -- question to classify
+
         Return values:
-        String with question label.
+        (Age, Duration, Quantity, Frequency)
         """
         return self._classifierDescHQ.classify(
             learn.dialog.dialogue_act_features(question))
 
     def classifyDescWhQ(self, question):
         """Return the question sublabel of question of type DescriptionWh.
+
+        Second level of classification.
+
         Arguments:
-        question -- string
-    
+        question -- question to classify
+
         Return values:
-        String with question label.
+        (Composition, Meaning, Abbreviation)
         """
         return self._classifierDescWhQ.classify(
             learn.dialog.dialogue_act_features(question))
