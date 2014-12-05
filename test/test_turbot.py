@@ -48,68 +48,86 @@ def test_whYesNo_wikipedia():
     assert(d.answer("Is London in United Kingdom?")
            == "Yes, London is in United Kingdom.")
 
-'''
+
 def test_trainWhQuestion1():
-    d = turbot.Dialog()
-    assert(d.("When was the ww2?")
-           == "This question is of type wh and its category is: Time")
-    assert(d.answer("When was the the world trade center bombed?")
-           == "This question is of type wh and its category is: Time")
-    assert(d.answer("Where is Wally?")
-           == "This question is of type wh and its category is: Place")
-    assert(d.answer("Where was the first concert of U2?")
-           == "This question is of type wh and its category is: Place")
+    classifier = turbot.learn.pickleHandler.load_object('classifierWhQ.pkl')
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features("When was the ww2?"))
+        == "TimeWhen")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "When was the the world trade center bombed?")) == "TimeWhen")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "In what day was Justin Bieber born?")) == "TimeWhat")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "Where is Wally?")) == "Place")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "Where was James Bond born?")) == "Place")
 
 
 def test_trainWhQuestion2():
-    d = turbot.Dialog()
-    assert(d.answer("Who was the first singer of the Abba band?")
-           == "This question is of type wh and its category is: Entity")
-    assert(d.answer("Who was the first king of spain?")
-           == "This question is of type wh and its category is: Entity")
-    assert(d.answer("Why did my girlfriend leave me?")
-           == "This question is of type wh and its category is: Reason")
-    assert(d.answer("Why am I sad?")
-           == "This question is of type wh and its category is: Reason")
+    classifier = turbot.learn.pickleHandler.load_object('classifierWhQ.pkl')
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "Who was the first singer of the Abba band?")) == "Entity")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "Who is the king of spain?")) == "Entity")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "Why did my girlfriend leave me?")) == "Reason")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "Why am I sad?")) == "Reason")
 
 
 def test_trainWhQuestion3():
-    d = turbot.Dialog()
-    assert(d.answer("How do you go to the Zoo?")
-           == "This question is of type wh and its category is: Manner")
-    assert(d.answer("How should I go from the Arctic to Greenland?")
-           == "This question is of type wh and its category is: Manner")
-    assert(d.answer("What are cars made of?")
-           == "This question is of type wh and its category is: DescriptionWh")
-    assert(d.answer("What is the paint of my bag made of?")
-           == "This question is of type wh and its category is: DescriptionWh")
+    classifier = turbot.learn.pickleHandler.load_object('classifierWhQ.pkl')
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "How do you go to the Zoo?")) == "Manner")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "How should I go from the Arctic to Greenland?")) == "Manner")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "What are helicopters made of?")) == "DescriptionWh")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "What is the paint of my bag made of?")) == "DescriptionWh")
 
 
 def test_trainWhQuestion4():
-    d = turbot.Dialog()
-    assert(d.answer("What does selfish mean?")
-           == "This question is of type wh and its category is: DescriptionWh")
-    assert(d.answer("What is the meaning of toothbrush?")
-           == "This question is of type wh and its category is: DescriptionWh")
-    assert(d.answer("What does I.S.N. stand for?")
-           == "This question is of type wh and its category is: DescriptionWh")
-    assert(d.answer(
-           """How old do I have to be to get a
-           driver's license in the Portugal?""")
-           == "This question is of type wh and its category is: DescriptionH")
+    classifier = turbot.learn.pickleHandler.load_object('classifierWhQ.pkl')
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "What does selfish mean?")) == "DescriptionWh")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "What is the meaning of toothbrush?")) == "DescriptionWh")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "What does I.S.N. stand for?")) == "DescriptionWh")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "How old is Bjorn?")) == "DescriptionH")
 
 
 def test_trainWhQuestion5():
-    d = turbot.Dialog()
-    assert(d.answer("How much hair does an ordinary bear have?")
-           == "This question is of type wh and its category is: DescriptionH")
-    assert(d.answer("What does a jew look like?")
-           == """This question is of type wh and its category
-                 is: DescriptionOther""")
-    assert(d.answer("What is a dragon like?")
-           == """This question is of type wh and its category
-                 is: DescriptionOther""")
-    assert(d.answer("What is the form of a chain?")
-           == """"This question is of type wh and its category
-                  is: DescriptionOther""")
-'''
+    classifier = turbot.learn.pickleHandler.load_object('classifierWhQ.pkl')
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "How much hair does an ordinary bear have?"))
+           == "DescriptionH")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "What does a jew look like?")) == "DescriptionOther")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "What is a dragon like?")) == "DescriptionOther")
+    assert(classifier.classify(
+        turbot.learn.dialog.dialogue_act_features(
+            "What is the form of a chain?")) == "DescriptionOther")
