@@ -3,18 +3,15 @@ from django.shortcuts import render
 from basic_forms.models import Question
 from basic_forms.models import QuestionForm
 
-import turbot
+from turbot import Turbot
 
 
 class MainView():
-    _dialog = None
-    _definition = None
+    _turbot = None
 
     def __init__(self):
-        if not self._dialog:
-            self._dialog = turbot.Dialog()
-        if not self._definition:
-            self._definition = turbot.Definition()
+        if not self._turbot:
+            self._turbot = Turbot()
 
     def index(self, request):
         answer = ""
@@ -24,7 +21,7 @@ class MainView():
                 q.save()
 
             last = Question.objects.latest('id')
-            answer = self._dialog.answer(last.content)
+            answer = self._turbot.answer(last.content)
 
         try:
             last_question = Question.objects.latest('id')

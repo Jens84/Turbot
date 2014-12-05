@@ -7,29 +7,33 @@ __author__ = 'JBO, JES, JRG'
 __author_email__ = 'jeremy.rombourg@gmail.com'
 
 
-def answer(sentence):
-    # Classify general type of the question
-    c = Classify()
-    qType = sentenceType(sentence, c)
+class Turbot():
+    _c = None
+    _de = None
+    _di = None
 
-    if qType == "whQuestion":
-        whAnswerType = questionType(sentence, c)
-        d = Definition()
-        return d.answer(sentence, whAnswerType)
-    else:
-        d = Dialog()
-        return d.answer(sentence, qType)
+    def __init__(self):
+        self._c = Classify()
+        self._de = Definition()
+        self._di = Dialog()
 
+    def answer(self, sentence):
+        # Classify general type of the question
+        qType = self.sentenceType(sentence)
 
-def sentenceType(sentence, c=None):
-    if c is None:
-        c = Classify()
-    qType = c.classifyTypeQuestion(sentence)
-    return qType
+        if qType == "whQuestion":
+            whAnswerType = self.questionType(sentence)
+            return self._de.answer(sentence, whAnswerType)
+        else:
+            return self._di.answer(sentence, qType)
 
+    def sentenceType(self, sentence):
+        qType = self._c.classifyTypeQuestion(sentence)
+        return qType
 
-def questionType(question, c=None):
-    if c is None:
-        c = Classify()
-    whAnswerType = c.classifyWhQuestion(question)
-    return whAnswerType
+    def questionType(self, question):
+        whAnswerType = self._c.classifyWhQuestion(question)
+        return whAnswerType
+
+    def getClassifier(self):
+        return self._c

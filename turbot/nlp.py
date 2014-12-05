@@ -124,9 +124,9 @@ def nounify(verb_word):
 class Classify():
     _classifierTypeQ = None
     _classifierWhQ = None
-    _classifierDescDescOtherQ = None
-    _classifierDescDescHQ = None
-    _classifierDescDescWhQ = None
+    _classifierDescOtherQ = None
+    _classifierDescHQ = None
+    _classifierDescWhQ = None
 
     def __init__(self):
         self._posNegWords = learn.pickleHandler.load_object('posNegWords.pkl')
@@ -161,18 +161,28 @@ class Classify():
         "Quantity", "Frequency", "Dimension", "LookAndShape"
         """
         # Classify the subtype of the "wh" Question
-        whType = self._classifierWhQ.classify(
-            learn.dialog.dialogue_act_features(question))
+        whType = self.classifyWhType(question)
+
         if whType == "DescriptionOther":
-            descriptionType = self._classifierDescOtherQ.classify(
-                learn.dialog.dialogue_act_features(question))
-            return descriptionType
+            return self.classifyDescOtherQ(question)
         if whType == "DescriptionH":
-            descriptionType = self._classifierDescHQ.classify(
-                learn.dialog.dialogue_act_features(question))
-            return descriptionType
+            return self.classifyDescHQ(question)
         if whType == "DescriptionWh":
-            descriptionType = self._classifierDescWhQ.classify(
-                learn.dialog.dialogue_act_features(question))
-            return descriptionType
+            return self.classifyDescWhQ(question)
         return whType
+
+    def classifyWhType(self, question):
+        return self._classifierWhQ.classify(
+            learn.dialog.dialogue_act_features(question))
+
+    def classifyDescOtherQ(self, question):
+        return self._classifierDescOtherQ.classify(
+            learn.dialog.dialogue_act_features(question))
+
+    def classifyDescHQ(self, question):
+        return self._classifierDescHQ.classify(
+            learn.dialog.dialogue_act_features(question))
+
+    def classifyDescWhQ(self, question):
+        return self._classifierDescWhQ.classify(
+            learn.dialog.dialogue_act_features(question))

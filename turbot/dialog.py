@@ -1,7 +1,7 @@
 from .nlp import getSubject, getObject, getVerbs
 import nltk
 import learn
-import markov
+from learn import markov
 import re
 import en
 import wikipedia
