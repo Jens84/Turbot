@@ -4,3 +4,5 @@ dist/
 .DS_Store
 *.egg-info
 web/turbot.db
+web/basic_forms/migrations/*
+.cache/*
