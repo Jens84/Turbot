@@ -1,5 +1,3 @@
-Turbot
-*********
 """
 .. module:: turbot
    :platform: Unix
@@ -33,7 +31,7 @@ class Turbot():
         """Constructor of Turbot.
            We create all objects we need (Classifiers, Definition, Dialog)
 
-	"""
+        """
         self._c = Classify()
         self._de = Definition()
         self._di = Dialog()

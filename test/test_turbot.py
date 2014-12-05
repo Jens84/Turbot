@@ -168,13 +168,13 @@ class TurbotTest(unittest.TestCase):
 
     def test_whatQuestion(self):
         assert(self._t.answer("What color is tomato?")
-               == """The tomato plant itself is green. The fruit
-                     of most tomato varieties starts out green in
-                     color and matures to some shade of red, or
-                     pinkish-red. Some varieties, though, ripen
-                     to yellow and some to a deep burgundy color.""")
+               == "The tomato plant itself is green. The fruit ",
+               "of most tomato varieties starts out green in ",
+               "color and matures to some shade of red, or ",
+               "pinkish-red. Some varieties, though, ripen ",
+               "to yellow and some to a deep burgundy color.")
         assert(self._t.answer("What is the capital of France?")
-               == "The capital of France is Paris.")
+               == "The capital of France is  Paris.")
 
     def test_whereQuestion(self):
         assert(self._t.answer("Where is the England?")

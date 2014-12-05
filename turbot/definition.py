@@ -1,5 +1,3 @@
-Definition
-***********
 from .nlp import tokenizeFromStanfordNLP, nounify
 import difflib
 import operator
@@ -12,8 +10,26 @@ import bs4
 from nltk import wordnet as wn
 from SPARQLWrapper import SPARQLWrapper, JSON
 
+"""Module that ?.
+
+Classes:
+Definition -- ?.
+"""
+
 
 class Definition():
+    """Contains methods related to ?.
+
+    Functions:
+    _getKeywordsFromQuestionType -- return keywords related to question type.
+    _getConcatenationCombinations -- return combinations of words
+    _getOverlappingProperty -- return perfect property match
+    _getPropertyName -- return property name that is the best match
+    _getSimpleWords -- return compounds split into smaller words
+    _getSynonyms -- return synonyms of words
+    _questionToAssertion -- ?
+    answer --
+    """
     _sentence = None
     _sTags = []
 
@@ -444,20 +460,12 @@ class Definition():
                 answer + " ".join(cmpl)) + "."
 
     def answer(self, sentence, whType):
-        # print "Temp: Type of this question: ", whType, " <<<\n"
 
         # Word tokenizer using Stanford NLP Parser (better than NLTK)
         self._sTags = tokenizeFromStanfordNLP(sentence)
-        # print self._sTags
 
         # Get the object and verb of the sentence
         obj = ' '.join([w[0] for w in self._sTags if 'NNP' in w[1]])
-
-        # print "Temp: >Object of sentence: ", obj
-
-        # temporary code
-        # if obj == []:
-        # print "Temp: For now, I only answer stuff about known people."
 
         vb = None
         for w, t in self._sTags:
@@ -466,7 +474,6 @@ class Definition():
             elif t == 'VB':
                 vb = w
                 break
-        # print vb
 
         if vb is not None:
             # verb 's is considered to be is
