@@ -6,3 +6,4 @@ dist/
 web/turbot.db
 web/basic_forms/migrations/*
 .cache/*
+.coverage

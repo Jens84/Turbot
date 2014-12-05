@@ -174,6 +174,14 @@ def trainWhQuestion(mode):
 
 
 def getPosNegWords():
+    """Return a dictionary with each word and his happiness score.
+
+    Arguments:
+    -
+
+    Return values:
+    dictionary of words
+    """
     current_dir = os.getcwd()
 
     words = dict()

@@ -46,16 +46,6 @@ class TurbotTest(unittest.TestCase):
         assert(self._t.answer("Is London in United Kingdom?")
                == "Yes, London is in United Kingdom.")
 
-    def test_whYesNo_wikipedia(self):
-        assert(self._t.answer("Is Merkel a singer?")
-               == "No, Merkel is not a singer.")
-        assert(self._t.answer("Is Obama the president?")
-               == "Yes, Obama is the president.")
-        assert(self._t.answer("Is Paris in France?")
-               == "Yes, Paris is in France.")
-        assert(self._t.answer("Is London in United Kingdom?")
-               == "Yes, London is in United Kingdom.")
-
     def test_trainTypeQuestion1(self):
         assert(self._t.sentenceType("Do blue apples exist?")
                == "ynQuestion")
@@ -165,3 +155,27 @@ class TurbotTest(unittest.TestCase):
                == "LookAndShape")
         assert(self._c.classifyDescOtherQ("How does she look?")
                == "LookAndShape")
+
+    def test_whoQuestion(self):
+        assert(self._t.answer("Who is Obama?")
+               == "Obama is a Illinois.")
+
+    def test_whenQuestion(self):
+        assert(self._t.answer("When did Picasso die?")
+               == "Picasso died on the 1973-04-08+02:00.")
+        assert(self._t.answer("When was Claude Monet born?")
+               == "Claude Monet was born on the 1840-11-14+02:00.")
+
+    def test_whatQuestion(self):
+        assert(self._t.answer("What color is tomato?")
+               == "The tomato plant itself is green. The fruit ",
+               "of most tomato varieties starts out green in ",
+               "color and matures to some shade of red, or ",
+               "pinkish-red. Some varieties, though, ripen ",
+               "to yellow and some to a deep burgundy color.")
+        assert(self._t.answer("What is the capital of France?")
+               == "The capital of France is  Paris.")
+
+    def test_whereQuestion(self):
+        assert(self._t.answer("Where is the England?")
+               == "The England is in 51.5 -0.11666666666666667.")
