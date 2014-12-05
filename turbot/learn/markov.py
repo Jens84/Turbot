@@ -52,8 +52,10 @@ class Markov():
             self._markovChains = markovChains
             return
 
-        current_dir = os.getcwd()
-        for file in glob.glob(current_dir + '/book_*.txt'):
+        __location__ = os.path.realpath(
+            os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
+        for file in glob.glob(__location__ + '/book_*.txt'):
             with open(file, 'r') as f:
                 data = " ".join(f.read().splitlines())
                 for sentence in re.split(r"[!?\.]+", data):

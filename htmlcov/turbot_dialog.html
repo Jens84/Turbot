@@ -5,7 +5,7 @@
     
     
     <meta http-equiv='X-UA-Compatible' content='IE=emulateIE7' />
-    <title>Coverage for turbot/dialog: 87%</title>
+    <title>Coverage for turbot/dialog: 94%</title>
     <link rel='stylesheet' href='style.css' type='text/css'>
     
     <script type='text/javascript' src='jquery.min.js'></script>
@@ -21,13 +21,13 @@
 <div id='header'>
     <div class='content'>
         <h1>Coverage for <b>turbot/dialog</b> :
-            <span class='pc_cov'>87%</span>
+            <span class='pc_cov'>94%</span>
         </h1>
         <img id='keyboard_icon' src='keybd_closed.png'>
         <h2 class='stats'>
             86 statements &nbsp;
-            <span class='run hide_run shortkey_r button_toggle_run'>75 run</span>
-            <span class='mis shortkey_m button_toggle_mis'>11 missing</span>
+            <span class='run hide_run shortkey_r button_toggle_run'>81 run</span>
+            <span class='mis shortkey_m button_toggle_mis'>5 missing</span>
             <span class='exc shortkey_x button_toggle_exc'>0 excluded</span>
             
         </h2>
@@ -240,17 +240,17 @@
 <p id='n177' class='pln'><a href='#n177'>177</a></p>
 <p id='n178' class='stm run hide_run'><a href='#n178'>178</a></p>
 <p id='n179' class='pln'><a href='#n179'>179</a></p>
-<p id='n180' class='stm mis'><a href='#n180'>180</a></p>
+<p id='n180' class='stm run hide_run'><a href='#n180'>180</a></p>
 <p id='n181' class='pln'><a href='#n181'>181</a></p>
-<p id='n182' class='stm mis'><a href='#n182'>182</a></p>
-<p id='n183' class='stm mis'><a href='#n183'>183</a></p>
+<p id='n182' class='stm run hide_run'><a href='#n182'>182</a></p>
+<p id='n183' class='stm run hide_run'><a href='#n183'>183</a></p>
 <p id='n184' class='pln'><a href='#n184'>184</a></p>
 <p id='n185' class='stm mis'><a href='#n185'>185</a></p>
-<p id='n186' class='stm mis'><a href='#n186'>186</a></p>
-<p id='n187' class='stm mis'><a href='#n187'>187</a></p>
+<p id='n186' class='stm run hide_run'><a href='#n186'>186</a></p>
+<p id='n187' class='stm run hide_run'><a href='#n187'>187</a></p>
 <p id='n188' class='pln'><a href='#n188'>188</a></p>
 <p id='n189' class='pln'><a href='#n189'>189</a></p>
-<p id='n190' class='stm mis'><a href='#n190'>190</a></p>
+<p id='n190' class='stm run hide_run'><a href='#n190'>190</a></p>
 <p id='n191' class='pln'><a href='#n191'>191</a></p>
 <p id='n192' class='pln'><a href='#n192'>192</a></p>
 <p id='n193' class='stm mis'><a href='#n193'>193</a></p>
@@ -436,17 +436,17 @@
 <p id='t177' class='pln'><span class='strut'>&nbsp;</span></p>
 <p id='t178' class='stm run hide_run'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='key'>return</span> <span class='nam'>self</span><span class='op'>.</span><span class='nam'>_makeYesNoAnswer</span><span class='op'>(</span><span class='nam'>subject</span><span class='op'>,</span> <span class='nam'>verbs</span><span class='op'>,</span> <span class='nam'>object</span><span class='op'>,</span> <span class='nam'>score</span><span class='op'>,</span> <span class='nam'>ans</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
 <p id='t179' class='pln'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='com'># Statement or Emphasis</span><span class='strut'>&nbsp;</span></p>
-<p id='t180' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='key'>elif</span> <span class='nam'>type</span> <span class='op'>==</span> <span class='str'>&quot;Statement&quot;</span> <span class='key'>or</span> <span class='nam'>type</span> <span class='op'>==</span> <span class='str'>&quot;Emphasis&quot;</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
+<p id='t180' class='stm run hide_run'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='key'>elif</span> <span class='nam'>type</span> <span class='op'>==</span> <span class='str'>&quot;Statement&quot;</span> <span class='key'>or</span> <span class='nam'>type</span> <span class='op'>==</span> <span class='str'>&quot;Emphasis&quot;</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
 <p id='t181' class='pln'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='com'># Get subject, verbs and object</span><span class='strut'>&nbsp;</span></p>
-<p id='t182' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='key'>if</span> <span class='nam'>s</span><span class='op'>.</span><span class='nam'>split</span><span class='op'>(</span><span class='op'>)</span><span class='op'>[</span><span class='num'>0</span><span class='op'>]</span><span class='op'>.</span><span class='nam'>lower</span><span class='op'>(</span><span class='op'>)</span> <span class='key'>in</span> <span class='op'>[</span><span class='str'>&quot;i&quot;</span><span class='op'>]</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
-<p id='t183' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>subject</span> <span class='op'>=</span> <span class='nam'>s</span><span class='op'>.</span><span class='nam'>split</span><span class='op'>(</span><span class='op'>)</span><span class='op'>[</span><span class='num'>0</span><span class='op'>]</span> <span class='op'>+</span> <span class='str'>&quot; &quot;</span><span class='strut'>&nbsp;</span></p>
+<p id='t182' class='stm run hide_run'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='key'>if</span> <span class='nam'>s</span><span class='op'>.</span><span class='nam'>split</span><span class='op'>(</span><span class='op'>)</span><span class='op'>[</span><span class='num'>0</span><span class='op'>]</span><span class='op'>.</span><span class='nam'>lower</span><span class='op'>(</span><span class='op'>)</span> <span class='key'>in</span> <span class='op'>[</span><span class='str'>&quot;i&quot;</span><span class='op'>]</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
+<p id='t183' class='stm run hide_run'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>subject</span> <span class='op'>=</span> <span class='nam'>s</span><span class='op'>.</span><span class='nam'>split</span><span class='op'>(</span><span class='op'>)</span><span class='op'>[</span><span class='num'>0</span><span class='op'>]</span> <span class='op'>+</span> <span class='str'>&quot; &quot;</span><span class='strut'>&nbsp;</span></p>
 <p id='t184' class='pln'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='key'>else</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
 <p id='t185' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>subject</span> <span class='op'>=</span> <span class='nam'>getSubject</span><span class='op'>(</span><span class='nam'>s</span><span class='op'>,</span> <span class='num'>0</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
-<p id='t186' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>verbs</span> <span class='op'>=</span> <span class='nam'>getVerbs</span><span class='op'>(</span><span class='nam'>s</span><span class='op'>,</span> <span class='nam'>subject</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
-<p id='t187' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>object</span> <span class='op'>=</span> <span class='nam'>getObject</span><span class='op'>(</span><span class='nam'>s</span><span class='op'>,</span> <span class='nam'>subject</span><span class='op'>,</span> <span class='nam'>verbs</span><span class='op'>,</span> <span class='nam'>False</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t186' class='stm run hide_run'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>verbs</span> <span class='op'>=</span> <span class='nam'>getVerbs</span><span class='op'>(</span><span class='nam'>s</span><span class='op'>,</span> <span class='nam'>subject</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t187' class='stm run hide_run'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>object</span> <span class='op'>=</span> <span class='nam'>getObject</span><span class='op'>(</span><span class='nam'>s</span><span class='op'>,</span> <span class='nam'>subject</span><span class='op'>,</span> <span class='nam'>verbs</span><span class='op'>,</span> <span class='nam'>False</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
 <p id='t188' class='pln'><span class='strut'>&nbsp;</span></p>
 <p id='t189' class='pln'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='com'># Build a markov sentence based on subject, verbs, object</span><span class='strut'>&nbsp;</span></p>
-<p id='t190' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='key'>return</span> <span class='nam'>self</span><span class='op'>.</span><span class='nam'>_markov</span><span class='op'>.</span><span class='nam'>output</span><span class='op'>(</span><span class='nam'>subject</span><span class='op'>,</span> <span class='nam'>verbs</span><span class='op'>,</span> <span class='nam'>object</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t190' class='stm run hide_run'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='key'>return</span> <span class='nam'>self</span><span class='op'>.</span><span class='nam'>_markov</span><span class='op'>.</span><span class='nam'>output</span><span class='op'>(</span><span class='nam'>subject</span><span class='op'>,</span> <span class='nam'>verbs</span><span class='op'>,</span> <span class='nam'>object</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
 <p id='t191' class='pln'><span class='strut'>&nbsp;</span></p>
 <p id='t192' class='pln'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='key'>else</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
 <p id='t193' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class='key'>return</span> <span class='str'>&quot;I don&#39;t know what you mean.&quot;</span><span class='strut'>&nbsp;</span></p>
