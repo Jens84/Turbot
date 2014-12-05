@@ -1,3 +1,10 @@
+
+"""Module that ?.
+
+Classes:
+Definition -- ?.
+"""
+
 from .nlp import tokenizeFromStanfordNLP, nounify
 import difflib
 import operator
@@ -10,14 +17,9 @@ import bs4
 from nltk import wordnet as wn
 from SPARQLWrapper import SPARQLWrapper, JSON
 
-"""Module that ?.
-
-Classes:
-Definition -- ?.
-"""
-
 
 class Definition():
+
     """Contains methods related to ?.
 
     Functions:
@@ -30,6 +32,7 @@ class Definition():
     _questionToAssertion -- ?
     answer --
     """
+
     _sentence = None
     _sTags = []
 

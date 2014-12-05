@@ -1,8 +1,3 @@
-from random import randrange
-from random import choice
-import glob
-import os
-import re
 
 """Module that generate Markov chains.
 
@@ -16,6 +11,12 @@ input -- add an input in Markov Chains (in order to train)
 output -- get a generated sentence from Markov Chains
 getMarkov -- return the Markov Chains object
 """
+
+from random import randrange
+from random import choice
+import glob
+import os
+import re
 
 
 class Markov():
