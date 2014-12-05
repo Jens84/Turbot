@@ -61,7 +61,7 @@ class Markov():
                 data = " ".join(f.read().splitlines())
                 for sentence in re.split(r"[!?\.]+", data):
                     self.input_sentence(sentence.lstrip()
-                               .replace("\"", "").replace("'", ""))
+                                        .replace("\"", "").replace("'", ""))
 
     def _splitSentence(self, sentence):
         """Split a sentence in a Markov chain based on _chainLength attribute.
