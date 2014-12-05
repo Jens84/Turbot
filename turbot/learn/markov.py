@@ -1,8 +1,3 @@
-from random import randrange
-from random import choice
-import glob
-import os
-import re
 
 """Module that generate Markov chains.
 
@@ -17,22 +12,42 @@ output -- get a generated sentence from Markov Chains
 getMarkov -- return the Markov Chains object
 """
 
+from random import randrange
+from random import choice
+import glob
+import os
+import re
+
 
 class Markov():
-    """
+
+    """ Class that handles Markov Chains.
+
     Attributes:
     _chainLength -- length of a chain (number of words)
                     in Markov implementation.
     _stopWord -- special character in order to separate two words.
     _markovChains -- Markov chains object where we store each input.
+
+    Functions:
+    _splitSentence
+    _putIntoDictionary
+    _getMessage
+    _getNextKey
+    _getInitKey
+    input ------------ > cannot be input
+    output
+    getMarkov
     """
+
     _chainLength = 2
     _stopWord = '\x03'
     _markovChains = {}
 
     def __init__(self, markovChains={}):
-        """Constructor of Markov Chains.
-           We enrich them thanks to books dataset.
+        """ Constructor of Markov Chains.
+
+        We enrich them thanks to books dataset.
         """
         if markovChains:
             self._markovChains = markovChains
@@ -140,6 +155,7 @@ class Markov():
             (w1, w2) = choice(self._markovChains.keys())
         return (w1, w2)
 
+    # TODO change name of function. Can't be input
     def input(self, sentence):
         """Add a sentence in Markov chains.
 
