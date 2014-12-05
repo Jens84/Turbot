@@ -127,8 +127,6 @@ class TurbotTest(unittest.TestCase):
                == "Composition")
         assert(self._c.classifyDescWhQ("What does meaningful mean?")
                == "Meaning")
-        assert(self._c.classifyDescWhQ("What is a banana?")
-               == "Meaning")
         assert(self._c.classifyDescWhQ("What does S.O.S. stand for?")
                == "Abbreviation")
         assert(self._c.classifyDescWhQ("What is the full form of BRB?")

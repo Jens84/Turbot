@@ -82,4 +82,5 @@ def update_classifiers():
     save_object(posNegWords, 'posNegWords.pkl')
 
 # Call function update_classifiers to update the classifier files
-# update_classifiers()
+# Comment this line once the classifiers generation is done to gain performance
+update_classifiers()
