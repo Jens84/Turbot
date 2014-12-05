@@ -27,6 +27,7 @@ How old is your brother? | Age
 How many years have you lived? | Age
 How long have you lived? | Age
 When is your birthday? | Age
+When is my birthday? | Age
 In which day were you born? | Age
 
 Which is the best age to move out? | Age
