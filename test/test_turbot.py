@@ -5,12 +5,17 @@ import pytest
 
 class TurbotTest(unittest.TestCase):
     _d = None
+    _classifierType = None
     _classifierWh = None
     _classifierDescriptionWh = None
+    _classifierDescriptionH = None
+    _classifierDescriptionOther = None
 
     @pytest.fixture(autouse=True)
     def init(self):
         self._d = turbot.Dialog()
+        self._classifierType = (turbot.learn.pickleHandler.
+                                load_object('classifierTypeQ.pkl'))
         self._classifierWh = (turbot.learn.pickleHandler.
                               load_object('classifierWhQ.pkl'))
         self._classifierDescriptionWh = (turbot.learn.pickleHandler.
@@ -64,6 +69,34 @@ class TurbotTest(unittest.TestCase):
                == "Yes, Paris is in France.")
         assert(self._d.answer("Is London in United Kingdom?")
                == "Yes, London is in United Kingdom.")
+
+    def test_trainTypeQuestion1(self):
+        assert(self._classifierType.classify(
+            turbot.learn.dialog.dialogue_act_features("Do blue apples exist?"))
+            == "ynQuestion")
+        assert(self._classifierType.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "Hello")) == "Greet")
+        assert(self._classifierType.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "You shall die!")) == "Emphasis")
+        assert(self._classifierType.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "What do you mean by SOS?")) == "whQuestion")
+        assert(self._classifierType.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "What is the color of your shoes?")) == "whQuestion")
+
+    def test_trainTypeQuestion2(self):
+        assert(self._classifierType.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "Do you want suggar in your coffee?")) == "ynQuestion")
+        assert(self._classifierType.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "In which country was Obama born?")) == "whQuestion")
+        assert(self._classifierType.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "How long is the train ride?")) == "whQuestion")
 
     def test_trainWhQuestion1(self):
         assert(self._classifierWh.classify(
