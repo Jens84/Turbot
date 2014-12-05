@@ -1,11 +1,9 @@
-"""
-.. module:: turbot
-   :platform: Unix
-   :synopsis: A useful chatterbot.
+""" Module that wraps the main classes of the project.
 
-.. moduleauthor:: JBO, JES, JRG
+This class contains the entry points for the bot itself.
 
-
+Classes:
+Turbot
 """
 
 from .definition import Definition

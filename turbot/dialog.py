@@ -1,5 +1,5 @@
 
-"""Module that ?.
+""" Script that manages dialog question.
 
 Classes:
 Dialog

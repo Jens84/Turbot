@@ -1,14 +1,14 @@
-"""Module that ????.
+""" Script to handle Natural Language Processing.
 
 Classes:
 Classify -- Contains methods to classify sentences.
 
 Functions:
-getSubject -- ?
-getObject -- ?
-getVerbs -- ?
-nounify -- ?
-tokenizeFromStanfordNLP -- ?
+getSubject
+getObject
+getVerbs
+nounify
+tokenizeFromStanfordNLP
 """
 
 import learn
