@@ -46,6 +46,10 @@ class TurbotTest(unittest.TestCase):
         assert(self._t.answer("Is London in United Kingdom?")
                == "Yes, London is in United Kingdom.")
 
+    def test_Markov(self):
+        answer1 = self._t.answer("I love you")
+        assert("I" in answer1 and "love" in answer1)
+
     def test_trainTypeQuestion1(self):
         assert(self._t.sentenceType("Do blue apples exist?")
                == "ynQuestion")
@@ -165,6 +169,8 @@ class TurbotTest(unittest.TestCase):
                == "Picasso died on the 1973-04-08+02:00.")
         assert(self._t.answer("When was Claude Monet born?")
                == "Claude Monet was born on the 1840-11-14+02:00.")
+        assert(self._t.answer("At what time was Claude Monet born?")
+               == "Claude Monet was born  1840-11-14+02:00.")
 
     def test_whatQuestion(self):
         assert(self._t.answer("What color is tomato?")
@@ -175,7 +181,41 @@ class TurbotTest(unittest.TestCase):
                "to yellow and some to a deep burgundy color.")
         assert(self._t.answer("What is the capital of France?")
                == "The capital of France is  Paris.")
+        assert("Unless you are looking at a nearby object like the earth ",
+               "or moon it is solid black except for stars"
+               in self._t.answer("What does the space look like?"))
+        assert("Human act of combat against an opposing side that ",
+               "results in the deaths of many and control of money, ",
+               "power, and government."
+               in self._t.answer("What does war mean?"))
+        assert(self._t.answer("What is the full form of NASA?")
+               == "It's National Aeronautics and Space Administration.")
 
     def test_whereQuestion(self):
         assert(self._t.answer("Where is the England?")
                == "The England is in 51.5 -0.11666666666666667.")
+
+    def test_whyQuestion(self):
+        assert("Sunlight interacting with the Earth's atmosphere ",
+               "makes the sky blue." in self._t.answer("Why is the sky blue?"))
+
+    def test_howQuestion(self):
+        assert(self._t.answer("How do you go to school?")
+               == "You can take the bus,ride a bike,walk,take a car,",
+                  "ride a scooter,take a taxi or not go at all i prefer to ",
+                  "walk because walking gives you energy but when you take ",
+                  "vehicle's it just wastes your energy.")
+        assert(self._t.answer("How high is the Eiffel Tower?")
+               == "The Eiffel Tower is by 300.")
+        assert(self._t.answer("How old is Justin Bieber?")
+               == "Justin Bieber is 20 years old (birthdate: March 1, 1994).")
+        assert("Cooking small roasts can be difficult if you ",
+               "use standard rules of thumb like 15 min per lb"
+               in self._t.answer("How long does it take to cook beef?"))
+        assert(self._t.answer("How many neurons does a brain have?")
+               == "About 1,000,000,000. Or one billion.\n\n100 billion neuron",
+                  " cells re in the brainThere are approximately 100 billion ",
+                  "neurons in the human brain.")
+        assert(self._t.answer("How often do you shave?")
+               == "I\'m a man and I shave every 1 to 4 days depending on ",
+                  "what I feel like and if my wife thinks I look \"grubby\".")

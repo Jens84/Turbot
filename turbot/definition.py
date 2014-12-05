@@ -352,7 +352,7 @@ class Definition():
         # Searching synonyms of the words in listOfStrings
         synonyms = []
         for word in listOfStrings:
-            for i, j in enumerate(wn.synsets(word)):
+            for i, j in enumerate(wn.wordnet.synsets(word)):
                 w = 0
                 for synonym in j.lemma_names():
                     w += 1

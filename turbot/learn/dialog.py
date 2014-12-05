@@ -58,9 +58,11 @@ def trainTypeQuestion():
     featuresets.extend([(dialogue_haveBe_features(q),
                          'ynQuestion') for q in haveBeQuestions])
     # Extend data set with an additional training set from a txt file
-    current_dir = os.getcwd()
+    __location__ = os.path.realpath(
+        os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
     featuresets2 = labeledSentencesFileParser(
-        current_dir + "/firstClassifierAdditionalSentences.txt")
+        os.path.join(__location__, "firstClassifierAdditionalSentences.txt"))
     featuresets += featuresets2
 
     # TODO change this
@@ -146,17 +148,22 @@ def trainWhQuestion(mode):
     Naive Bayes Classifier
     """
 
-    current_dir = os.getcwd()
+    __location__ = os.path.realpath(
+        os.path.join(os.getcwd(), os.path.dirname(__file__)))
     # Choose mode to train different classifiers. Each mode corresponds to a
     # specific classifier
     if(mode == 1):
-        filename = current_dir + "/whQuestionClassifiedSentences.txt"
+        filename = os.path.join(__location__,
+                                "whQuestionClassifiedSentences.txt")
     elif(mode == 2):
-        filename = current_dir + "/classifierDescriptionOther.txt"
+        filename = os.path.join(__location__,
+                                "classifierDescriptionOther.txt")
     elif(mode == 3):
-        filename = current_dir + "/classifierDescriptionH.txt"
+        filename = os.path.join(__location__,
+                                "classifierDescriptionH.txt")
     elif(mode == 4):
-        filename = current_dir + "/classifierDescriptionWh.txt"
+        filename = os.path.join(__location__,
+                                "classifierDescriptionWh.txt")
 
     featuresets = labeledSentencesFileParser(filename)
 
@@ -182,10 +189,13 @@ def getPosNegWords():
     Return values:
     dictionary of words
     """
-    current_dir = os.getcwd()
+    __location__ = os.path.realpath(
+        os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    filename = os.path.join(__location__,
+                            "SentiWordNet_3.0.0_20130122.txt")
 
     words = dict()
-    with open(current_dir + "/SentiWordNet_3.0.0_20130122.txt", 'r') as f:
+    with open(filename, 'r') as f:
         lines = f.readlines()[1:-1]
         for line in lines:
             columns = line.split('\t')

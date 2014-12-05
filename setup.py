@@ -55,3 +55,5 @@ setup(
 if 'install' in sys.argv:
     import nltk
     nltk.download("wordnet")
+    nltk.download("nps_chat")
+    nltk.download("punkt")
