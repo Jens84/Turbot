@@ -19,11 +19,21 @@ getMarkov -- return the Markov Chains object
 
 
 class Markov():
+    """
+    Attributes:
+    _chainLength -- length of a chain (number of words)
+                    in Markov implementation.
+    _stopWord -- special character in order to separate two words.
+    _markovChains -- Markov chains object where we store each input.
+    """
     _chainLength = 2
     _stopWord = '\x03'
     _markovChains = {}
 
     def __init__(self, markovChains={}):
+        """Constructor of Markov Chains.
+           We enrich them thanks to books dataset.
+        """
         if markovChains:
             self._markovChains = markovChains
             return
