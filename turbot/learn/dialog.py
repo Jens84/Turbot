@@ -72,7 +72,14 @@ def trainTypeQuestion():
     featuresets2 = labeledSentencesFileParser(current_dir + "/firstClassifierAdditionalSentences.txt")
     featuresets+=featuresets2
 
+    # TODO change this
+    # size = int(len(featuresets) * 0.1)
+    # train_set, test_set = featuresets[size:], featuresets[:size]
+    # classifier = nltk.NaiveBayesClassifier.train(train_set)
+    # print("1st accuracy: ",nltk.classify.accuracy(classifier, test_set))
+
     train_set = featuresets
+
     # Train classifier
     classifier = nltk.NaiveBayesClassifier.train(train_set)
     return classifier
@@ -182,9 +189,17 @@ def trainWhQuestion(mode):
     else:
         file = path2
     '''
+    
     featuresets = labeledSentencesFileParser(filename)
 
+    # TODO change this
+    # size = int(len(featuresets) * 0.1)
+    # train_set, test_set = featuresets[size:], featuresets[:size]
+    # classifier = nltk.NaiveBayesClassifier.train(train_set)
+    # print("mode ",mode," accuracy: ",nltk.classify.accuracy(classifier, test_set))
     train_set = featuresets
+
+    # Train classifier
     classifier = nltk.NaiveBayesClassifier.train(train_set)
     return classifier
 
