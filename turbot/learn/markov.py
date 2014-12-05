@@ -4,6 +4,19 @@ import glob
 import os
 import re
 
+"""Module that generate Markov chains.
+
+Functions:
+_splitSentence -- split a sentence according to the chain's length
+_putIntoDictionary -- add sentence in Markov chains dictionary
+_getMessage -- get message from dictionary based on Markov concept
+_getNextKey -- get next key to pick in dictionary
+_getInitKey -- get first key to pick according to subject, verb
+input -- add an input in Markov Chains (in order to train)
+output -- get a generated sentence from Markov Chains
+getMarkov -- return the Markov Chains object
+"""
+
 
 class Markov():
     _chainLength = 2
@@ -24,6 +37,11 @@ class Markov():
                                .replace("\"", "").replace("'", ""))
 
     def _splitSentence(self, sentence):
+        """Split a sentence in a Markov chain based on _chainLength attribute.
+
+        Arguments:
+        sentence -- string to split
+        """
         words = sentence.split(' ')
 
         if len(words) < self._chainLength:
@@ -34,6 +52,11 @@ class Markov():
             yield words[i:i + self._chainLength + 1]
 
     def _putIntoDictionary(self, split):
+        """Add into the Markov chains dictionary a new value splitted.
+
+        Arguments:
+        split -- string already splitted to add.
+        """
         for w in split:
             if w == -1:
                 break
@@ -44,6 +67,16 @@ class Markov():
                 self._markovChains[key].append(w[2])
 
     def _getMessage(self, key, object):
+        """Generate a message from Markov chains.
+
+        Arguments:
+        key -- The initial key we have to begin the chain.
+        object -- object of the sentence in order to increase
+                  chance to pick a chain which contains the object.
+
+        Return values:
+        string generated
+        """
         words_chosen = [key[0], key[1]]
         next_word = ""
         tryCorrelation = False
@@ -63,10 +96,30 @@ class Markov():
         return words_chosen
 
     def _getNextKey(self, key, next_word):
+        """Select the next key to pick.
+
+        Arguments:
+        key -- the current key.
+        next_word -- the next_word chosen.
+
+        Return values:
+        key value
+        """
         (w1, w2) = key
         return (w2, next_word)
 
     def _getInitKey(self, subject, verbs):
+        """Select the initial key to pick.
+
+        Arguments:
+        subject -- subject of the sentence in order to increase
+                   chance to pick a key which contains the object.
+        verbs -- verbs of the sentence in order to increase
+                 chance to pick a key which contains the object.
+
+        Return values:
+        key value
+        """
         for w1, w2 in self._markovChains.keys():
             if (w1.lower().replace(" ", "") == subject.lower().replace(" ", "")
                     and w2.lower() in verbs):
@@ -78,12 +131,32 @@ class Markov():
         return (w1, w2)
 
     def input(self, sentence):
+        """Add a sentence in Markov chains.
+
+        Arguments:
+        sentence -- the sentence to add.
+        """
         split = self._splitSentence(sentence)
         self._putIntoDictionary(split)
 
     def output(self, subject, verbs, object):
+        """Generate a sentence from Markov chains.
+
+        Arguments:
+        subject -- subject of the sentence.
+        verbs -- verbs of the sentence.
+        object -- object of the sentence.
+
+        Return values:
+        string generated
+        """
         key = self._getInitKey(subject, verbs)
         return ' '.join(self._getMessage(key, verbs)[:-1]) + "."
 
     def getMarkov(self):
+        """Get Markov chains object.
+
+        Return values:
+        markov object
+        """
         return self._markovChains
