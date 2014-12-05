@@ -51,7 +51,14 @@ What is the order of magnitude of nm? | Dimension
 What's the order of magnitude of kilowatt? | Dimension
 What is the extension of Amazon forest? | Dimension
 What is the extension of a soccer field? | Dimension
+What is the extension of a regular pad? | Dimension
+What is the extension of a king size mattress? | Dimension
+What is the area of ocean on the planet? | Dimension
+What is the area of a soccer field? | Dimension
+What is the area of a dinner table? | Dimension
 What is the volume of the planet Earth? | Dimension
+What is the volume of the normal bowl? | Dimension
+What is the volume capacity of a bath tub? | Dimension
 How big is the volume of water in a human? | Dimension
 How far is London from California? | Dimension
 How far is Denmark from Korea? | Dimension
@@ -92,6 +99,16 @@ How is an airplane like? | LookAndShape
 How is a sweatshirt like? | LookAndShape
 What is the shape of a ball? | LookAndShape
 
+How do I look? | LookAndShape
+How does Ben look this afternoon? | LookAndShape
+How does Georgina look? | LookAndShape
+How did Bob look last night? | LookAndShape
+How did Agathe look this morning? | LookAndShape
+How did Jenn look at the prom? | LookAndShape
+How do tattoos usually look like? | LookAndShape
+How is the shape of the table? | LookAndShape
+How is the shape of the dinner food? | LookAndShape
+How did the food look like? | LookAndShape
 How do OVNIs look like? | LookAndShape
 How does a stripper look like? | LookAndShape
 What is the form of a bicycle? | LookAndShape

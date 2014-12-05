@@ -5,13 +5,21 @@ import pytest
 
 class TurbotTest(unittest.TestCase):
     _d = None
-    _classifier = None
+    _classifierWh = None
+    _classifierDescriptionWh = None
 
     @pytest.fixture(autouse=True)
     def init(self):
         self._d = turbot.Dialog()
-        self._classifier = (turbot.learn.pickleHandler.
-                            load_object('classifierWhQ.pkl'))
+        self._classifierWh = (turbot.learn.pickleHandler.
+                              load_object('classifierWhQ.pkl'))
+        self._classifierDescriptionWh = (turbot.learn.pickleHandler.
+                                         load_object('classifierDescWhQ.pkl'))
+        self._classifierDescriptionH = (turbot.learn.pickleHandler.
+                                        load_object('classifierDescHQ.pkl'))
+        self._classifierDescriptionOther = (turbot.learn.pickleHandler.
+                                            load_object(
+                                                'classifierDescOtherQ.pkl'))
 
     def test_YesNo_basic(self):
         assert(self._d.answer("Are you okay?") == "Yes, I am okay.")
@@ -58,75 +66,135 @@ class TurbotTest(unittest.TestCase):
                == "Yes, London is in United Kingdom.")
 
     def test_trainWhQuestion1(self):
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features("When was the ww2?"))
             == "TimeWhen")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "When was the the world trade center bombed?")) == "TimeWhen")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "In what day was Justin Bieber born?")) == "TimeWhat")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "Where is Wally?")) == "Place")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "Where was James Bond born?")) == "Place")
 
     def test_trainWhQuestion2(self):
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "Who was the first singer of the Abba band?")) == "Entity")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "Who is the king of spain?")) == "Entity")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "Why did my girlfriend leave me?")) == "Reason")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "Why am I sad?")) == "Reason")
 
     def test_trainWhQuestion3(self):
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "How do you go to the Zoo?")) == "Manner")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "How should I go from the Arctic to Greenland?")) == "Manner")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "What are helicopters made of?")) == "DescriptionWh")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "What is the paint of my bag made of?")) == "DescriptionWh")
 
     def test_trainWhQuestion4(self):
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "What does selfish mean?")) == "DescriptionWh")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "What is the meaning of toothbrush?")) == "DescriptionWh")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "What does I.S.N. stand for?")) == "DescriptionWh")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "How old is Bjorn?")) == "DescriptionH")
 
     def test_trainWhQuestion5(self):
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "How much hair does an ordinary bear have?"))
                == "DescriptionH")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "What does a jew look like?")) == "DescriptionOther")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "What is a dragon like?")) == "DescriptionOther")
-        assert(self._classifier.classify(
+        assert(self._classifierWh.classify(
             turbot.learn.dialog.dialogue_act_features(
                 "What is the form of a chain?")) == "DescriptionOther")
+
+    def test_trainDescriptionWhQuestion(self):
+        assert(self._classifierDescriptionWh.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "What are windows made of?"))
+               == "Composition")
+        assert(self._classifierDescriptionWh.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "What does meaningful mean?")) == "Meaning")
+        assert(self._classifierDescriptionWh.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "What is a banana?")) == "Meaning")
+        assert(self._classifierDescriptionWh.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "What does S.O.S. stand for?")) == "Abbreviation")
+        assert(self._classifierDescriptionWh.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "What is the full form of BRB?")) == "Abbreviation")
+
+    def test_trainDescriptionHQuestion(self):
+        assert(self._classifierDescriptionH.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "How old are pre school kids?"))
+               == "Age")
+        assert(self._classifierDescriptionH.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "How long does it take to travel from India to Pakistan?"))
+               == "Duration")
+        assert(self._classifierDescriptionH.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "For how long will you be in the movie?")) == "Duration")
+        assert(self._classifierDescriptionH.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "How many legs do mosquitos have?")) == "Quantity")
+        assert(self._classifierDescriptionH.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "How many guitar players does Rolling Stones have?"))
+               == "Quantity")
+        assert(self._classifierDescriptionH.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "How frequent are the soccer matches?")) == "Frequency")
+        assert(self._classifierDescriptionH.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "How often do you get apples?")) == "Frequency")
+
+    def test_trainDescriptionOtherQuestion(self):
+        assert(self._classifierDescriptionOther.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "How high are the Himalayas?"))
+               == "Dimension")
+        assert(self._classifierDescriptionOther.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "what is the size of your feet?"))
+               == "Dimension")
+        assert(self._classifierDescriptionOther.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "What do UFOs look like?")) == "LookAndShape")
+        assert(self._classifierDescriptionOther.classify(
+            turbot.learn.dialog.dialogue_act_features(
+                "How does she look?")) == "LookAndShape")
