@@ -871,6 +871,18 @@ Where do we put peanut butter? | Place
 Where was the last place you went swimming? | Place
 Where was the last place you went out to dinner? | Place
 
+Where was Carolina born? | Place
+Where was Jose born? | Place
+Where was Josh born? | Place
+Where was Kate born? | Place
+Where was Carmela born? | Place
+Where was Melissa born? | Place
+Where was Karen born? | Place
+Where was Steve born? | Place
+Where was Flora born? | Place
+Where was Jenn born? | Place
+In which day were you born? | Place
+
 
 # ----------------------------------------------------------------------------------------
 
@@ -952,6 +964,21 @@ Why does a bird have wings? | Reason
 Why do we have teeth? | Reason
 Why do we wear shoes? | Reason
 Why do children go to school? | Reason
+Why did she leave me alone? | Reason
+Why do people die? | Reason
+Why are people getting old? | Reason
+Why do animals live? | Reason
+Why do people live so far away from their work? | Reason
+Why do bugs bite? | Reason
+Why do trees rot? | Reason
+Why do flies like poop? | Reason
+Why do catholics pray? | Reason
+Why does God make tsunamis? | Reason
+Why did God create Earth? | Reason
+Why did God invent this? | Reason
+Why did God make us wear cups? | Reason
+Why does God let war happen? | Reason
+Why did God let humankind suffer? | Reason
 
 # ----------------------------------------------------------------------------------------
 
@@ -973,6 +1000,7 @@ What is the project's due date? | TimeWhat
 What is the deadline for this assignment? | TimeWhat
 What is the last date to deliver? | TimeWhat
 What is the date to deliver this task? | TimeWhat
+What is the origin date of carnival? | TimeWhat
 
 At what time is the meeting? | TimeWhat
 At what time did you plan to go? | TimeWhat
@@ -996,30 +1024,49 @@ What is the best time of the year to sightsee Europe? | TimeWhat
 What is the best time of the year to run? | TimeWhat
 What is the most suitable time for you to meet? | TimeWhat
 What is Obama's date of birth? | TimeWhat
-What is Justin Timberlake's birthday ? | TimeWhat
-What is Madonna's birthday ? | TimeWhat
-What was Caetano Veloso's birthday ? | TimeWhat
-What was Nelson Mandela's birthday ? | TimeWhat
-What is the birthday of Guilherme ? | TimeWhat
-What is the birthday of Pedro ? | TimeWhat
-What is the birthday of Juan ? | TimeWhat
-What is the birthday of Carlos ? | TimeWhat
-What is the birthday of Carol ? | TimeWhat
-What is the birthday of Barbara ? | TimeWhat
+What is Justin Timberlake's birthday? | TimeWhat
+What is Madonna's birthday? | TimeWhat
+What was Caetano Veloso's birthday? | TimeWhat
+What was Nelson Mandela's birthday? | TimeWhat
+What is the birthday of Guilherme? | TimeWhat
+What is the birthday of Pedro? | TimeWhat
+What is the birthday of Juan? | TimeWhat
+What is the birthday of Carlos? | TimeWhat
+What is the birthday of Carol? | TimeWhat
+What is the birthday of Barbara? | TimeWhat
 What's the birthday of Sigmund Freud? | TimeWhat
-What is Jesus Christ's birthday ? | TimeWhat
-What is Einstein's birthday ? | TimeWhat
-What's is Jose's birthday ? | TimeWhat
-What's Keysha's birthday ? | TimeWhat
-What's Cavaco Silva's birthday ? | TimeWhat
-What's Kanye West birthday ? | TimeWhat
-What's Beyonce birthday ? | TimeWhat
-What's Taylor Swift's birthday ? | TimeWhat
-What's Gwen Stefani's birthday ? | TimeWhat
-What's Jimmy Kimmel birthday ? | TimeWhat
-What is Einstein's birthday ? | TimeWhat
-What is Einstein's birthday ? | TimeWhat
-In which day were you born ? | TimeWhat
+What is Jesus Christ's birthday? | TimeWhat
+What is Einstein's birthday? | TimeWhat
+What's is Jose's birthday? | TimeWhat
+What's Keysha's birthday? | TimeWhat
+What's Cavaco Silva's birthday? | TimeWhat
+What's Kanye West birthday? | TimeWhat
+What's Beyonce birthday? | TimeWhat
+What's Taylor Swift's birthday? | TimeWhat
+What's Gwen Stefani's birthday? | TimeWhat
+What's Jimmy Kimmel birthday? | TimeWhat
+What is Einstein's birthday? | TimeWhat
+What is Christian's birthday? | TimeWhat
+What is Brazil's birthday? | TimeWhat
+What is Santa Claus's birthday? | TimeWhat
+What is Eastpak's birthday? | TimeWhat
+What is Eucalyptus' birthday? | TimeWhat
+What is Dunkin Donut's birthday? | TimeWhat
+What is starbuck's birthday? | TimeWhat
+What is Katy Perry's birthday? | TimeWhat
+What is Justin Timberlake's birthday? | TimeWhat
+What is Rihanna's birthday? | TimeWhat
+In what day was Carolina born? | TimeWhat
+In what day was Jose born? | TimeWhat
+In what day was Josh born? | TimeWhat
+In what day was Kate born? | TimeWhat
+In what day was Carmela born? | TimeWhat
+In what day was Melissa born? | TimeWhat
+In what day was Karen born? | TimeWhat
+In what day was Steve born? | TimeWhat
+In what day was Flora born? | TimeWhat
+In what day was Jenn born? | TimeWhat
+In which day were you born? | TimeWhat
 
 
 #TimeWhen
@@ -1064,6 +1111,32 @@ When was Spain founded? | TimeWhen
 When was Ceuta conquered? | TimeWhen
 When was India discovered? | TimeWhen
 When was discovered? | TimeWhen
+When was the Euro championship celebrated? | TimeWhen
+When was the capital of Peru discovered? | TimeWhen
+When was the first Thanksgiving? | TimeWhen
+When was the team Benfica national champion? | TimeWhen
+When was the last time you did this? | TimeWhen
+When was the birthday of Christina? | TimeWhen
+When was the last time you saw her? | TimeWhen
+When was the first time you kissed? | TimeWhen
+When was the football match against Chelsea? | TimeWhen
+When was the world championship in Brazil? | TimeWhen
+When was the center of the Earth created? | TimeWhen
+When was the bomb planted in Madrid's train station? | TimeWhen
+When was the Julia the center of attention? | TimeWhen
+When was the Julio considered to be toughest man on earth? | TimeWhen
+When was the carnival invented? | TimeWhen
+When was Carolina born? | TimeWhen
+When was Jose born? | TimeWhen
+When was Josh born? | TimeWhen
+When was Kate born? | TimeWhen
+When was Carmela born? | TimeWhen
+When was Melissa born? | TimeWhen
+When was Karen born? | TimeWhen
+When was Steve born? | TimeWhen
+When was Flora born? | TimeWhen
+When was Jenn born? | TimeWhen
+
 
 How early are they leaving? | TimeWhen
 How early did you meet? | TimeWhen
@@ -1220,7 +1293,7 @@ What's the meaning of badass? | DescriptionWh
 
 What is an Eucalyptus tree? | DescriptionWh
 What is an Eastpak bag? | DescriptionWh
-What is a king? | Meaning
+What is a king? | DescriptionWh
 What is a duck? | DescriptionWh
 What is a chicken? | DescriptionWh
 What is a pen? | DescriptionWh
