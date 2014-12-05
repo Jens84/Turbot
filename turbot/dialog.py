@@ -113,9 +113,7 @@ class Dialog():
             # Get the object
             object = getObject(s, subject, verbs, True)
             object += "."
-            # print subject
-            # print verbs
-            # print object
+
             # We need to check the answer : yes or no
             if subject not in ["I ", "you ", "we ",
                                "he ", "she ", "it ", "they "]:
@@ -130,19 +128,6 @@ class Dialog():
             verbs = getVerbs(s, subject)
             object = getObject(s, subject, verbs, False)
 
-            # print subject
-            # print verbs
-            # print object
-            '''
-            if object == " you" and subject == "I ":
-                ending = [" more", " too"]
-                sentence = (subject + verbs[0] +
-                            object + random.choice(ending) + ".")
-            else:
-
-                return self._makeYesNoAnswer(subject, verbs,
-                                             object, score, sentence)
-            '''
             return self._markov.output(subject, verbs, object)
 
         else:

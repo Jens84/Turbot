@@ -8,16 +8,33 @@ __author_email__ = 'jeremy.rombourg@gmail.com'
 
 
 class Turbot():
+    """
+    Attributes:
+    _c -- Classify object
+    _de -- Definition object
+    _di -- Dialog object
+    """
     _c = None
     _de = None
     _di = None
 
     def __init__(self):
+        """Constructor of Turbot.
+           We create all objects we need (Classifiers, Definition, Dialog)
+        """
         self._c = Classify()
         self._de = Definition()
         self._di = Dialog()
 
     def answer(self, sentence):
+        """Make an answer thanks to turbot.
+
+        Arguments:
+        sentence -- input we have to answer.
+
+        Return values:
+        string answer
+        """
         # Classify general type of the question
         qType = self.sentenceType(sentence)
 
@@ -28,12 +45,36 @@ class Turbot():
             return self._di.answer(sentence, qType)
 
     def sentenceType(self, sentence):
+        """Compute the sentence's type thanks to classifier.
+
+        Arguments:
+        sentence -- input we have to classify.
+
+        Return values:
+        type sentence
+        """
         qType = self._c.classifyTypeQuestion(sentence)
         return qType
 
     def questionType(self, question):
+        """Compute the what question's type thanks to classifier.
+
+        Arguments:
+        sentence -- input we have to classify.
+
+        Return values:
+        type what question
+        """
         whAnswerType = self._c.classifyWhQuestion(question)
         return whAnswerType
 
     def getClassifier(self):
+        """Return the classifier object.
+
+        Arguments:
+        -
+
+        Return values:
+        classifier object
+        """
         return self._c
