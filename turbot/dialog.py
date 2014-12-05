@@ -6,17 +6,30 @@ import re
 import en
 import wikipedia
 
+"""Module that ?.
+
+Classes:
+Dialog
+"""
+
 
 class Dialog():
-    """
+    """Contains methods related to answering yes/no questions.
+
+    Functions:
+    _getPosNegScore
+    _makeYesNoAnswer
+    _getAnswerFromWikipedia
+    answer
+
     Attributes:
     _posNegWords -- list of words and their happiness score
     _markovChains -- Dictionary representing markov chains
     _markov -- Markov object itself
-    """
     _posNegWords = None
     _markovChains = None
     _markov = None
+"""
 
     def __init__(self):
         """Constructor of Dialog.
