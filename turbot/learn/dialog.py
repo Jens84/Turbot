@@ -64,7 +64,7 @@ def trainTypeQuestion():
     featuresets += featuresets2
 
     # TODO change this
-    # size = int(len(featuresets) * 0.1)
+    # size = int(len(featuresets) * 0.2)
     # train_set, test_set = featuresets[size:], featuresets[:size]
     # classifier = nltk.NaiveBayesClassifier.train(train_set)
     # print("1st accuracy: ",nltk.classify.accuracy(classifier, test_set))
@@ -161,7 +161,7 @@ def trainWhQuestion(mode):
     featuresets = labeledSentencesFileParser(filename)
 
     # TODO change this
-    # size = int(len(featuresets) * 0.1)
+    # size = int(len(featuresets) * 0.2)
     # train_set, test_set = featuresets[size:], featuresets[:size]
     # classifier = nltk.NaiveBayesClassifier.train(train_set)
     # print("mode ",mode," accuracy: ",

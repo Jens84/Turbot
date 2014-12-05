@@ -737,7 +737,7 @@ What is the highest waterfall in the United States? | Place
 Which two states enclose Chesapeake Bay? | Place
 Where do the adventures of "The Swiss Family Robinson" take place? | Place
 What country do the Galapagos Islands belong to? | Place
-tate What U.S. state lived under six flags?v
+What U.S. state lived under six flags? | Place
 DESC:def What is the Kashmir issue? | Place
 Where is the Loop? | Place
 What country's capital is Tirana? | Place
