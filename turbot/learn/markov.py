@@ -38,7 +38,7 @@ class Markov():
             if w == -1:
                 break
             key = (w[0], w[1])
-            if not key in self._markovChains:
+            if key not in self._markovChains:
                 self._markovChains[key] = [w[2]]
             else:
                 self._markovChains[key].append(w[2])

@@ -2,6 +2,7 @@ import nltk.classify.util
 import os
 import re
 
+
 def dialogue_act_features(post):
     """Return a feature from an object of type nltk.util.LazySubsequence.
 
@@ -28,7 +29,7 @@ def dialogue_haveBe_features(question):
 
 def trainTypeQuestion():
     """Return a Naive Bayes Classifier.
-    
+
     The classifier is trained with two traininf sets: an nltk set and another
     one with features that are parsed from a .txt file.
 
@@ -56,21 +57,11 @@ def trainTypeQuestion():
     # Extend data set with additional training set
     featuresets.extend([(dialogue_haveBe_features(q),
                          'ynQuestion') for q in haveBeQuestions])
-    '''
-    path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/firstClassifierAdditionalSentences.txt"
-    path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/firstClassifierAdditionalSentences.txt"
-
-    if os.path.exists(path1):
-        filename = path1
-    elif os.path.exists(path2):
-        filename = path2
-    else:
-        print "Please insert the path to file firstClassifierAdditionalSentences.txt"
-    '''
     # Extend data set with an additional training set from a txt file
     current_dir = os.getcwd()
-    featuresets2 = labeledSentencesFileParser(current_dir + "/firstClassifierAdditionalSentences.txt")
-    featuresets+=featuresets2
+    featuresets2 = labeledSentencesFileParser(
+        current_dir + "/firstClassifierAdditionalSentences.txt")
+    featuresets += featuresets2
 
     # TODO change this
     # size = int(len(featuresets) * 0.2)
@@ -125,7 +116,7 @@ def labeledSentencesFileParser(filename):
                     continue
                 each_word = re.findall(r"[\w']+|[.,!?;:]", word)
                 every_words += each_word
-                # Each word of the sentence is added 
+                # Each word of the sentence is added
                 each_sentence += each_word
             if each_sentence:
                 features = {}
@@ -160,43 +151,21 @@ def trainWhQuestion(mode):
     # specific classifier
     if(mode == 1):
         filename = current_dir + "/whQuestionClassifiedSentences.txt"
-        '''
-        path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/whQuestionClassifiedSentences.txt"
-        path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/whQuestionClassifiedSentences.txt"
-        '''
     elif(mode == 2):
         filename = current_dir + "/classifierDescriptionOther.txt"
-        '''
-        path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/classifierDescriptionOther.txt"
-        path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/classifierDescriptionOther.txt"
-        '''
     elif(mode == 3):
         filename = current_dir + "/classifierDescriptionH.txt"
-        '''
-        path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/classifierDescriptionH.txt"
-        path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/classifierDescriptionH.txt"
-        '''
     elif(mode == 4):
         filename = current_dir + "/classifierDescriptionWh.txt"
-        '''
-        path1 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/classifierDescriptionWh.txt"
-        path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/classifierDescriptionWh.txt"
-        '''
-        
-    '''
-    if os.path.exists(path1):
-        file = path1
-    else:
-        file = path2
-    '''
-    
+
     featuresets = labeledSentencesFileParser(filename)
 
     # TODO change this
     # size = int(len(featuresets) * 0.2)
     # train_set, test_set = featuresets[size:], featuresets[:size]
     # classifier = nltk.NaiveBayesClassifier.train(train_set)
-    # print("mode ",mode," accuracy: ",nltk.classify.accuracy(classifier, test_set))
+    # print("mode ",mode," accuracy: ",
+    #    nltk.classify.accuracy(classifier, test_set))
     train_set = featuresets
 
     # Train classifier
@@ -206,18 +175,7 @@ def trainWhQuestion(mode):
 
 def getPosNegWords():
     current_dir = os.getcwd()
-    '''
-    path1 = "/home/jens/Documents/DTU/Data Mining Using Python/Project/turbot/learn/SentiWordNet_3.0.0_20130122.txt"
-    path2 = "/home/beljul/DTU/Data mining using Python/Project/turbot/learn/SentiWordNet_3.0.0_20130122.txt"
-    path3 = "/Users/joseesteves/Documents/Erasmus/DTU/Data Mining/Git/Repository/turbot/learn/SentiWordNet_3.0.0_20130122.txt"
 
-    if os.path.exists(path1):
-        file = path1
-    elif os.path.exists(path2):
-        file = path2
-    else:
-        file = path3
-    '''
     words = dict()
     with open(current_dir + "/SentiWordNet_3.0.0_20130122.txt", 'r') as f:
         lines = f.readlines()[1:-1]
