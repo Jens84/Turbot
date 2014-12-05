@@ -1,3 +1,15 @@
+"""Module that ????.
+
+Classes:
+Classify -- Contains methods to classify sentences.
+
+Functions:
+getSubject -- ?
+getObject -- ?
+getVerbs -- ?
+nounify -- ?
+tokenizeFromStanfordNLP -- ?
+"""
 import learn
 import urllib
 import urllib2
@@ -6,6 +18,15 @@ from nltk.corpus import wordnet as wn
 
 
 def getSubject(question, ind):
+    """Return the subject of a question.
+
+    Arguments:
+    question -- string
+    ind -- 
+
+    Return values:
+    Subject of the question.
+    """
     subject = ""
     qTags = tokenizeFromStanfordNLP(question)
     if qTags[ind][0].lower() == 'you':
@@ -30,6 +51,17 @@ def getSubject(question, ind):
 
 
 def getObject(question, subject, verbs, isYesNoQuestion):
+    """Return the .
+
+    Arguments:
+    question -- 
+    subject -- 
+    verbs -- 
+    isYesNoQuestion -- 
+
+    Return values:
+    ?
+    """
     object = ""
     qTags = tokenizeFromStanfordNLP(question)
     # print qTags
@@ -56,6 +88,15 @@ def getObject(question, subject, verbs, isYesNoQuestion):
 
 
 def getVerbs(question, subject):
+    """Return the verbs of a question.
+
+    Arguments:
+    question -- 
+    subject -- 
+
+    Return values:
+    ?
+    """
     qTags = tokenizeFromStanfordNLP(question)
     verbs = [word for word, tag in qTags
              if (tag in ['VB', 'VBD', 'VBP', 'VBN', 'VBG', 'VBZ', 'MD'] and
@@ -122,6 +163,16 @@ def nounify(verb_word):
 
 
 class Classify():
+    """Contains methods to classify sentences.
+
+    Functions:
+    classifyTypeQuestion -- return question's general label
+    classifyWhType -- classify whQuestion
+    classifyWhQuestion -- return sublabel of label whQuestion
+    classifyDescOtherQ -- return sublabel of label DescriptionOther
+    classifyDescHQ -- return sublabel of label DescriptionH
+    classifyDescWhQ -- return sublabel of label DescriptionWh
+    """
     _classifierTypeQ = None
     _classifierWhQ = None
     _classifierDescOtherQ = None
@@ -143,6 +194,13 @@ class Classify():
                                    load_object('classifierDescWhQ.pkl'))
 
     def classifyTypeQuestion(self, question):
+        """Return the general type of the questquestion
+        Arguments:
+        question -- string
+    
+        Return values:
+        String with question label.
+        """
         return self._classifierTypeQ.classify(
             learn.dialog.dialogue_act_features(question))
 
@@ -172,17 +230,45 @@ class Classify():
         return whType
 
     def classifyWhType(self, question):
+        """Return the question sublabel of question of type whQuestion.
+        Arguments:
+        question -- string
+    
+        Return values:
+        String with question label.
+        """
         return self._classifierWhQ.classify(
             learn.dialog.dialogue_act_features(question))
 
     def classifyDescOtherQ(self, question):
+        """Return the question sublabel of question of type DescriptionOther.
+        Arguments:
+        question -- string
+    
+        Return values:
+        String with question label.
+        """
         return self._classifierDescOtherQ.classify(
             learn.dialog.dialogue_act_features(question))
 
     def classifyDescHQ(self, question):
+        """Return the question sublabel of question of type DescriptionH.
+        Arguments:
+        question -- string
+    
+        Return values:
+        String with question label.
+        """
         return self._classifierDescHQ.classify(
             learn.dialog.dialogue_act_features(question))
 
     def classifyDescWhQ(self, question):
+        """Return the question sublabel of question of type DescriptionWh.
+        Arguments:
+        question -- string
+    
+        Return values:
+        String with question label.
+        """
         return self._classifierDescWhQ.classify(
             learn.dialog.dialogue_act_features(question))
