@@ -1,3 +1,10 @@
+
+""" Script that manages dialog question.
+
+Classes:
+Dialog
+"""
+
 from .nlp import getSubject, getObject, getVerbs
 import nltk
 import learn
@@ -6,14 +13,9 @@ import re
 import en
 import wikipedia
 
-"""Module that ?.
-
-Classes:
-Dialog
-"""
-
 
 class Dialog():
+
     """Contains methods related to answering yes/no questions.
 
     Functions:
@@ -29,11 +31,12 @@ class Dialog():
     _posNegWords = None
     _markovChains = None
     _markov = None
-"""
+    """
 
     def __init__(self):
         """Constructor of Dialog.
-           We create all objects we need (happiness list and Markov chains)
+
+        All objects needed are created (happiness list and Markov chains).
         """
         self._posNegWords = learn.pickleHandler.load_object('posNegWords.pkl')
         self._markovChains = (learn.pickleHandler.

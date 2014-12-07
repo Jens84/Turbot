@@ -1,3 +1,12 @@
+
+""" Script looking for definition matching question.
+
+Uses DBpedia and Answers as resources.
+
+Classes:
+Definition
+"""
+
 from .nlp import tokenizeFromStanfordNLP, nounify
 import difflib
 import operator
@@ -10,15 +19,10 @@ import bs4
 from nltk import wordnet as wn
 from SPARQLWrapper import SPARQLWrapper, JSON
 
-"""Module that ?.
-
-Classes:
-Definition -- ?.
-"""
-
 
 class Definition():
-    """Contains methods related to ?.
+
+    """Contains methods related to definition processing.
 
     Functions:
     _getKeywordsFromQuestionType -- return keywords related to question type.
@@ -27,13 +31,15 @@ class Definition():
     _getPropertyName -- return property name that is the best match
     _getSimpleWords -- return compounds split into smaller words
     _getSynonyms -- return synonyms of words
-    _questionToAssertion -- ?
-    answer --
+    _questionToAssertion -- constructs affirmative form of the question
+    answer -- returns final answer based on question and its type
     """
+
     _sentence = None
     _sTags = []
 
     def __init__(self):
+        """ Initialize the wrapper for DBpedia API."""
         self._sparql = SPARQLWrapper("http://dbpedia.org/sparql")
         self._sparql.setReturnFormat(JSON)
 
@@ -220,7 +226,6 @@ class Definition():
             concatenations, propertiesOfSubject)
 
         if nounsConcatenationsMatches is not None:
-            # TODO delete this if???
             # First priority is given to perfect matches of nouns concatenation
             if len(nounsConcatenationsMatches) > 1:
                 return nounsConcatenationsMatches[0]
@@ -250,14 +255,12 @@ class Definition():
         if nounsKeywordsConcatenationsMatches is not None:
             # Second priority is given to perfect matches of concatenation of
             # noun with keyword
-            # TODO delete if????
             if len(nounsKeywordsConcatenationsMatches) > 1:
                 nounsKeywordsConcatenationsMatches
                 return nounsKeywordsConcatenationsMatches[0]
             return nounsKeywordsConcatenationsMatches[0]
         elif nounsMatches is not None:
             # Third priority is given to perfect matches of single nouns
-            # TODO delete if????
             if len(nounsMatches) > 1:
                 return nounsMatches[0]
             return nounsMatches[0]
@@ -390,6 +393,14 @@ class Definition():
         return listOfStrings
 
     def _questionToAssertion(self, answer):
+        """ Return a construction for an answer based on the question.
+
+        Arguments:
+        answer -- part of the answer that comes from DBpedia
+
+        Return values:
+        Sentence for the answer, containing the correct grammatical structure
+        """
         prepositions = {"when": ["on the", "at", "in"],
                         "where": ["in", "at"],
                         "how": ["by"],
@@ -460,7 +471,17 @@ class Definition():
                 answer + " ".join(cmpl)) + "."
 
     def answer(self, sentence, whType):
+        """ Main entry point for the definition class.
 
+        Looks for an answer based on the sentence and question type.
+
+        Arguments:
+        sentence -- string containing the question
+        whType -- type of the question
+
+        Return Values:
+        Returns the full sentence of the answer.
+        """
         # Word tokenizer using Stanford NLP Parser (better than NLTK)
         self._sTags = tokenizeFromStanfordNLP(sentence)
 

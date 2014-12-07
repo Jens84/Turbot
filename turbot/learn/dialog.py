@@ -1,3 +1,14 @@
+""" Script for sentence classifier generation.
+
+Functions:
+dialogue_act_features
+dialogue_haveBe_features
+trainTypeQuestion
+labeledSentencesFileParser
+trainWhQuestion
+getPosNegWords
+"""
+
 import nltk.classify.util
 import os
 import re
@@ -22,6 +33,11 @@ def dialogue_act_features(post):
 
 
 def dialogue_haveBe_features(question):
+    """ Create a feature from a question.
+
+    Arguments:
+    question -- string with a question
+    """
     features = {}
     features['first_word'] = nltk.word_tokenize(question)[0].lower()
     return features
@@ -64,12 +80,6 @@ def trainTypeQuestion():
     featuresets2 = labeledSentencesFileParser(
         os.path.join(__location__, "firstClassifierAdditionalSentences.txt"))
     featuresets += featuresets2
-
-    # TODO change this
-    # size = int(len(featuresets) * 0.2)
-    # train_set, test_set = featuresets[size:], featuresets[:size]
-    # classifier = nltk.NaiveBayesClassifier.train(train_set)
-    # print("1st accuracy: ",nltk.classify.accuracy(classifier, test_set))
 
     train_set = featuresets
 
@@ -147,7 +157,6 @@ def trainWhQuestion(mode):
     Return values:
     Naive Bayes Classifier
     """
-
     __location__ = os.path.realpath(
         os.path.join(os.getcwd(), os.path.dirname(__file__)))
     # Choose mode to train different classifiers. Each mode corresponds to a
@@ -167,12 +176,6 @@ def trainWhQuestion(mode):
 
     featuresets = labeledSentencesFileParser(filename)
 
-    # TODO change this
-    # size = int(len(featuresets) * 0.2)
-    # train_set, test_set = featuresets[size:], featuresets[:size]
-    # classifier = nltk.NaiveBayesClassifier.train(train_set)
-    # print("mode ",mode," accuracy: ",
-    #    nltk.classify.accuracy(classifier, test_set))
     train_set = featuresets
 
     # Train classifier

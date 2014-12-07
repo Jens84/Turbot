@@ -30,7 +30,10 @@ What is rubber made of? | Composition
 What is metal made of? | Composition
 What is a battery made of? | Composition
 What are batteries made of? | Composition
-
+What are chargers made of? | Composition
+What are tapes made of? | Composition
+What are bugs made of? | Composition
+What are tulips made of? | Composition
 
 
 # Meaning
@@ -42,11 +45,28 @@ What does stupid mean? | Meaning
 What does cloak mean? | Meaning
 What does tidy mean? | Meaning
 What does selfish mean? | Meaning
+What does gratinate mean? | Meaning
+What does plagiarism mean? | Meaning
+What does problematic mean? | Meaning
+What does heater mean? | Meaning
+What does yolo mean? | Meaning
+What does joker mean? | Meaning
+What does seldom mean? | Meaning
+What does clerk mean? | Meaning
 What does the word clever mean? | Meaning
 What does the word girl mean? | Meaning
 What does the word ant mean? | Meaning
 What does the word homogeneous mean? | Meaning
 What does the word protective mean? | Meaning
+What does the word childhood mean? | Meaning
+What does the word clarity mean? | Meaning
+What does the word singleton mean? | Meaning
+What does the word prejudice mean? | Meaning
+What does the word pride mean? | Meaning
+What does the word slaughter mean? | Meaning
+What does the word witchery mean? | Meaning
+What does the word cataclysm mean? | Meaning
+What does the word dauntless mean? | Meaning
 What is the meaning of juice? | Meaning
 What is the meaning of milk? | Meaning
 What is the meaning of rock? | Meaning
@@ -58,10 +78,23 @@ What is the meaning of player? | Meaning
 What is the meaning of bang? | Meaning
 What is the meaning of thief? | Meaning
 What is the meaning of miscellaneous? | Meaning
+What is the meaning of theft? | Meaning
+What is the meaning of paper? | Meaning
+What is the meaning of dollar? | Meaning
+What is the meaning of slavery? | Meaning
+What is the meaning of tragedy? | Meaning
 What's the meaning of broke? | Meaning
 What's the meaning of mad? | Meaning
 What's the meaning of slut? | Meaning
 What's the meaning of badass? | Meaning
+What's the meaning of party? | Meaning
+What's the meaning of candle? | Meaning
+What's the meaning of superiority? | Meaning
+What's the meaning of inflamable? | Meaning
+What's the meaning of caution? | Meaning
+What's the meaning of bribery? | Meaning
+What's the meaning of iPod? | Meaning
+What's the meaning of cards? | Meaning
 
 What is an Eucalyptus tree? | Meaning
 What is a king? | Meaning
@@ -103,9 +136,31 @@ What are signs? | Meaning
 # Abbreviation
 What is the full form of .com? | Abbreviation
 What does the abbreviation AIDS stand for? | Abbreviation
+What does the abbreviation 2D stand for? | Abbreviation
+What does the abbreviation 3D stand for? | Abbreviation
+What does the abbreviation 9D stand for? | Abbreviation
+What does the abbreviation 4G stand for? | Abbreviation
+What does the abbreviation CAD stand for? | Abbreviation
+What does the abbreviation CERT stand for? | Abbreviation
+What does the abbreviation CHAP stand for? | Abbreviation
+What does the abbreviation CPA stand for? | Abbreviation
+What does the abbreviation CTL stand for? | Abbreviation
+What does the abbreviation CTM stand for? | Abbreviation
+What does the abbreviation DB stand for? | Abbreviation
 What does INRI stand for when used on Jesus cross? | Abbreviation
-What does S.O.S. stand for? | Abbreviation
+What does DL stand for? | Abbreviation
+What does DN stand for? | Abbreviation
+What does DSN stand for? | Abbreviation
+What does DVD stand for? | Abbreviation
+What does DVR stand for? | Abbreviation
+What does DVI stand for? | Abbreviation
+What does EMACS stand for? | Abbreviation
 CNN is the abbreviation for what? | Abbreviation
+FIFO is the abbreviation for what? | Abbreviation
+LIFO is the abbreviation for what? | Abbreviation
+FTTP is the abbreviation for what? | Abbreviation
+HTTP is the abbreviation for what? | Abbreviation
+HTTPS is the abbreviation for what? | Abbreviation
 What does PSI stand for? | Abbreviation
 What is the abbreviation for micro? | Abbreviation
 What does NASDAQ stand for? | Abbreviation
@@ -117,6 +172,13 @@ When reading classified ads , what does EENTY : other stand for? | Abbreviation
 What is the abbreviated expression for the National Bureau of Investigation? | Abbreviation
 What does NAFTA stand for? | Abbreviation
 What is the full name of the PLO? | Abbreviation
+What is the full name of the FDMA? | Abbreviation
+What is the full name of the GIF? | Abbreviation
+What is the full name of the PNG? | Abbreviation
+What is the full name of the JPG? | Abbreviation
+What is the full name of the HTC? | Abbreviation
+What is the full name of the HTML? | Abbreviation
+What is the full name of the IP? | Abbreviation
 What is the full form of the word LASER? | Abbreviation
 What is the full form of NSA? | Abbreviation
 What is the full form of NASA? | Abbreviation

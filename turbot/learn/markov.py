@@ -1,8 +1,3 @@
-from random import randrange
-from random import choice
-import glob
-import os
-import re
 
 """Module that generate Markov chains.
 
@@ -16,6 +11,12 @@ input -- add an input in Markov Chains (in order to train)
 output -- get a generated sentence from Markov Chains
 getMarkov -- return the Markov Chains object
 """
+
+from random import randrange
+from random import choice
+import glob
+import os
+import re
 
 
 class Markov():
@@ -55,12 +56,12 @@ class Markov():
         __location__ = os.path.realpath(
             os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
-        for file in glob.glob(__location__ + '/book_*.txt'):
-            with open(file, 'r') as f:
+        for file1 in glob.glob(__location__ + '/book_*.txt'):
+            with open(file1, 'r') as f:
                 data = " ".join(f.read().splitlines())
                 for sentence in re.split(r"[!?\.]+", data):
-                    self.input(sentence.lstrip()
-                               .replace("\"", "").replace("'", ""))
+                    self.input_sentence(sentence.lstrip()
+                                        .replace("\"", "").replace("'", ""))
 
     def _splitSentence(self, sentence):
         """Split a sentence in a Markov chain based on _chainLength attribute.
@@ -92,12 +93,12 @@ class Markov():
             else:
                 self._markovChains[key].append(w[2])
 
-    def _getMessage(self, key, object):
+    def _getMessage(self, key, object1):
         """Generate a message from Markov chains.
 
         Arguments:
         key -- The initial key we have to begin the chain.
-        object -- object of the sentence in order to increase
+        object1 -- object of the sentence in order to increase
                   chance to pick a chain which contains the object.
 
         Return values:
@@ -112,7 +113,7 @@ class Markov():
             nb_possibilities = len(words)
             if not tryCorrelation:
                 for w in words:
-                    if w.lower() in object:
+                    if w.lower() in object1:
                         next_word = w
                         tryCorrelation = True
             if not tryCorrelation:
@@ -157,7 +158,7 @@ class Markov():
         return (w1, w2)
 
     # TODO change name of function. Can't be input
-    def input(self, sentence):
+    def input_sentence(self, sentence):
         """Add a sentence in Markov chains.
 
         Arguments:
@@ -166,7 +167,7 @@ class Markov():
         split = self._splitSentence(sentence)
         self._putIntoDictionary(split)
 
-    def output(self, subject, verbs, object):
+    def output(self, subject, verbs, object1):
         """Generate a sentence from Markov chains.
 
         Arguments:

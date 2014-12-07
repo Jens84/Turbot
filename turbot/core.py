@@ -1,12 +1,11 @@
+""" Module that wraps the main classes of the project.
+
+This class contains the entry points for the bot itself.
+
+Classes:
+Turbot
 """
-.. module:: turbot
-   :platform: Unix
-   :synopsis: A useful chatterbot.
 
-.. moduleauthor:: JBO, JES, JRG
-
-
-"""
 from .definition import Definition
 from .dialog import Dialog
 from .nlp import Classify
@@ -17,20 +16,23 @@ __author_email__ = 'jeremy.rombourg@gmail.com'
 
 
 class Turbot():
-    """
+
+    """Bot that answers questions.
+
     Attributes:
     _c -- Classify object
     _de -- Definition object
     _di -- Dialog object
     """
+
     _c = None
     _de = None
     _di = None
 
     def __init__(self):
         """Constructor of Turbot.
-           We create all objects we need (Classifiers, Definition, Dialog)
 
+        We create all objects we need (Classifiers, Definition, Dialog)
         """
         self._c = Classify()
         self._de = Definition()

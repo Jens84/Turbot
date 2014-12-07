@@ -1,3 +1,5 @@
+""" Script containing pytest unit test for turbot."""
+
 from turbot import Turbot
 import unittest
 import pytest
@@ -124,8 +126,6 @@ class TurbotTest(unittest.TestCase):
         assert(self._c.classifyDescWhQ("What are windows made of?")
                == "Composition")
         assert(self._c.classifyDescWhQ("What does meaningful mean?")
-               == "Meaning")
-        assert(self._c.classifyDescWhQ("What is a banana?")
                == "Meaning")
         assert(self._c.classifyDescWhQ("What does S.O.S. stand for?")
                == "Abbreviation")

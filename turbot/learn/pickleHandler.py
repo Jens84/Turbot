@@ -45,8 +45,8 @@ def load_object(filename):
         os.path.join(os.getcwd(), os.path.dirname(__file__)))
     path = os.path.join(__location__, filename)
 
-    with open(path, 'rb') as input:
-        return pickle.load(input)
+    with open(path, 'rb') as f:
+        return pickle.load(f)
 
 
 def update_classifiers():
@@ -81,6 +81,6 @@ def update_classifiers():
     # Save pos/neg words
     save_object(posNegWords, 'posNegWords.pkl')
 
-# TODO delete these lines
 # Call function update_classifiers to update the classifier files
-# update_classifiers()
+# Comment this line once the classifiers generation is done to gain performance
+update_classifiers()

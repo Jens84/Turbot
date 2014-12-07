@@ -1,15 +1,16 @@
-"""Module that ????.
+""" Script to handle Natural Language Processing.
 
 Classes:
 Classify -- Contains methods to classify sentences.
 
 Functions:
-getSubject -- ?
-getObject -- ?
-getVerbs -- ?
-nounify -- ?
-tokenizeFromStanfordNLP -- ?
+getSubject
+getObject
+getVerbs
+nounify
+tokenizeFromStanfordNLP
 """
+
 import learn
 import urllib
 import urllib2
@@ -28,7 +29,6 @@ def getSubject(question, ind):
     Return values:
     string subject
     """
-
     subject = ""
     qTags = tokenizeFromStanfordNLP(question)
     if qTags[ind][0].lower() == 'you':
@@ -184,6 +184,7 @@ def nounify(verb_word):
 
 
 class Classify():
+
     """Contains methods to classify sentences.
 
     Attributes:
@@ -194,6 +195,7 @@ class Classify():
     _classifierDescWhQ -- classification of
                           (Composition, Meaning, Abbreviation)
     """
+
     _classifierTypeQ = None
     _classifierWhQ = None
     _classifierDescOtherQ = None
@@ -201,8 +203,7 @@ class Classify():
     _classifierDescWhQ = None
 
     def __init__(self):
-        """Loading every pkl objects of each classifier.
-        """
+        """Loading every pkl objects of each classifier."""
         self._posNegWords = learn.pickleHandler.load_object('posNegWords.pkl')
         # load classifiers from pickle files
         self._classifierTypeQ = (learn.pickleHandler.
