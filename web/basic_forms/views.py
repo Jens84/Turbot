@@ -27,7 +27,7 @@ class MainView():
             last_question = Question.objects.latest('id')
 
         except:
-            last_question = ""
+            last_question.content = ""
 
         context = {'last_question': last_question.content, 'answer': answer}
         return render(request, 'basic_forms/index.html', context)
